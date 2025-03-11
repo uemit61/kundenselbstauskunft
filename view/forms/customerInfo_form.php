@@ -9,127 +9,88 @@
 * @since       2024-12-18
 */
 
-    $contact_information=
-    [
-        'table_name' => 'Firma',
-        'contact_information_company_name' => 'Firmenname',	
-        'contact_information_phone'	=> 'Telefon',
-        'contact_information_email' => 'Email',	
-    ];
+   
+$website_configuration=
+[
+    'Logo' =>'website_configuration_logo',
+    'Admin' => 'website_configuration_admin_name',
+    'Admin-Passwort' =>	'website_configuration_admin_password',
+    'Internet-Adresse' => 'website_configuration_internet_address' 	
+];
 
-    $contact_informationen_adress=
-    [
-        'table_name' => '',
-        'contact_informationen_adress_street' => '',
-        'contact_informationen_adress_house_number' => '',	
-        'contact_informationen_adress_postcode'	=> '',
-        'contact_informationen_adress_city' => '',
-    ];
+//Fieldsets [id : [form and responsive_size,[type],gui_name]]  if type select -> ['select' :[optionen_namen]]
 
-    $contact_information_contact_person=
-    [
-        'contact_information_contact_person_gender' => '',
-        'contact_information_contact_person_name'	=> '',
-        'contact_information_contact_person_surname' =>'',
-    ];
+$contact_information=
+[
+    'field_name' => 'Firma',
+    ['contact_information_company_name' => ['form-floating',['text'],'Firmenname']],	
+    ['contact_information_phone'	=>['form-floating ',['number'],'Telefon'],'contact_information_email' => ['form-floating',['email'],'Email']],	
+];
+
+$contact_informationen_adress=
+[
+    'field_name' => 'Anschrift',
+    ['contact_informationen_adress_street' => ['form-floating col-lg-9',['text'],'Straße'],'contact_informationen_adress_house_number' => ['form-floating col-lg-3',['text'],'Nr.']],	
+    ['contact_informationen_adress_postcode'	=>['form-floating col-lg-3',['number'],'PLZ'],'contact_informationen_adress_city' => ['form-floating col-lg-9',['text'],'Ort']],
+];
+
+$contact_information_contact_person=
+[
+    'field_name' => 'Ansprechpartner',
+    ['contact_information_contact_person_gender' => ['form-floating col-lg-5',['select', ['Bitte Auswählen','Frau','Herr']],'Anrede']],
+    ['contact_information_contact_person_name'	=> ['form-floating',['text'],'Vorname'],'contact_information_contact_person_surname' =>['form-floating',['text'],'Nachname']],
+];
+
+$customer_contact_informationen=
+[
+    $contact_information,
+    $contact_informationen_adress,
+    $contact_information_contact_person
+];
    
    
-    function contactInfo_form()
+    function contactInfo_form($customer_contact_informationen)
     {
 
 ?>
    
-    <div class="bg-primary-subtle shadow-lg rounded-5  border border-primary-subtle border-5 p-4 w-50" >
-        <form id="form-tab1" name="customerInfo" method="post" action="" class="d-flex flex-column  needs-validation gap-3"  novalidate>
-                <h3 class="text-center p-3">Kontaktdaten</h3>
-
-                    <fieldset class="d-flex  flex-column gap-1 shadow rounded-5 p-2 ">  
-                        <legend class="text p-2">Firma</legend>
-
-                        <div class="form-floating flex-fill">
-                            <input type="text"  class="form-control rounded-5" id="CompanyName" name="CompanyName" placeholder="Firmenname" required>
-                            <label for="CompanyName" class="form-label">Firmenname</label>
-                            <!-- Validation Error -->
-                            <div id="CompanyNameFeedback" class="text invalid-feedback "></div>
-                        </div>
-                        
-                        <div class="d-flex flex-column flex-lg-row  flex-sm-column gap-1">
-                            <div class="form-floating flex-fill">
-                                <input type="text"  class="form-control rounded-5" id="Phone" name="Phone" placeholder="Telefon" requierd>
-                                <label for="Phone" class="form-label">Telefon</label>
-                                <div id="PhoneFeedback" class="text invalid-feedback"></div>
-                            </div>
-            
-                            <div class="form-floating flex-fill">
-                                <input type="Email"  class="form-control rounded-5" id="Email" placeholder="Email" requierd>
-                                <label for="Email" class="form-label">Email</label>
-                                <div id="EmailFeedback" class="text invalid-feedback"></div>
-                            </div>
-                        </div>  
-                    </fieldset>
-                <!-- fieldset-Gruppierung Bentuzerfreundlicher (z.B Bildschirmlesegerät) -->
-
-                <fieldset class="d-flex flex-column gap-1 p-2 shadow rounded-5 ">
-                    <legend class="text p-2">Anschrift</legend>
-
-                    <!-- form-inline  =^  5.3  d-flex -->
-                    <div class="d-flex flex-column flex-lg-row  flex-sm-column gap-1"> 
-                        <div class="form-floating flex-fill col-lg-9">
-                            <input type="text"  class="form-control rounded-5" id="Street" name="Street" placeholder="Straße" required>
-                            <label for="Street" class="form-label">Straße</label>
-                            <div id="StreetFeedback" class="text invalid-feedback"></div>
-                        </div>
-                            
-                        <div class="form-floating flex-fill col-lg-3">
-                            <input type="text" class="form-control rounded-5" id="House_Number" name="House_Number" placeholder="Nr." required>
-                            <label for="House_Number" class="form-label">Nr.</label>
-                            <div id="House_NumberFeedback" class="text invalid-feedback"></div>
-                        </div>
-                    </div>
-
-                    <div class="d-flex flex-column flex-lg-row  flex-sm-column gap-1">
-                        <!-- 3 von 12 -->
-                        <div class="form-floating flex-fill col-lg-3">  
-                            <input type="text" class="form-control rounded-5" id="Postcode" name="Postcode" placeholder="PLZ" required>
-                            <label for="Postcode" class="form-label">PLZ</label>
-                            <div id="PostcodeFeedback" class="text invalid-feedback"></div>
-                        </div>
+   <div class="container bg-primary-subtle shadow-lg rounded-5  border border-primary-subtle border-5 p-4 w-75" >
+            <form id="form-tab1" name="customerInfo" method="post" action="" class="d-flex flex-column  needs-validation gap-3"  novalidate>
+                    <h3 class="text-center p-3">Kontaktdaten</h3>
     
-                        <!-- füllt die restlichen 9, bei mehreren wird gelich verteilt -->
-                        <div class="form-floating flex-fill col-lg-9"> 
-                            <input type="text" class="form-control rounded-5" id="City" name="City" placeholder="Ort" required>
-                            <label for="City">Ort</label>
-                            <div id="CityFeedback" class="text invalid-feedback"></div>
-                        </div>
-                    </div>
-                </fieldset>
-
-                <fieldset class="d-flex flex-column gap-1 p-2 shadow rounded-5 ">
-                    <legend class="text p-2">Ansprechpartner</legend> 
-
-                    <div class="form-floating flex-fill col-lg-5 ">
-                        <select class="form-select rounded-5 " name="Gender" id="Gender" aria-label="Anrede" >
-                            <option value="">Bitte auswählen</option>
-                            <option value="Herr">Herr</option>
-                            <option value="Frau">Frau</option>
-                        </select>
-                        <label for="Gender" class="form-label">Anrede</label>
-                    </div>
-                
-                    <div class="d-flex flex-column flex-lg-row  flex-sm-column gap-1">
-                        <div class="form-floating flex-fill "  >
-                            <input type="text"  class="form-control rounded-5" id="PersonName" name="PersonName"  placeholder="Vorname" required>
-                            <label for="PersonName" class="form-label">Vorname</label>
-                            <div id="PersonNameFeedback" class="text invalid-feedback"></div>
-                        </div>
-                    
-                        <div class="form-floating flex-fill">
-                            <input type="text "  class="form-control rounded-5" id="Surname" name="Surname" placeholder="Nachname" required >
-                            <label for="Surname" class="form-label">Nachname</label>
-                            <div id="SurnameFeedback" class="text invalid-feedback"></div>
-                        </div>
-                    </div>
-                </fieldset>
+                    <?php   foreach ($customer_contact_informationen as $field): ?>
+                                <fieldset class="d-flex  flex-column gap-1 shadow rounded-5 p-2 ">  
+                                    <div class="text p-2 fw-bold"><?=$field['field_name']?></div>
+                                   
+                                <?php   $subfield = array_slice($field,1,null,true);
+                                        foreach($subfield as $group => $form): 
+                                            
+                                ?>
+                                            <div class="d-flex flex-column flex-lg-row  flex-sm-column gap-1">
+                                            <?php   foreach($form as $id => $val): ?>
+                                                        <div class="<?=$val[0]." flex-fill" ?>">
+                                                        <?php   if($val[1][0] != 'select'):?>
+                                                        
+                                                                    <input type=<?=$val[1][0]?>  class="form-control rounded-5" id=<?=$id ?> name=<?=$id ?> placeholder=<?=$val[2] ?> requierd>
+                                                        
+                                                        <?php   else: ?>
+                                                                    <select class="form-select rounded-5 " name=<?=$id ?> id=<?=$id ?> aria-label=<?=$val[2] ?> >
+                                                                        <option value=""><?=$val[1][1][0] ?></option>
+                                                                        <?php   for($i=1; $i < count($val[1][1]); $i++):?>
+                                                                                    <option value="<?=$val[1][1][$i] ?>"><?=$val[1][1][$i] ?></option>
+                                                                        <?php   endfor;?>
+                                                                    </select>
+                                                        <?php
+                                                                endif;
+                                                        ?>
+                                                            <label for="<?=$id ?>" class="form-label"><?=$val[2] ?></label>
+                                                            <div id=<?=$id."Feedback" ?> class="text invalid-feedback"></div>
+                                                        </div>
+                                            <?php   endforeach;?>
+                                            </div>
+                                <?php   endforeach; ?>
+                                </fieldset>
+                    <?php   endforeach; ?>
             </form>
         </div>
 <?php
