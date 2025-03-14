@@ -57,24 +57,12 @@ class Form_Page
                                                         $vh ='virtualisationFields';
                                                     };         
                                         ?>
-                                                    <div class="
-                                                                    <?php if(isset($vh)){echo 'd-none';} ?> 
-                                                                    d-flex flex-column flex-lg-row  flex-sm-column gap-1
-                                                                    " id="<?=$vh ?>
-                                                                ">
+                                                    <div class="<?php if(isset($vh)){echo 'd-none';} ?> d-flex flex-column flex-lg-row  flex-sm-column gap-1 " id="<?=$vh ?>">
                                                     <?php   foreach($form as $id => $val): ?>
                                                                 <div class="<?=$val[0] ?>" >
                                                                 <?php   if($val[1][0] != 'select'):?>
                                                                 
-                                                                            <input 
-                                                                                    type=<?=$val[1][0]?>  
-                                                                                    class=  "
-                                                                                                <?php if($val[1][0] == 'checkbox'): echo 'form-check-input'; else: echo 'form-control ';endif; ?> 
-                                                                                                rounded-5
-                                                                                            "
-                                                                                    id=<?=$id ?> name=<?=$id ?> placeholder=<?=$val[2] ?> 
-                                                                                    requierd
-                                                                            >
+                                                                            <input type=<?=$val[1][0]?> class=  "<?php if($val[1][0] == 'checkbox'): echo 'form-check-input'; else: echo 'form-control ';endif; ?> rounded-5" id=<?=$id ?> name=<?=$id ?> placeholder=<?=$val[2] ?> requier>
                                                                 
                                                                 <?php   else: ?>
                                                                             <select class="form-select rounded-5 " name=<?=$id ?> id=<?=$id ?> aria-label=<?=$val[2] ?> >
