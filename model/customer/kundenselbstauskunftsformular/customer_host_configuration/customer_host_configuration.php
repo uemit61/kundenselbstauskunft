@@ -42,6 +42,9 @@
                 $pdo->closeConnection();
 
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                var_dump($result);
+                die();
                 $retVal['main_id']=$result['host_configuration_id'];
                 $retVal['saved_data']=$result['host_configuration_saved_data'];
             }

@@ -17,27 +17,23 @@
 
         function handleRequest($data,$customer)
         {
-
+            
+            // Das Customer-Objekt wird übergeben.
             $this->model->setCustomer($customer);
-         
+
+            // Die Informationen, PrimaryKey und SekundaryKey werden in die Model geladen
             $this->model->basic_info($data['page']);
-            $i = 0;
-            $sortData = [];
+            
+            // Die Infoswerden von der Model geholt
             $main_id= $this->model->getMain_id();
-            
-            
-
-             $main_id_name= str_replace('customer_','',$data['page']);
-            var_dump($main_id_name);
-
-
-
-          
             $is_saved = $this->model->getSaved_data();
 
-            var_dump($main_id.''.$this->model->getSaved_data());
+            //AttributsNamen werden angepasst
+            $main_id_name= str_replace('customer_','',$data['page']);
 
-            
+            // Die Fieldsets bekommen die Key(ID) übergeben um in die DB gespeichert werden zu können.
+            $sortData = [];
+            $i = 0;
             foreach ($data['json_form_data'] as $name => $arr)
             {
                 if($i==0)
@@ -48,7 +44,7 @@
                 {
                     $arr=$arr+[$main_id_name.'_id' => $main_id ];
                     if($is_saved==0)
-                        $arr=[$name.'_id' => '']+$arr;
+                    $arr=[$name.'_id' => '']+$arr;
                 }
                 $sortData =$sortData+[$name =>$arr];
                 $i++;
@@ -61,7 +57,7 @@
                 
                 if($sortData[$data['page']] != null)
                 {
-                    $this->model->createRecordContactInformation($sortData[$data['page']],$data['page']);
+                    $this->model->createRecordInformation($sortData[$data['page']],$data['page']);
                     $this->model->basic_info($data['page']);
                 }
                     

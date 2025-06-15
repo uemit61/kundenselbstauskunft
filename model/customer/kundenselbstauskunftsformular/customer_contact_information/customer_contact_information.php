@@ -128,7 +128,6 @@ class Customer_contact_information
 
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            var_dump($result);
             $retVal['main_id']=$result['contact_information_id'];
             $retVal['saved_data']=$result['contact_information_saved_data'];
         }

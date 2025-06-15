@@ -57,8 +57,14 @@ class CIModel
         }
     }
 
-    public function createRecordContactInformation($data,$entity)
+    public function createRecordInformation($data,$entity)
     {
+        if($entity == 'customer_host_configuration')
+        {
+            $data=[];
+            $data=['host_configuration_id' => '','host_configuration_saved_data' =>'1',
+                    'customer_id' => $this->getCustomer()->getCustomer_id()];
+        }
         $this->$entity->createRecord($this->pdo,$data);
     }
 
