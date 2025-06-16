@@ -132,7 +132,7 @@ class Form_Page
                                                         $divClass ='d-none';
                                                     }
 ?>
-                                                    <div class="<?= $divClass. ' d-flex flex-column flex-lg-row  flex-lg-wrap flex-sm-column'?>" id=<?=$vh ?>>
+                                                    <div class="<?= $divClass. 'd-flex flex-column flex-lg-row  flex-lg-wrap flex-sm-column'?>" id=<?=$vh ?>>
 <?php                   
                                                         foreach($form as $id => $val): 
                                                             if ($val[2]=='Zusatz' || $val[2]=='Verkaufspreis' || $val[2]=='Aufschlag Verkaufspreis'):$tooltip = true; $inputName=$val[2];
