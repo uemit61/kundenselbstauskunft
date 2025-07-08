@@ -30,12 +30,10 @@ class Form_Page
                         customer_import()];
         
 ?>
-        
             <!-- Head --> :
 <?php 
         bootstrap_jquery(); 
 ?>
-        
         <body>
             <!-- Header -->
 <?php       
@@ -51,9 +49,9 @@ class Form_Page
                         $inputName ='';?>
                         <form id=<?= $form_infos['form_id'] ?> name=<?= $form_infos['form_id'] ?> method="post" class="step d-flex flex-column  needs-validation gap-3 d-none "  data-label=<?=$form_infos['form_label'] ?> novalidate>
                             <h3 class="text-center p-3"><?=$form_infos['form_label'] ?></h3>
-                            <?php
+<?php
                             if($step[0][0]['field_name'] == 'Mandanteninformation'):
-                                ?>
+?>
                                 <div class="d-flex text p-2" >
                                     <div class="client_total_text">Anzahl der Mandanten: 1</div>
                                     <i class="client_total bi bi-plus"  data-total="1"></i>
@@ -72,11 +70,11 @@ class Form_Page
                                     </div>
 
                                     <div class="client_main1 d-none" >
-                                        <?php
+<?php
                             endif;
-
                             foreach ($step as $fieldgroup): $field_count++;
-                                if($step[0][0]['field_name'] == 'User' && $field_count == 2 ): ?>
+                                if($step[0][0]['field_name'] == 'User' && $field_count == 2 ): 
+?>
                                     <div class="shadow rounded-5 p-2 gap-1">
                                         <div class="d-flex flex-row">
                                             <h5 class="d-flex gap-1 text p-2 fw-bold"> 
@@ -116,11 +114,11 @@ class Form_Page
                                                 <label for =<?=$field['field_name']?> class="text p-2 fw-bold"><?=$field['field_name']?></label>
 <?php   
                                                 $subfield = array_slice($field,2,null,true);
-                                                
+
                                                 foreach($subfield as $form):
                                                     $vh =null;
 
-                                                    if(isset($form["host_configuration_virtualization_produkt"]))
+                                                    if(isset($form["host_configuration_virtualization_product"]))
                                                     {
                                                         $vh ='virtualisationFields';
                                                     };
@@ -132,11 +130,11 @@ class Form_Page
                                                         $divClass ='d-none';
                                                     }
 ?>
-                                                    <div class="<?= $divClass. 'd-flex flex-column flex-lg-row  flex-lg-wrap flex-sm-column'?>" id=<?=$vh ?>>
+                                                    <div class="<?= $divClass. ' d-flex flex-column flex-lg-row  flex-lg-wrap flex-sm-column'?>"  id=<?=$vh ?> >
 <?php                   
                                                         foreach($form as $id => $val): 
                                                             if ($val[2]=='Zusatz' || $val[2]=='Verkaufspreis' || $val[2]=='Aufschlag Verkaufspreis'):$tooltip = true; $inputName=$val[2];
-    ?>
+?>
                                                                 <div class="d-flex flex-row">
 <?php                       
                                                             endif; 
@@ -144,7 +142,12 @@ class Form_Page
                                                                     <div class="<?=$val[0] ?>" >
 <?php                                               
                                                                         if($val[1][0] != 'select'):
-?>    
+                                                                            if($val[1][0] == 'checkbox'):
+?>                                                                          
+                                                                                <input type='hidden' name=<?=$id ?> value='off'>
+<?php                                                                       endif; 
+?>
+
                                                                             <input 
                                                                                 type=<?=$val[1][0]?>  
 <?php 
@@ -158,8 +161,9 @@ class Form_Page
                                                                                 id=<?=$id ?> name=<?=$id ?> 
                                                                                 placeholder=<?=$val[2] ?> 
                                                                                 requierd
-                                                                            >                         
-<?php                       
+                                                                            >
+                                                                                                  
+<?php                                                                                                                                                                                                                        
                                                                         else:
 ?>
                                                                             <select class="form-select rounded-5 " name=<?=$id ?> id=<?=$id ?> aria-label=<?=$val[2] ?> >

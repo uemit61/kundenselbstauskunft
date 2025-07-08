@@ -28,6 +28,7 @@
 
         public function basic_info($pdo,$customer)
         {
+            $retVal = null;
             try
             {
                 $con = $pdo->connectToDb();
@@ -44,21 +45,21 @@
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
                 var_dump($result);
-                die();
+                
                 $retVal['main_id']=$result['host_configuration_id'];
                 $retVal['saved_data']=$result['host_configuration_saved_data'];
             }
             catch (Exception $e)
             {
                 echo 'Fehler host_configuration_id'.$e->getMessage();
+                $pdo->closeConnection();
             }
 
-            $pdo->closeConnection();
-
+        
             return $retVal;
         }
 
-        public static function createRecord($pdo,$customer_host_configuration)
+        public static function createRecord($pdo,$customer_id)
         {
             try
             {
@@ -67,11 +68,12 @@
                                     (`host_configuration_id`, 
                                     `host_configuration_saved_data`, 
                                     `customer_id`) 
-                            VALUES  (:host_configuration_id,
-                                    :host_configuration_saved_data,
+                            VALUES  ("",
+                                    1,
                                     :customer_id)';
                 $stmt= $con->prepare($query);
-                $stmt->execute($customer_host_configuration);
+                $stmt->bindValue(':customer_id', $customer_id);
+                $stmt->execute();
             }
             catch (Exception $e)
             {

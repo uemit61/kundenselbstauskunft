@@ -17,51 +17,51 @@ $(document).ready(function()
     $('#customer_contact_information').removeClass('d-none');
     
 
-    $.ajax
-    (
-        {
-            url: '/kundenselbstauskunft/temp/session/mySession',
-            type: 'GET',
-            contentType: 'application/text',
-            dataType: 'text',
-            success: function(data)
-            { 
-                var form_data = JSON.parse(data);
-                    Object.keys(form_data).forEach
-                    (
-                        function(formId)   
-                        {
-                            Object.keys(form_data[formId]).forEach
-                            (
-                                function(inputId)
-                                {
-                                    if($(formId).find('#' + inputId).attr('type') === 'checkbox')
-                                    {
-                                        $(formId).find('#' + inputId).prop('checked',!!form_data[formId][inputId]);
-                                    }
-                                    else if($(formId).find('#' + inputId).prop('tagName').toLowerCase()==='select')
-                                    {
-                                        $(formId).find('#' + inputId).val(form_data[formId][inputId]).change();
-                                    }
-                                    else
-                                    {
-                                        $(formId).find('#' + inputId).val(form_data[formId][inputId]);
-                                    }
-                                }
-                            )
-                        }
-                    )
-            },
-            error: function(error)
-            {
-                console.log(error);
-            } ,
-            complete: function()
-            {
-                console.log('Nicht gespeicherte Einträge wurden geladen.');
-            }      
-        }
-    );
+    // $.ajax
+    // (
+    //     {
+    //         url: '/kundenselbstauskunft/temp/session/mySession',
+    //         type: 'GET',
+    //         contentType: 'application/text',
+    //         dataType: 'text',
+    //         success: function(data)
+    //         { 
+    //             var form_data = JSON.parse(data);
+    //                 Object.keys(form_data).forEach
+    //                 (
+    //                     function(formId)   
+    //                     {
+    //                         Object.keys(form_data[formId]).forEach
+    //                         (
+    //                             function(inputId)
+    //                             {
+    //                                 if($(formId).find('#' + inputId).attr('type') === 'checkbox')
+    //                                 {
+    //                                     $(formId).find('#' + inputId).prop('checked',!!form_data[formId][inputId]);
+    //                                 }
+    //                                 else if($(formId).find('#' + inputId).prop('tagName').toLowerCase()==='select')
+    //                                 {
+    //                                     $(formId).find('#' + inputId).val(form_data[formId][inputId]).change();
+    //                                 }
+    //                                 else
+    //                                 {
+    //                                     $(formId).find('#' + inputId).val(form_data[formId][inputId]);
+    //                                 }
+    //                             }
+    //                         )
+    //                     }
+    //                 )
+    //         },
+    //         error: function(error)
+    //         {
+    //             console.log(error);
+    //         } ,
+    //         complete: function()
+    //         {
+    //             console.log('Nicht gespeicherte Einträge wurden geladen.');
+    //         }      
+    //     }
+    // );
 
     let currentStepIndex = 0;
     var form_ids = ['#customer_contact_information','#customer_host_configuration','#customer_client','#customer_erp_configuration','#customer_import'];
@@ -83,7 +83,7 @@ $(document).ready(function()
                 {
                     if($(`input[name="${field.name}']`).is(':checkbox'))
                     {
-                        acc[field.name] = $(`input[name="${field.name}"]`).prop('checked') ? DOMPurify.sanitize(field.value.trim()) : 'false';
+                        acc[field.name] = $(`input[name="${field.name}"]`).prop('checked') ? DOMPurify.sanitize(field.value.trim()) : 'off';
                     }
                     else
                     {
@@ -97,6 +97,7 @@ $(document).ready(function()
             )
             formData[fieldsetId] = fieldsetData;
         })
+        
 
        
         return formData;
@@ -162,6 +163,7 @@ $(document).ready(function()
     {
         
         const formData =sanitizeInput(formId);
+        
         $.ajax
         ({
             url: 'indexUtils.php',
@@ -222,62 +224,62 @@ $(document).ready(function()
 
     }
 
-    // Alle 3 Sekunden wird zwischengespeichert
-    setInterval
-    (
-        function()
-        {
-            var form_data ={};
-            $.each
-            (
-                //enumeration
-                form_ids,  // alle Seiten(Formular) werden durchlaufen
-                function(i,form_id)
-                {
-                    form_data[form_id] =sanitizeInput(form_id);
-                }
-            );
-            $.ajax
-            (
-                { 
-                    url : '.',
-                    method: 'POST',
-                    contentType: 'application/json',
-                    data:  JSON.stringify({json_form_data: JSON.stringify(form_data), 'page':'save_json_cache'} ),
-                    success: function (response) 
-                    {
-                        var line = response.split('\n');
-                        console.log
-                        (
-                            'Daten erfolgreich gesendet.\n'+   
-                            line[11]+'\n'+
-                            line[12]
-                        );
-                    },
-                    error: function (xhr, status, error) 
-                    {
-                        console.error
-                        (
-                            'Fehler bei der Anfrage:', 
-                            error
-                        );
-                    },
-                    complete: function ()
-                    {
-                        console.log
-                        (
-                            "Die Daten wurden nur in ein  Cache gespeichert,\n"
-                            +"  um in die Datenbank zu speichern,\n"
-                            +"drücken Sie auf die Speicherbuttons.\n"
-                            +"Nächste Speicherung in 3 sekunden"
-                        );
-                    }
-                }
-            );
-        },
+    // // Alle 3 Sekunden wird zwischengespeichert
+    // setInterval
+    // (
+    //     function()
+    //     {
+    //         var form_data ={};
+    //         $.each
+    //         (
+    //             //enumeration
+    //             form_ids,  // alle Seiten(Formular) werden durchlaufen
+    //             function(i,form_id)
+    //             {
+    //                 form_data[form_id] =sanitizeInput(form_id);
+    //             }
+    //         );
+    //         $.ajax
+    //         (
+    //             { 
+    //                 url : '.',
+    //                 method: 'POST',
+    //                 contentType: 'application/json',
+    //                 data:  JSON.stringify({json_form_data: JSON.stringify(form_data), 'page':'save_json_cache'} ),
+    //                 success: function (response) 
+    //                 {
+    //                     var line = response.split('\n');
+    //                     console.log
+    //                     (
+    //                         'Daten erfolgreich gesendet.\n'+   
+    //                         line[11]+'\n'+
+    //                         line[12]
+    //                     );
+    //                 },
+    //                 error: function (xhr, status, error) 
+    //                 {
+    //                     console.error
+    //                     (
+    //                         'Fehler bei der Anfrage:', 
+    //                         error
+    //                     );
+    //                 },
+    //                 complete: function ()
+    //                 {
+    //                     console.log
+    //                     (
+    //                         "Die Daten wurden nur in ein  Cache gespeichert,\n"
+    //                         +"  um in die Datenbank zu speichern,\n"
+    //                         +"drücken Sie auf die Speicherbuttons.\n"
+    //                         +"Nächste Speicherung in 3 sekunden"
+    //                     );
+    //                 }
+    //             }
+    //         );
+    //     },
         
-        3000
-    );  
+    //     3000
+    // );  
 
     // $.ajax // könnte auch über eien $_SESSION verwirklicht werden Kommentar nicht vergessen!
     // ({

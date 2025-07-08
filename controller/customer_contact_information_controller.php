@@ -17,7 +17,7 @@
 
         function handleRequest($data,$customer)
         {
-            
+            var_dump($data);
             // Das Customer-Objekt wird übergeben.
             $this->model->setCustomer($customer);
 
@@ -28,42 +28,48 @@
             $main_id= $this->model->getMain_id();
             $is_saved = $this->model->getSaved_data();
 
+            
+
             //AttributsNamen werden angepasst
             $main_id_name= str_replace('customer_','',$data['page']);
 
+            
             // Die Fieldsets bekommen die Key(ID) übergeben um in die DB gespeichert werden zu können.
             $sortData = [];
             $i = 0;
             foreach ($data['json_form_data'] as $name => $arr)
             {
-                if($i==0)
+               
+                if($i==0 && $main_id_name != 'host_configuration')
                 {
-                    $arr = [$main_id_name.'_id' => $main_id ]+$arr+['customer_id' => $this->model->getCustomer()->getCustomer_id()]+[$main_id_name.'_saved_data' => '1'];   
+                    $arr = [$main_id_name.'_id' => $main_id ]+$arr+[$main_id_name.'_saved_data' => '1']+['customer_id' => $this->model->getCustomer()->getCustomer_id()];   
                 }
                 else
                 {
                     $arr=$arr+[$main_id_name.'_id' => $main_id ];
                     if($is_saved==0)
-                    $arr=[$name.'_id' => '']+$arr;
+                        $arr=[$name.'_id' =>'']+$arr;
                 }
                 $sortData =$sortData+[$name =>$arr];
                 $i++;
             }
 
-            if($is_saved==0)
-            {
-                $modiData= [];
+            var_dump($sortData);
+            
 
+            if($is_saved==null)
+            {
                 
+                $modiData= [];
                 if($sortData[$data['page']] != null)
                 {
-                    $this->model->createRecordInformation($sortData[$data['page']],$data['page']);
+                    $this->model->createRecordInformation($data['page']);
                     $this->model->basic_info($data['page']);
                 }
                     
                 $main_id= $this->model->getMain_id();
 
-                  var_dump($main_id.''.$this->model->getSaved_data());
+                var_dump($main_id.''.$this->model->getSaved_data());
                 $i=0;
                 foreach($sortData as $key => $subEntity)
                 {
