@@ -65,11 +65,8 @@
             [$host_configuration_ip_address_data_backup,$host_configuration_ip_address_connect_external_device],
         ];
 
-        return ['form_label'=>'Host-Einstellungen','form_id' =>'customer_host_configuration','form_body'=>$customer_host_configuration]
-?>
+        return ['form_label'=>'Host-Einstellungen','form_id' =>'customer_host_configuration','form_body'=>$customer_host_configuration];
 
 
-    
-
-<?php
     }
+?> 
