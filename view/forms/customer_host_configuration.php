@@ -31,7 +31,7 @@
             ['host_configuration_ip_adress_erp_dns' => ['form-floating flex-fill',['text'],'DNS']],
         ];
 
-        $host_configuration_ip_address_data_backup=
+        $host_configuration_ip_addres_data_backup=
         [
             'field_name' => 'Datensicherung',
             'dBName' => 'host_configuration_ip_adress_data_backup',
@@ -62,7 +62,7 @@
         [
             [$host_configuration_virtualization],
             [$host_configuration_ip_adress_erp],
-            [$host_configuration_ip_address_data_backup,$host_configuration_ip_address_connect_external_device],
+            [$host_configuration_ip_addres_data_backup,$host_configuration_ip_address_connect_external_device],
         ];
 
         return ['form_label'=>'Host-Einstellungen','form_id' =>'customer_host_configuration','form_body'=>$customer_host_configuration];
