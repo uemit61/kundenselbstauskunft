@@ -57,17 +57,34 @@ class CIModel
         }
     }
 
-    public function createRecordInformation($entity)
+    public function createRecordInformation($entity,$data = null)
     {
-        $this->$entity->createRecord($this->pdo,$this->getCustomer()->getCustomer_id());
+        // var_dump($entity);
+        // exit();
+
+        if($entity == 'customer_host_configuration')
+        {
+            // var_dump(61);
+            // exit();
+            $this->$entity->createRecord($this->pdo,$this->getCustomer()->getCustomer_id());
+        }
+        else
+        {
+            // var_dump($data);
+            // exit();
+            $this->$entity->createRecord($this->pdo,$data);
+        }
     }
 
     public function createRecords($data)
     {
+        // var_dump(key($data);
+        // exit();
+
         $i=0;
         foreach($data as $entity_name => $entity)
         {
-            if($i !=0)
+            if($i !=0 ||  key($data)  == 'host_configuration_virtualization')
                 $this->$entity_name->createRecord($this->pdo,$entity);
             else
                 $i=3;

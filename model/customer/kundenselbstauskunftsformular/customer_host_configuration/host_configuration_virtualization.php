@@ -59,16 +59,19 @@
         {
             try
             {
+                // var_dump($host_configuration_virtualization);
+                // exit();
                 $con = $pdo->connectToDb();
                 $query = 'INSERT INTO `host_configuration_virtualization` 
-                                    (`virtualization_id`, `virtualizationYes`, 
-                                    `virtualization_product`, 
-                                    `virtualization_version`, 
+                                    (`host_configuration_virtualization_id`, 
+                                    `host_configuration_virtualization_`, 
+                                    `host_configuration_virtualization_produkt`, 
+                                    `host_configuration_virtualization_version`, 
                                     `host_configuration_id`) 
-                        VALUES (:virtualization_id, 
-                                :virtualizationYes, 
-                                :virtualization_product, 
-                                :virtualization_version,
+                        VALUES (:host_configuration_virtualization_id,
+                                :host_configuration_virtualization_, 
+                                :host_configuration_virtualization_product, 
+                                :host_configuration_virtualization_version,
                                 :host_configuration_id)';
 
                 $stmt = $con->prepare($query);
@@ -86,16 +89,18 @@
         {
             try
             {
+                // var_dump($host_configuration_virtualization);
+                // exit();
                 $con = $pdo->connectToDb();
                 $query="UPDATE `host_configuration_virtualization` 
-                        SET `virtualization_product` = :virtualization_product, 
-                            `virtualization_version` = :virtualization_version
-                        WHERE `host_configuration_virtualization`.`virtualization_id` = :virtualization_id
-                        AND `host_configuration_virtualization`.`host_configuration_id` = :host_configuration_id";
+                        SET `host_configuration_virtualization_` = :host_configuration_virtualization_, 
+                            `host_configuration_virtualization_product` = :host_configuration_virtualization_product, 
+                            `host_configuration_virtualization_version` = :host_configuration_virtualization_version
+                        WHERE `host_configuration_virtualization`.`host_configuration_id` = :host_configuration_id";
             $stmt = $con->prepare($query);
             $stmt->execute($host_configuration_virtualization);
 
-            echo 'HostConfigVirtu ok';
+            echo 'HostConfigVirtu wurden aktualisiert.';
             
             }
             catch(Exception $e)

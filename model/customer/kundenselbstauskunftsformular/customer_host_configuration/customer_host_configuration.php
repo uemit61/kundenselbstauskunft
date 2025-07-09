@@ -29,6 +29,7 @@
         public function basic_info($pdo,$customer)
         {
             $retVal = null;
+
             try
             {
                 $con = $pdo->connectToDb();
@@ -44,8 +45,6 @@
 
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                var_dump($result);
-                
                 $retVal['main_id']=$result['host_configuration_id'];
                 $retVal['saved_data']=$result['host_configuration_saved_data'];
             }
@@ -55,7 +54,6 @@
                 $pdo->closeConnection();
             }
 
-        
             return $retVal;
         }
 
@@ -79,7 +77,7 @@
             {
                 echo 'Fehler Host_Configuration: ' .$e->getMessage();
             }
-            $con->closeConnection();
+            $pdo->closeConnection();
         }
 
          public static function saveEntity($pdo,$customer_host_configuration)

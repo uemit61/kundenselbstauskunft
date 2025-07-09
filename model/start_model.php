@@ -20,7 +20,6 @@
         
         function login($login_name,$password) // Customer erstellen, als Objekt!
         {
-          
             $this->customer = Customer::loadEntity($this->pdo,$login_name,$password);
 
             if(!$this->customer)

@@ -35,7 +35,7 @@ $(document).ready
 
         $('[data-bs-toggle="tooltip"]').tooltip(); // Tooltips
 
-        $('#virtualizationYes').on
+        $('#host_configuration_virtualization_').on
         (
             'click', 
             function() 

@@ -145,6 +145,9 @@ class Customer_contact_information
     {
         try
         {
+            // var_dump($customer_contact_information);
+            // exit();
+
             $con = $pdo->connectToDb();
             $query='INSERT INTO `customer_contact_information` 
                                 (`contact_information_id`, 
@@ -159,12 +162,8 @@ class Customer_contact_information
                                 :contact_information_email, 
                                 :contact_information_saved_data, 
                                 :customer_id)';
-
             $stmt = $con->prepare($query);
             $stmt->execute($customer_contact_information);
-
-            echo 'Kontaktinformationen wurden gespeichert';
-            
         }
         catch(Exception $e)
         {

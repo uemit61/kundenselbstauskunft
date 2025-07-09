@@ -17,7 +17,7 @@
         [
             'field_name' => 'Virtualisierung',
             'dBName' => 'host_configuration_virtualization',
-            ['virtualizationYes' =>  ['form-check',['checkbox'],'Virtualisierungshost']],
+            ['host_configuration_virtualization_' =>  ['form-check',['checkbox'],'Virtualisierungshost']],
             [ 'host_configuration_virtualization_product'=>['form-floating flex-fill',['text'],'Produkt'],'host_configuration_virtualization_version' => ['form-floating flex-fill',['text'],'Version']],	
         ];
 
