@@ -2,7 +2,7 @@
     class Host_configuration_virtualization
     {
         private $virtualization_id,
-                $virtualisation_produkt,
+                $virtualisation_product,
                 $virtualisation_version,
                 $host_configuration_id;
 
@@ -18,14 +18,14 @@
             return $this;
         }
 
-        public function getVirtualisation_produkt()
+        public function getVirtualisation_product()
         {
-            return $this->virtualisation_produkt;
+            return $this->virtualisation_product;
         }
 
-        public function setVirtualisation_produkt($virtualisation_produkt)
+        public function setVirtualisation_produt($virtualisation_product)
         {
-                $this->virtualisation_produkt = $virtualisation_produkt;
+                $this->virtualisation_product = $virtualisation_product;
                 return $this;
         }
 
@@ -65,7 +65,7 @@
                 $query = 'INSERT INTO `host_configuration_virtualization` 
                                     (`host_configuration_virtualization_id`, 
                                     `host_configuration_virtualization_`, 
-                                    `host_configuration_virtualization_produkt`, 
+                                    `host_configuration_virtualization_product`, 
                                     `host_configuration_virtualization_version`, 
                                     `host_configuration_id`) 
                         VALUES (:host_configuration_virtualization_id,
