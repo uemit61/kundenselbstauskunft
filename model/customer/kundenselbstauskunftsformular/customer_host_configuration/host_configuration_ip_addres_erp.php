@@ -3,14 +3,14 @@
     {
         private $host_configuration_ip_addre_erp_id,
                 $host_configuration_ip_addres_erp_ip,
-                $host_configuration_ip_addres_erp_subnetsmask,
+                $host_configuration_ip_addres_erp_subnetmask,
                 $host_configuration_ip_addres_erp_gateway,
-                $host_configuration_ip_address_erp_dns,
+                $host_configuration_ip_addres_erp_dns,
                 $host_configuration_id;
 
         public function getHost_configuration_ip_addres_erp_id()
         {
-                return $this->host_configuration_ip_addres_erp_id;
+                return $this->host_configuration_ip_addre_erp_id;
         }
 
         
@@ -38,7 +38,7 @@
                
         public function getHost_configuration_ip_addres_erp_subnetmask()
         {
-                return $this->host_configuration_ip_addres_erp_subnetmasketmask;
+                return $this->host_configuration_ip_addres_erp_subnetmask;
         }
 
                
@@ -52,7 +52,7 @@
                 
         public function getHost_configuration_ip_addres_erp_gateway()
         {
-                        return $this->host_configuration_ip_addres_erp_gatewayway;
+                        return $this->host_configuration_ip_addres_erp_gateway;
         }
 
                

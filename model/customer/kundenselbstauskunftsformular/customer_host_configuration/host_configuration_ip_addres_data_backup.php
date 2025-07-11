@@ -10,7 +10,7 @@ class Host_configuration_ip_addres_data_backup
             $host_configuration_ip_addres_data_backup_backup_share_name,	
             $host_configuration_ip_addres_data_backup_backup_user,	
             $host_configuration_ip_addres_data_backup_backup_password,	
-            $host_configuration_ip_addres_data_backup_host_configuration_id;       
+            $host_configuration_id;       
 
 
     public function getHost_configuration_ip_addres_data_backup_id()
@@ -65,7 +65,7 @@ class Host_configuration_ip_addres_data_backup
 
     public function getHost_configuration_ip_addres_data_backup_ip()
     {
-                return $this->backup_ip;
+                return $this->host_configuration_ip_addres_data_backup_backup_ip;
     }
 
     public function setHost_configuration_ip_addres_data_backup_ip($backup_ip)
@@ -77,12 +77,12 @@ class Host_configuration_ip_addres_data_backup
 
     public function getHost_configuration_ip_addres_data_backup_share_name()
     {
-                return $this->backup_share_name;
+                return $this->host_configuration_ip_addres_data_backup_backup_share_name;
     }
 
     public function setHost_configuration_ip_addres_data_backup_share_name($backup_share_name)
     {
-                $this->backup_share_name = $backup_share_name;
+                $this->host_configuration_ip_addres_data_backup_share_name = $backup_share_name;
 
                 return $this;
     }
@@ -90,12 +90,12 @@ class Host_configuration_ip_addres_data_backup
    
     public function getHost_configuration_ip_addres_data_backup_user()
     {
-                return $this->backup_user;
+                return $this->host_configuration_ip_addres_data_backup_backup_user;
     }
  
     public function setHost_configuration_ip_addres_data_backup_user($backup_user)
     {
-                $this->backup_user = $backup_user;
+                $this->host_configuration_ip_addres_data_backup_backup_user = $backup_user;
 
                 return $this;
     }
@@ -103,14 +103,14 @@ class Host_configuration_ip_addres_data_backup
     
     public function getHost_configuration_ip_addres_data_backup_password()
     {
-                return $this->backup_password;
+                return $this->host_configuration_ip_addres_data_backup_backup_password;
     }
 
     
       
     public function setHost_configuration_ip_addres_data_backup_password($backup_password)
     {
-                $this->backup_password = $backup_password;
+                $this->host_configuration_ip_addres_data_backup_backup_password = $backup_password;
 
                 return $this;
     }
