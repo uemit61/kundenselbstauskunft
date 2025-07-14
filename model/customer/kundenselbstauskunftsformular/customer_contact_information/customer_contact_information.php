@@ -121,6 +121,7 @@ class Customer_contact_information
                     FROM    `customer_contact_information`
                     WHERE   `customer_contact_information`.`customer_id` = :customer_id';
 
+
             $stmt = $con->prepare($query);
             $stmt->bindValue(':customer_id', $customer->getCustomer_id());
             $stmt->execute();
