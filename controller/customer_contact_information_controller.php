@@ -162,14 +162,9 @@
                 }
                 }
 
-               
-
-          
-           
-  
-                // var_dump($query);
-                // var_dump('44');
-                // exit();
+                var_dump($sortData);
+                var_dump('44');
+                exit();
                 
                 $this->model->createRecords($sortData);
             }

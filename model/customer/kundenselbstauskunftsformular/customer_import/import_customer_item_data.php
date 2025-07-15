@@ -224,4 +224,6 @@ class import_customer_item_data
         }
         $pdo->closeConnection();
     }
+
+    
 }
