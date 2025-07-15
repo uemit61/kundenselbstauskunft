@@ -107,4 +107,82 @@ class Import_accessories_item_data
 
                         return $this;
             }
+           
+
+            public static function createRecord($pdo,$import_accessories_item_data)
+    {
+        try
+        {
+            // var_dump($ import_accessories_item_data);
+            // exit();
+            $con = $pdo->connectToDb();
+            $query ='INSERT INTO `import_accessories_item_data`
+                                 () VALUE ()';
+
+             foreach ($import_accessories_item_data as $key => $value) 
+            {
+                $var = '`'.$key.'`,';
+
+                // Die Positionen der schließenden Klammern werden ermittelt
+                $firstIns = strpos($query,')');
+
+                $query = substr($query,0,$firstIns).$var.substr($query,$firstIns);
+                $firstIns = strpos($query,')');
+                $secIns =  strpos($query,')',$firstIns+1);
+                $query = substr($query,0,$secIns).':'.$key.','.substr($query,$secIns);
+            }
+                $firstIns = strpos($query,')');
+                $query = substr($query,0,$firstIns-1).substr($query,$firstIns);
+                $firstIns = strpos($query,')');
+                $secIns =  strpos($query,')',$firstIns+1);
+                $query = substr($query,0,$secIns-1).substr($query,$secIns);
+
+           
+            $stmt = $con->prepare($query);
+            $stmt->execute($import_accessories_item_data);
+            echo 'ImportAccessData wurde erfolgreich eingefügt';
+        }
+        catch(Exception $e)
+        {
+            echo 'ImportAccessData Fehler'.$e;
+        }
+        $pdo->closeConnection();
+    }
+
+             public static function saveEntity($pdo,$import_accessories_item_data)
+    {
+        try
+        {
+            // var_dump($ import_accessories_item_data);
+            // exit();
+
+            $con = $pdo->connectToDb();
+            $query="UPDATE ` import_accessories_item_data` 
+                    SET  WHERE ` import_accessories_item_data`.`import_id` = :import_id";
+
+            foreach ($import_accessories_item_data as $key => $value) 
+            {
+               $setPos = strpos($query,"WHERE")-1;
+                $query = substr($query,0,$setPos).'`'.$key.'` = :'.$key.', '.substr($query,$setPos+1).' ';
+            }
+            
+              $setPos = strpos($query,"WHERE");
+                $query = substr($query,0,$setPos-2).substr($query,$setPos-1);
+             
+        $stmt = $con->prepare($query);
+        $stmt->execute($import_accessories_item_data);
+
+        echo 'ImportAccessories wurden aktualisiert.';
+        
+        }
+        catch(Exception $e)
+        {
+            echo 'Fehler beim aktualisieren von der ImportAccessories'.$e;
+        }
+        $pdo->closeConnection();
+    }
+
+   
+
+    
 }

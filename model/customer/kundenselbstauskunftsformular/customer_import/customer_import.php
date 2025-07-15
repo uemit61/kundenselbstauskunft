@@ -73,6 +73,8 @@
                 $stmt= $con->prepare($query);
                 $stmt->bindValue(':customer_id', $customer_id);
                 $stmt->execute();
+
+                echo 'ImportInfo ok ';
             }
             catch (Exception $e)
             {
@@ -109,7 +111,7 @@
                  */ 
                 public function getimport_saved_data()
                 {
-                                return $this->import_saved_data;
+                    return $this->import_saved_data;
                 }
 
                 /**

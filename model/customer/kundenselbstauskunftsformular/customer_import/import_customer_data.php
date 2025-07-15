@@ -9,7 +9,6 @@ class Import_customer_data
             $import_customer_data_salutation,	
             $import_customer_data_name,	
             $import_customer_data_surname,	
-            $import_customer_data_street,	
             $import_customer_data_house_number,
             $import_customer_data_postcode,	
             $import_customer_data_city,	
@@ -173,26 +172,7 @@ class Import_customer_data
                 return $this;
     }
 
-    /**
-     * Get the value of import_customer_data_street
-     */ 
-    public function getImport_customer_data_street()
-    {
-                return $this->import_customer_data_street;
-    }
-
-    /**
-     * Set the value of import_customer_data_street
-     *
-     * @return  self
-     */ 
-    public function setImport_customer_data_street($import_customer_data_street)
-    {
-                $this->import_customer_data_street = $import_customer_data_street;
-
-                return $this;
-    }
-
+ 
     /**
      * Get the value of import_customer_data_house_number
      */ 
@@ -638,6 +618,77 @@ class Import_customer_data
                 return $this;
     }
 
+    public static function createRecord($pdo,$import_customer_data)
+    {
+        try
+        {
+            // var_dump($import_customer_data);
+            // exit();
+            $con = $pdo->connectToDb();
+            $query ='INSERT INTO `import_customer_data`
+                                 () VALUE ()';
 
+             foreach ($import_customer_data as $key => $value) 
+            {
+                $var = '`'.$key.'`,';
+
+                // Die Positionen der schließenden Klammern werden ermittelt
+                $firstIns = strpos($query,')');
+
+                $query = substr($query,0,$firstIns).$var.substr($query,$firstIns);
+                $firstIns = strpos($query,')');
+                $secIns =  strpos($query,')',$firstIns+1);
+                $query = substr($query,0,$secIns).':'.$key.','.substr($query,$secIns);
+            }
+                $firstIns = strpos($query,')');
+                $query = substr($query,0,$firstIns-1).substr($query,$firstIns);
+                $firstIns = strpos($query,')');
+                $secIns =  strpos($query,')',$firstIns+1);
+                $query = substr($query,0,$secIns-1).substr($query,$secIns);
+
+           
+            $stmt = $con->prepare($query);
+            $stmt->execute($import_customer_data);
+            echo 'ImportCUSTOMERData wurde erfolgreich eingefügt';
+        }
+        catch(Exception $e)
+        {
+            echo 'ImportCUSTOMERData Fehler'.$e;
+        }
+        $pdo->closeConnection();
+    }
+
+    public static function saveEntity($pdo,$import_customer_data)
+    {
+        try
+        {
+            // var_dump($import_customer_data);
+            // exit();
+
+            $con = $pdo->connectToDb();
+            $query="UPDATE `import_customer_data` 
+                    SET  WHERE `import_customer_data`.`import_id` = :import_id";
+
+            foreach ($import_customer_data as $key => $value) 
+            {
+               $setPos = strpos($query,"WHERE")-1;
+                $query = substr($query,0,$setPos).'`'.$key.'` = :'.$key.', '.substr($query,$setPos+1).' ';
+            }
+            
+              $setPos = strpos($query,"WHERE");
+                $query = substr($query,0,$setPos-2).substr($query,$setPos-1);
+             
+        $stmt = $con->prepare($query);
+        $stmt->execute($import_customer_data);
+
+        echo 'HostConfigBackup wurden aktualisiert.';
+        
+        }
+        catch(Exception $e)
+        {
+            echo 'Fehler beim aktualisieren von der HostconfiBackup'.$e;
+        }
+        $pdo->closeConnection();
+    }
 
 }

@@ -20,7 +20,7 @@
             ['import_customer_data_city' => ['form-check flex-fill',['checkbox'],'Stadt']],
             ['import_customer_data_country' => ['form-check flex-fill',['checkbox'],'Land']],
             ['import_customer_data_company_name' => ['form-check flex-fill',['checkbox'],'Firmenname']],
-            ['import_customer_data_additional_address_information' 	 => ['form-check flex-fill',['checkbox'],'Zusätzliche Addressinformationen']],
+            ['import_customer_data_additional_addres_information' 	 => ['form-check flex-fill',['checkbox'],'Zusätzliche Addresinformationen']],
             ['import_customer_data_email' => ['form-check flex-fill',['checkbox'],'E-Mail']],
             ['import_customer_data_different_erp_configuration_invoice_email'  => ['form-check flex-fill',['checkbox'],'Abweichende Rechnungs-E-Mail']],	
             ['import_customer_data_phone' => ['form-check flex-fill',['checkbox'],'Telefon']],
@@ -115,40 +115,40 @@
             ['import_supplier_contact_person_data_description' => ['form-check flex-fill',['checkbox'],'Beschreibung']],
         ];
 
-        $import_customer_billing_address_data=
+        $import_customer_billing_addres_data=
         [
             'field_name' =>'Kunden-Rechnungsadresse',
-            'dBName' => 'import_customer_billing_address_data',
-            ['import_customer_billing_address_data_number'  => ['form-check flex-fill',['checkbox'],'Kundennummer']], 	
-            ['import_customer_billing_address_data_company'  => ['form-check flex-fill',['checkbox'],'Firma']], 	
-            ['import_customer_billing_address_data_name'  => ['form-check flex-fill',['checkbox'],'Vorname']], 	
-            ['import_customer_billing_address_data_surname'  => ['form-check flex-fill',['checkbox'],'Nachname']], 	
-            ['import_customer_billing_address_data_street'  => ['form-check flex-fill',['checkbox'],'Straße']],
-            ['import_customer_billing_address_data_house_Number'  => ['form-check flex-fill',['checkbox'],'Hausnummer']], 	
-            ['import_customer_billing_address_data_postcode'  => ['form-check flex-fill',['checkbox'],'Postleitzahk']], 	
-            ['import_customer_billing_address_data_city'  => ['form-check flex-fill',['checkbox'],'Ort']], 	
-            ['import_customer_billing_address_data_country'  => ['form-check flex-fill',['checkbox'],'Land']], 	
-            ['import_customer_billing_address_data_additional_address'  => ['form-check flex-fill',['checkbox'],'Zusätzliche Adressinfomrationen']],
-            ['import_customer_billing_address_data_email'  => ['form-check flex-fill',['checkbox'],'E-Mail']], 	
-            ['import_customer_billing_address_data_phone'  => ['form-check flex-fill',['checkbox'],'Telefon']],
+            'dBName' => 'import_customer_billing_addres_data',
+            ['import_customer_billing_addres_data_number'  => ['form-check flex-fill',['checkbox'],'Kundennummer']], 	
+            ['import_customer_billing_addres_data_company'  => ['form-check flex-fill',['checkbox'],'Firma']], 	
+            ['import_customer_billing_addres_data_name'  => ['form-check flex-fill',['checkbox'],'Vorname']], 	
+            ['import_customer_billing_addres_data_surname'  => ['form-check flex-fill',['checkbox'],'Nachname']], 	
+            ['import_customer_billing_addres_data_street'  => ['form-check flex-fill',['checkbox'],'Straße']],
+            ['import_customer_billing_addres_data_house_Number'  => ['form-check flex-fill',['checkbox'],'Hausnummer']], 	
+            ['import_customer_billing_addres_data_postcode'  => ['form-check flex-fill',['checkbox'],'Postleitzahk']], 	
+            ['import_customer_billing_addres_data_city'  => ['form-check flex-fill',['checkbox'],'Ort']], 	
+            ['import_customer_billing_addres_data_country'  => ['form-check flex-fill',['checkbox'],'Land']], 	
+            ['import_customer_billing_addres_data_additional_addres'  => ['form-check flex-fill',['checkbox'],'Zusätzliche Adressinfomrationen']],
+            ['import_customer_billing_addres_data_email'  => ['form-check flex-fill',['checkbox'],'E-Mail']], 	
+            ['import_customer_billing_addres_data_phone'  => ['form-check flex-fill',['checkbox'],'Telefon']],
         ];
 
-        $import_supplier_billing_address_data=
+        $import_supplier_billing_addres_data=
         [
             'field_name' =>'Lieferanten-Rechnungsadresse',
-            'dBName' => 'import_supplier_billing_address_data',
-            ['import_supplier_billing_address_data_number'  => ['form-check flex-fill',['checkbox'],'Kundennummer']], 	
-            ['import_supplier_billing_address_data_company'  => ['form-check flex-fill',['checkbox'],'Firma']], 	
-            ['import_supplier_billing_address_data_name'  => ['form-check flex-fill',['checkbox'],'Vorname']], 	
-            ['import_supplier_billing_address_data_surname'  => ['form-check flex-fill',['checkbox'],'Nachname']], 	
-            ['import_supplier_billing_address_data_street'  => ['form-check flex-fill',['checkbox'],'Straße']],
-            ['import_supplier_billing_address_data_house_Number'  => ['form-check flex-fill',['checkbox'],'Hausnummer']], 	
-            ['import_supplier_billing_address_data_postcode'  => ['form-check flex-fill',['checkbox'],'Postleitzahk']], 	
-            ['import_supplier_billing_address_data_city'  => ['form-check flex-fill',['checkbox'],'Ort']], 	
-            ['import_supplier_billing_address_data_country'  => ['form-check flex-fill',['checkbox'],'Land']], 	
-            ['import_supplier_billing_address_data_additional_address'  => ['form-check flex-fill',['checkbox'],'Zusätzliche Adressinfomrationen']],
-            ['import_supplier_billing_address_data_email'  => ['form-check flex-fill',['checkbox'],'E-Mail']], 	
-            ['import_supplier_billing_address_data_phone'  => ['form-check flex-fill',['checkbox'],'Telefon']],
+            'dBName' => 'import_supplier_billing_addres_data',
+            ['import_supplier_billing_addres_data_number'  => ['form-check flex-fill',['checkbox'],'Kundennummer']], 	
+            ['import_supplier_billing_addres_data_company'  => ['form-check flex-fill',['checkbox'],'Firma']], 	
+            ['import_supplier_billing_addres_data_name'  => ['form-check flex-fill',['checkbox'],'Vorname']], 	
+            ['import_supplier_billing_addres_data_surname'  => ['form-check flex-fill',['checkbox'],'Nachname']], 	
+            ['import_supplier_billing_addres_data_street'  => ['form-check flex-fill',['checkbox'],'Straße']],
+            ['import_supplier_billing_addres_data_house_Number'  => ['form-check flex-fill',['checkbox'],'Hausnummer']], 	
+            ['import_supplier_billing_addres_data_postcode'  => ['form-check flex-fill',['checkbox'],'Postleitzahk']], 	
+            ['import_supplier_billing_addres_data_city'  => ['form-check flex-fill',['checkbox'],'Ort']], 	
+            ['import_supplier_billing_addres_data_country'  => ['form-check flex-fill',['checkbox'],'Land']], 	
+            ['import_supplier_billing_addres_data_additional_addres'  => ['form-check flex-fill',['checkbox'],'Zusätzliche Adressinfomrationen']],
+            ['import_supplier_billing_addres_data_email'  => ['form-check flex-fill',['checkbox'],'E-Mail']], 	
+            ['import_supplier_billing_addres_data_phone'  => ['form-check flex-fill',['checkbox'],'Telefon']],
         ];
 
         $import_customer_item_data=
@@ -189,8 +189,8 @@
         $customer_import=
         [
             [$import_customer_data,$import_supplier_data,$import_item_data],
-            [$import_customer_contact_person_data,$import_customer_billing_address_data,$import_customer_item_data],
-            [$import_supplier_contact_person_data,$import_supplier_billing_address_data,$import_supplier_item_data],
+            [$import_customer_contact_person_data,$import_customer_billing_addres_data,$import_customer_item_data],
+            [$import_supplier_contact_person_data,$import_supplier_billing_addres_data,$import_supplier_item_data],
             [$import_accessories_item_data]
         ];
 

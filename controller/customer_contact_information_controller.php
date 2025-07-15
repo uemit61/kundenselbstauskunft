@@ -119,9 +119,7 @@
                 $i++;
             }
         
-            var_dump($sortData);
-            var_dump($is_saved);
-            exit();
+            
 
             if($is_saved==null || $is_saved== false)
             {
@@ -163,8 +161,13 @@
                         $i=3;
                 }
                 }
+
                
-                // var_dump($sortData);
+
+          
+           
+  
+                // var_dump($query);
                 // var_dump('44');
                 // exit();
                 
