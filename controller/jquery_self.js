@@ -54,31 +54,142 @@ $(document).ready
             $('#form_customer_client').find(client_main).toggleClass('d-none');
         }
 
-        $('.bi-plus').on
-        (
-            'click',
-            function() 
+         function isChecked(value)
+    {
+        return value === 'on';
+    }
+
+    
+    $.ajax
+    (
+        {
+            url: '/kundenselbstauskunft/model/customer/customer_json_load.php',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data)
             {
-                var total = $(this).data('total')+1;
-                $('#form_customer_client').find('.client_total_text').text('Anzahl der Mandanten: '+total);
-                var client_body = $($('#client_body1')[0].outerHTML);
-                console.log(client_body);
-                $(client_body).attr('id', 'client_body'+total);
-                $(client_body).find('.client_main1').removeClass('client_main1').addClass('client_main'+total);
-                
-                $(client_body).find('.client_header_text').text('Mandant '+total);
-                $(client_body).find('.client_delete').removeClass('d-none');
-                $(client_body).find('.client_no').attr('data-no', total);
-                $(this).data('total', total);
+                console.log(data);
+                // var form_data = JSON.parse(data);
+                // console.log(form_data);
                 
 
-                changeIdNames(client_body,total);
+                    Object.keys(data).forEach
+                    (
+                        
+                        function(formId)   
+                        {
+                            console.log(formId);
+                            Object.keys(data[formId]).forEach
+                            (
+                                function(inputId)
+                                {
+                                    console.log(inputId);
+                                    const numberClient = parseInt(inputId[inputId.length-1]) ;
+                                    console.log(numberClient+' '+inputId.includes('customer_clinet'));
+       
+                                    if(numberClient >1 && inputId.includes('customer_clinet'))
+                                    {
+                                        addClient(this);
+                                    }
 
-                $('#form_customer_client').append(client_body);
-                $(this).data('total', total);
-                console.log(client_body);
-            }
-        )
+                                    //Fieldset
+                                    const $input = $(`${formId} #${inputId}`); // Das $-Zeichen ist nur Konvention, kein Muss. Es wird oft verwendet, um zu zeigen, dass eine Variable ein jQuery-Objekt enthält
+                                    const value = data[formId][inputId];
+
+                                    console.log('input',$input) 
+                                    console.log('Input gefunden:', $input.length > 0);
+                                    console.log('Wert aus data:', value);
+
+                                    Object.keys(value).forEach
+                                    (
+                                        function(input_form)
+                                        {
+                                            const $inputForm = $(`${formId} #${inputId} #${input_form}`);
+                                            
+                                            console.log('Input-form gefunden:',$inputForm.length>0);
+                                            console.log($inputForm);
+                                           
+                                            
+
+                                            if ($inputForm.attr('type') === 'checkbox') 
+                                            {
+                                                $inputForm.prop('checked', isChecked(value[input_form]));
+                                            }
+
+                                            else if($input.prop('tagName') ==='SELECT')
+                                            {
+                                                $inputForm.val(value[input_form]).change();
+                                            }
+                                            else
+                                            {
+                                                $inputForm.val(value[input_form]);
+                                            }
+                                        }
+                                    )
+                                }
+                            )
+                        }
+                    )
+            },
+            error: function(xhr,status,error)
+            {
+                console.log(error+status);
+                console.log("Antwort vom Server:", xhr.responseText); 
+            } ,
+            complete: function()
+            {
+                console.log('Nicht gespeicherte Einträge wurden geladen.');
+            }      
+        }
+    );
+
+    function addClient(element) 
+    {
+        var total = $(element).data('total')+1;
+        $('#form_customer_client').find('.client_total_text').text('Anzahl der Mandanten: '+total);
+        var client_body = $($('#client_body1')[0].outerHTML);
+        console.log(client_body);
+        $(client_body).attr('id', 'client_body'+total);
+        $(client_body).find('.client_main1').removeClass('client_main1').addClass('client_main'+total);
+        
+        $(client_body).find('.client_header_text').text('Mandant '+total);
+        $(client_body).find('.client_delete').removeClass('d-none');
+        $(client_body).find('.client_no').attr('data-no', total);
+        $(element).data('total', total);
+        
+
+        changeIdNames(client_body,total);
+
+        $('#form_customer_client').append(client_body);
+        $(element).data('total', total);
+        console.log(client_body);
+    }
+
+        // $('.bi-plus').on
+        // (
+        //     'click',
+        //     // function() 
+        //     // {
+        //     //     var total = $(this).data('total')+1;
+        //     //     $('#form_customer_client').find('.client_total_text').text('Anzahl der Mandanten: '+total);
+        //     //     var client_body = $($('#client_body1')[0].outerHTML);
+        //     //     console.log(client_body);
+        //     //     $(client_body).attr('id', 'client_body'+total);
+        //     //     $(client_body).find('.client_main1').removeClass('client_main1').addClass('client_main'+total);
+                
+        //     //     $(client_body).find('.client_header_text').text('Mandant '+total);
+        //     //     $(client_body).find('.client_delete').removeClass('d-none');
+        //     //     $(client_body).find('.client_no').attr('data-no', total);
+        //     //     $(this).data('total', total);
+                
+        //     //     changeIdNames(client_body,total);
+
+        //     //     $('#form_customer_client').append(client_body);
+        //     //     $(this).data('total', total);
+        //     //     console.log(client_body);
+        //     // }
+        //     addClient(this)
+        // )
 
         function deleteClient(element)
         {
@@ -435,6 +546,7 @@ $(document).ready
             )
         }
 
+        window.addClient = addClient;
         window.openClose = openClose;
         window.deleteClient = deleteClient;
         window.password_input_validation = password_input_validation;

@@ -1,29 +1,30 @@
 <?php
-class Customer_json_load
-{
-    private $pdo;
-    function __construct($pdo)
-    {
-        $this->pdo = $pdo;
-    }
 
-    public function get_json_from_db()
-    {
-        ob_start();
+       
+
+        require_once 'C:\xampp\htdocs\kundenselbstauskunft\connection.php';
+
+        $pdo = new Connection(true);
+   
+       
         ob_clean();
         try
         {
-            ob_start();
-        ob_clean();
-            $con = $this->pdo->connectToDb();
-            $query ="SELECT * FROM `customer_json_cache`";
+            
+            ob_clean();
+            $con = $pdo->connectToDb();
+            ob_clean();
+            $query ="SELECT * FROM `customer_json_cache` WHERE customer_id = 1 ";
             $stmt = $con->prepare($query);
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+            var_dump($result[0]['json_data']);
+            
                 ob_clean();
                 header('Content-Type: application/json');
                 echo $result[0]['json_data'];  
+                ob_end_flush();
                 
         }
         catch(PDOException $e)
@@ -31,6 +32,7 @@ class Customer_json_load
             echo "laden der Zwichenspeicherung". $e->getMessage();
         }
         ob_end_flush();
-        exit();
-    }
-}
+       
+    
+
+

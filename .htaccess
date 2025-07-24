@@ -5,13 +5,16 @@
     # Keine Umleitung für statische Dateien
     RewriteCond %{REQUEST_URI} !\.(js|css)$
 
-    RewriteCond %{REQUEST_URI} !^/kundenselbstauskunft/temp/session/mySession$
+    RewriteCond %{REQUEST_URI} !^/kundenselbstauskunft/temp/session/mySession$^
+    RewriteCond %{REQUEST_URI} !^/kundenselbstauskunft/model/customer/customer_json_load.php$
 
     # Verhindern der Endlosschleife, wenn die Anfrage bereits zu index.php geht
     RewriteCond %{REQUEST_URI} !^/kundenselbstauskunft/index.php
     
     # Weiterleitung aller anderen Anfragen zu index.php
     RewriteRule ^(.*)$ /kundenselbstauskunft/index.php/$1 [L,R=301]
+    
+    
 
 </IfModule>
 

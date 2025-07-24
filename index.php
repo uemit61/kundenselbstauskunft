@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <!-- 
@@ -47,6 +48,7 @@
         break;
 
         case 'form_page':
+            var_dump('öffne Controller');
             require 'C:/xampp/htdocs/Kundenselbstauskunft/model/formular_model.php';
             require 'C:/xampp/htdocs/Kundenselbstauskunft/view/pages/form_page.php';
             require 'C:/xampp/htdocs/Kundenselbstauskunft/controller/customer_controller.php';
@@ -57,6 +59,12 @@
 
         case 'dash_page':
             break;
+        case 'save_json_cache':
+            require_once 'C:/xampp/htdocs/Kundenselbstauskunft/model/customer/customer_json_cache.php';
+            $model = new Customer_json_cache(new Connection(true));
+            $model->save_json_to_db($data['json_form_data'],$customer);
+            die();
+        break;
 
         //FORM-PAGES
         default:
@@ -68,12 +76,13 @@
             die();
         break;
 
-        case 'save_json_cache':
-            require 'C:/xampp/htdocs/Kundenselbstauskunft/model/customer/customer_json_cache.php';
-            $model = new Customer_json_cache(new Connection(true));
-            $model->save_json_to_db($data['json_form_data'],$customer);
-            die();
-        break;
+        
+
+        // case 'load_json_cache':
+        //     require_once 'C:/xampp/htdocs/Kundenselbstauskunft/model/customer/customer_json_load.php';
+        //     $model = new Customer_json_cache(new Connection(true));
+        //     $model->get_json_from_db();
+        //     die();
 
     }
 

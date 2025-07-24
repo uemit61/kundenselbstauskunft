@@ -67,9 +67,11 @@
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-          
+            var_dump($result);
+            exit();
                 header('Content-Type: application/json');
                 echo $result[0]['json_data'];
+                ob_end_flush();
            
         }
         catch(PDOException $e)

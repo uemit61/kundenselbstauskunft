@@ -34,7 +34,7 @@ class Form_Page
 <?php 
         bootstrap_jquery(); 
 ?>
-        <body>
+        <body >
             <!-- Header -->
 <?php       
             logout_header($logo); 
@@ -54,7 +54,7 @@ class Form_Page
 ?>
                                 <div class="d-flex text p-2" >
                                     <div class="client_total_text">Anzahl der Mandanten: 1</div>
-                                    <i class="client_total bi bi-plus"  data-total="1"></i>
+                                    <i class="client_total bi bi-plus"  onclick="addClient(this)" data-total="1"></i>
                                 </div>
 
                                 <div class="body-group rounded-5 border  border-info p-2 mb-3" id="client_body1">

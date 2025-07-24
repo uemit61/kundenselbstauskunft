@@ -1,5 +1,5 @@
 <?php
-
+ob_start();
 /**
  * @file        connection.php
  * @author      Ümit Yildirim hopes61@icloud.com

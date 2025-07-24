@@ -80,6 +80,7 @@
 
         function update_view($login_failed=false) 
         {
+            var_dump('Seite wird geladen');
             // Startet die GUI mit entsprechendem Logo.
             $logo = WebConfiguration::loadLogo($this->pdo);
 
