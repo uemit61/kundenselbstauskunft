@@ -53,7 +53,7 @@ $(document).ready(function()
             formData[fieldsetId] = fieldsetData;
         })
         
-
+        console.log(formData);
        
         return formData;
 

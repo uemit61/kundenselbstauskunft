@@ -59,8 +59,14 @@ $(document).ready
         return value === 'on';
     }
 
-    
-    $.ajax
+    if($('#main').length)
+    {
+        insertCache();
+    }
+
+    function insertCache()
+    {
+         $.ajax
     (
         {
             url: '/kundenselbstauskunft/model/customer/customer_json_load.php',
@@ -71,7 +77,6 @@ $(document).ready
                 console.log(data);
                 // var form_data = JSON.parse(data);
                 // console.log(form_data);
-                
 
                     Object.keys(data).forEach
                     (
@@ -84,12 +89,17 @@ $(document).ready
                                 function(inputId)
                                 {
                                     console.log(inputId);
-                                    const numberClient = parseInt(inputId[inputId.length-1]) ;
-                                    console.log(numberClient+' '+inputId.includes('customer_clinet'));
+                                    const numberClient = parseInt(inputId[inputId.length-1]) ?? '0' ;
+                                    console.log(numberClient+' '+inputId.includes('customer_client'));
        
-                                    if(numberClient >1 && inputId.includes('customer_clinet'))
+                                    
+                                    if(numberClient >1 && inputId.includes('customer_client'))
                                     {
-                                        addClient(this);
+                                        console.log('Füge Mandant hinzu.');
+                                        let $icon = $('#form_customer_client').find('.client_total');
+                                        console.log($icon);
+                                        addClient($icon);
+                
                                     }
 
                                     //Fieldset
@@ -104,13 +114,13 @@ $(document).ready
                                     (
                                         function(input_form)
                                         {
-                                            const $inputForm = $(`${formId} #${inputId} #${input_form}`);
+                                            console.log(input_form);
                                             
+                                            const $inputForm = $(`${formId} #${inputId} [name='${input_form}']`);
+
                                             console.log('Input-form gefunden:',$inputForm.length>0);
                                             console.log($inputForm);
-                                           
                                             
-
                                             if ($inputForm.attr('type') === 'checkbox') 
                                             {
                                                 $inputForm.prop('checked', isChecked(value[input_form]));
@@ -142,9 +152,12 @@ $(document).ready
             }      
         }
     );
-
+    }
+   
     function addClient(element) 
     {
+        console.log('hinzufügen wird ausgeführt');
+        console.log(element);
         var total = $(element).data('total')+1;
         $('#form_customer_client').find('.client_total_text').text('Anzahl der Mandanten: '+total);
         var client_body = $($('#client_body1')[0].outerHTML);
@@ -157,14 +170,24 @@ $(document).ready
         $(client_body).find('.client_no').attr('data-no', total);
         $(element).data('total', total);
         
-
         changeIdNames(client_body,total);
 
         $('#form_customer_client').append(client_body);
         $(element).data('total', total);
         console.log(client_body);
-    }
 
+        console.log('mandant wurde hinzugefügt');
+        if(total>2)
+        {
+            $('#form_customer_client').find('.clientPlus').eq(1).remove();
+        }
+
+        $('.clientPlus').clone().appendTo('#form_customer_client');
+        $('#form_customer_client').find('.clientPlus').eq(1).find('.client_total').data('total',total);
+        $('#form_customer_client').find('.clientPlus').find('.client_total').data('total',total);
+        
+    }
+    
         // $('.bi-plus').on
         // (
         //     'click',
@@ -193,10 +216,8 @@ $(document).ready
 
         function deleteClient(element)
         {
-            
             var client_body =$(element).closest('.body-group');
             $('#form_customer_client').find(client_body).remove();
-
 
             var total = $('#form_customer_client').find($('.client_total')).data('total');
             if(total != 1)
@@ -205,6 +226,11 @@ $(document).ready
                 $('#form_customer_client').find('.client_total_text').text('Anzahl der Mandanten: '+total);
                 $('#form_customer_client').find('.client_total').data('total', total);
                 updateIdNo()
+            }
+            
+            if(total ===1 )
+            {
+                $('#form_customer_client').find('.clientPlus').eq(1).remove();
             }
         }
 

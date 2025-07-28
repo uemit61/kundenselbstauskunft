@@ -39,7 +39,7 @@ class Form_Page
 <?php       
             logout_header($logo); 
 ?>
-            <main>
+            <main id="main">
                 <div class=" container bg-primary-subtle shadow-lg rounded-5  border border-primary-subtle border-5 p-4 w-100" >
                     <?php 
                     foreach($form_arrays as $form_infos): 
@@ -52,7 +52,7 @@ class Form_Page
 <?php
                             if($step[0][0]['field_name'] == 'Mandanteninformation'):
 ?>
-                                <div class="d-flex text p-2" >
+                                <div class="d-flex text p-2 clientPlus" >
                                     <div class="client_total_text">Anzahl der Mandanten: 1</div>
                                     <i class="client_total bi bi-plus"  onclick="addClient(this)" data-total="1"></i>
                                 </div>
@@ -212,7 +212,8 @@ class Form_Page
 ?>
                                                     </div>  
 <?php   
-                                                endforeach; ?>
+                                                endforeach; 
+?>
                                             </fieldset>
 <?php   
                                         endforeach;?>
@@ -227,12 +228,15 @@ class Form_Page
 ?>
                             </div>
                     </div>
-            <?php   endif; ?>
+<?php   
+                endif; 
+?>
                         </form>
                 
 
-            <?php  
-                endforeach; ?>
+<?php  
+                endforeach; 
+                ?>
 
             
         <!-- Navigation -->

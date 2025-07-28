@@ -48,7 +48,6 @@
         break;
 
         case 'form_page':
-            var_dump('öffne Controller');
             require 'C:/xampp/htdocs/Kundenselbstauskunft/model/formular_model.php';
             require 'C:/xampp/htdocs/Kundenselbstauskunft/view/pages/form_page.php';
             require 'C:/xampp/htdocs/Kundenselbstauskunft/controller/customer_controller.php';
