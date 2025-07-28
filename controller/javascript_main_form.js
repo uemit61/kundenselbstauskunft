@@ -12,22 +12,18 @@
 
 $(document).ready(function()
 {
-
     console.log('Login erfolgreich.');
     $('#form_customer_contact_information').removeClass('d-none');
-
-   
 
     let currentStepIndex = 0;
     var form_ids = ['#form_customer_contact_information','#form_customer_host_configuration','#form_customer_client','#form_customer_erp_configuration','#form_customer_import'];
     let formId =  form_ids[currentStepIndex];
     let btnTxt = '';
-    
-    
- 
+
     function sanitizeInput(formId)
     {
         var formData ={};
+        
         $(formId).find('fieldset').each(function()
         {
             var fieldsetId= $(this).attr('id');
@@ -57,11 +53,8 @@ $(document).ready(function()
        
         return formData;
 
-        
     };
     
-
-
     function updateSteps() 
     {    
         $(form_ids[currentStepIndex]).removeClass('d-none');
@@ -127,6 +120,7 @@ $(document).ready(function()
             data:  JSON.stringify({ json_form_data: formData, page: $(formId).attr('name')}),
             success: function (response) 
             {
+                $(formId).find('.loadData').addClass('d-none');
                 console.log
                 (
                     response,
@@ -185,6 +179,7 @@ $(document).ready(function()
         function()
         {
             var form_data ={};
+            var saveInfo ={};
             $.each
             (
                 //enumeration
@@ -192,10 +187,19 @@ $(document).ready(function()
                 function(i,form_id)
                 {
                     form_data[form_id] =sanitizeInput(form_id);
+                    if($(form_id).find('.loadData').hasClass('d-none'))
+                    {
+                        form_data[form_id]["loadInfo"]="no";
+                    }
+                    else
+                    {
+                       form_data[form_id]["loadInfo"]="yes";
+                    }
                 }
                 
             );
 
+            
             // console.log(form_data);
 
             $.ajax

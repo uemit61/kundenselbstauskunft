@@ -83,7 +83,12 @@ $(document).ready
                         
                         function(formId)   
                         {
-                            console.log(formId);
+                            console.log(data[formId]['loadInfo']);
+                            if(data[formId]['loadInfo'] === 'yes')
+                            {
+                                $(formId).find('.loadData').removeClass('d-none');
+                            }
+
                             Object.keys(data[formId]).forEach
                             (
                                 function(inputId)
@@ -378,27 +383,19 @@ $(document).ready
             }
             else // Gültitge Eingabe...
             {
-                
-                
                 $(inputForm).find(feedback).addClass('d-none');
-
+                $(inputForm).closest('form').find('.loadData').removeClass('d-none');
                 // Stamm das Key aus der Warteschlange (queue) dann müssen diese eingefügt werden
                 if(queue && key !== '')
                 {
                     if(!($(inputForm).find(inputId).data('file') === 'file'))
                     {
                         $(inputForm).find(inputId).val(key);
-                        password_input_validation();
-                        
+                        password_input_validation(); 
                     }
-                    
-                    
                 }
 
                 // Zusätzliche Überprüfungen des Keys in einer eigenen Funktion erforderlich !!! MACHEN !!!
-
-                
-                
 
                 let load = true;
                 console.log('Event-Input geöffnet!: '+load); // Verhalten Browser bedingt.
@@ -407,8 +404,6 @@ $(document).ready
                 {
                     console.log('existiert');
                 }
-
-               
 
                 $(inputId).on
                 (

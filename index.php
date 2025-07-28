@@ -59,6 +59,7 @@
         case 'dash_page':
             break;
         case 'save_json_cache':
+            var_dump($data);
             require_once 'C:/xampp/htdocs/Kundenselbstauskunft/model/customer/customer_json_cache.php';
             $model = new Customer_json_cache(new Connection(true));
             $model->save_json_to_db($data['json_form_data'],$customer);
