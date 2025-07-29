@@ -66,6 +66,13 @@
             die();
         break;
 
+        case 'load':
+            require_once 'C:\xampp\htdocs\kundenselbstauskunft\controller\load_controller.php';
+            require_once 'C:\xampp\htdocs\kundenselbstauskunft\model\load_model.php';
+            $controller = new LoadController(new LoadModel(new Connection(true)));
+            $controller->handleRequest($data);
+        break;
+
         //FORM-PAGES
         default:
             require_once 'C:/xampp/htdocs/Kundenselbstauskunft/model/formular_model.php';

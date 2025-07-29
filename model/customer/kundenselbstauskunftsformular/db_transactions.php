@@ -100,25 +100,35 @@
         $pdo->closeConnection();
     }
 
-    // function loadFromDB($pdo,$entity_name,$parentEnity_id)
-    // {
-    //     try
-    //     {
-    //         // var_dump($entity_name);
-    //         // exit();
-    //         $con = $pdo->connectToDb();
-    //         $query="SELECT  *
-    //                 FROM    `$entity_name`
-    //                 WHERE   `$parentEnity_id` = :$parentEnity_id";
+    function loadFromDB($pdo,$entity_name,$parentEnity_id)
+    {
+        // ob_clean();
+        try
+        {
+            // var_dump($entity_name);
+            // exit();
+            // ob_clean();
+            $con = $pdo->connectToDb();
+            // ob_clean();
+            $query="SELECT  *
+                    FROM    `$entity_name`
+                    WHERE   `$parentEnity_id` = :$parentEnity_id";
 
-    //         $stmt = $con->prepare($query);
-    //         $stmt->bindValue(':$parentEnity_id',$$parentEnity_id);
-    //         $stmt->execute();
-    //         $stmt->setFetchMode(PDO::FETCH_CLASS, self::class);
-    //         $user = $stmt->fetch();
-    //     }
-    //     catch(Exception $e)
-    //     {
-    //         echo 'laden von '.$entity_name.' fehlgeschlagen'.$e;
-    //     }
-    // }
+            $entity_name = ucfirst($entity_name);
+            $stmt = $con->prepare($query);
+            $stmt->bindValue(':$parentEnity_id',$$parentEnity_id);
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, $entity_name);
+            $result = $stmt->fetch();
+
+            // ob_clean();
+            // header('Content-Type: application/json');
+            echo json_encode($result);
+            // ob_end_flush();
+        }
+        catch(Exception $e)
+        {
+            echo 'laden von '.$entity_name.' fehlgeschlagen'.$e;
+        }
+        // ob_end_flush();
+    }

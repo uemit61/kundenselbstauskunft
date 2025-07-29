@@ -2,8 +2,8 @@
 
  class Customer_json_cache
  {
-    private $pdo;
-    private $customer;
+    private $pdo = null;
+    private $customer_id, $json_data,$json_cache_id;
     
      public function getCustomer()
     {
@@ -58,27 +58,42 @@
 
     public function get_json_from_db()
     {
-          ob_start(); 
+        var_dump('methode wurde auf gerufen!');
+        ob_clean();
         try
         {
-            $con = $this->pdo->connectToDb();
-            $query ="SELECT * FROM `customer_json_cache`";
-            $stmt = $con->prepare($query);
-            $stmt->execute();
-            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            ob_clean();
+            if($this->pdo == null)
+            {
+                var_dump('conection wird geladen');
+                require_once 'C:\xampp\htdocs\kundenselbstauskunft\connection.php';
+                $this->pdo = new Connection();
+            }
 
-            var_dump($result);
-            exit();
-                header('Content-Type: application/json');
-                echo $result[0]['json_data'];
-                ob_end_flush();
+                $con = $this->pdo->connectToDb();
+            ob_clean();
+            $query ="SELECT * FROM `customer_json_cache` WHERE customer_id = 1 ";
+            $stmt = $con->prepare($query);
            
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, self::class);
+            $result = $stmt->fetch();
+
+            
+            
+                ob_clean();
+                header('Content-Type: application/json');
+                echo json_encode($result, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+                ob_end_flush();
+                
         }
         catch(PDOException $e)
         {
             echo "laden der Zwichenspeicherung". $e->getMessage();
         }
-         ob_end_flush();
+        ob_end_flush();
+       
     }
 
 

@@ -10,6 +10,7 @@ class Client_second_addres
     private $client_second_addres_city;
     private $client_id;
 
+    
       public function getclient_second_addres_id()
     {
         return $this->client_second_addres_id;

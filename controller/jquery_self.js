@@ -67,96 +67,103 @@ $(document).ready
     function insertCache()
     {
          $.ajax
-    (
-        {
-            url: '/kundenselbstauskunft/model/customer/customer_json_load.php',
-            type: 'GET',
-            dataType: 'json',
-            success: function(data)
+        (
             {
-                console.log(data);
-                // var form_data = JSON.parse(data);
-                // console.log(form_data);
+                url: '/kundenselbstauskunft/model/customer/customer_json_load.php',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data)
+                {
+                    console.log(data);
+                    // var form_data = JSON.parse(data);
+                    // console.log(form_data);
 
-                    Object.keys(data).forEach
-                    (
-                        
-                        function(formId)   
-                        {
-                            console.log(data[formId]['loadInfo']);
-                            if(data[formId]['loadInfo'] === 'yes')
+                        Object.keys(data).forEach
+                        (
+                            function(formId)   
                             {
-                                $(formId).find('.loadData').removeClass('d-none');
-                            }
-
-                            Object.keys(data[formId]).forEach
-                            (
-                                function(inputId)
+                                console.log(data[formId]['loadInfo']);
+                                if(data[formId]['loadInfo'] === 'yes')
                                 {
-                                    console.log(inputId);
-                                    const numberClient = parseInt(inputId[inputId.length-1]) ?? '0' ;
-                                    console.log(numberClient+' '+inputId.includes('customer_client'));
-       
+                                    console.log('drine Man');
+                                    $(formId).find('.loadData').removeClass('d-none');
                                     
-                                    if(numberClient >1 && inputId.includes('customer_client'))
+                                }   
+
+                                Object.keys(data[formId]).forEach
+                                (
+                                    function(inputId)
                                     {
-                                        console.log('Füge Mandant hinzu.');
-                                        let $icon = $('#form_customer_client').find('.client_total');
-                                        console.log($icon);
-                                        addClient($icon);
-                
-                                    }
-
-                                    //Fieldset
-                                    const $input = $(`${formId} #${inputId}`); // Das $-Zeichen ist nur Konvention, kein Muss. Es wird oft verwendet, um zu zeigen, dass eine Variable ein jQuery-Objekt enthält
-                                    const value = data[formId][inputId];
-
-                                    console.log('input',$input) 
-                                    console.log('Input gefunden:', $input.length > 0);
-                                    console.log('Wert aus data:', value);
-
-                                    Object.keys(value).forEach
-                                    (
-                                        function(input_form)
+                                        console.log(inputId);
+                                        const numberClient = parseInt(inputId[inputId.length-1]) ?? '0' ;
+                                        console.log(numberClient+' '+inputId.includes('customer_client'));
+        
+                                        
+                                        if(numberClient >1 && inputId.includes('customer_client'))
                                         {
-                                            console.log(input_form);
-                                            
-                                            const $inputForm = $(`${formId} #${inputId} [name='${input_form}']`);
-
-                                            console.log('Input-form gefunden:',$inputForm.length>0);
-                                            console.log($inputForm);
-                                            
-                                            if ($inputForm.attr('type') === 'checkbox') 
-                                            {
-                                                $inputForm.prop('checked', isChecked(value[input_form]));
-                                            }
-
-                                            else if($input.prop('tagName') ==='SELECT')
-                                            {
-                                                $inputForm.val(value[input_form]).change();
-                                            }
-                                            else
-                                            {
-                                                $inputForm.val(value[input_form]);
-                                            }
+                                            console.log('Füge Mandant hinzu.');
+                                            let $icon = $('#form_customer_client').find('.client_total');
+                                            console.log($icon);
+                                            addClient($icon);
+                    
                                         }
-                                    )
-                                }
-                            )
+
+                                        //Fieldset
+                                        const $input = $(`${formId} #${inputId}`); // Das $-Zeichen ist nur Konvention, kein Muss. Es wird oft verwendet, um zu zeigen, dass eine Variable ein jQuery-Objekt enthält
+                                        const value = data[formId][inputId];
+
+                                        console.log('input',$input) 
+                                        console.log('Input gefunden:', $input.length > 0);
+                                        console.log('Wert aus data:', value);
+
+                                        Object.keys(value).forEach
+                                        (
+                                            function(input_form)
+                                            {
+                                                console.log(input_form);
+                                                
+                                                const $inputForm = $(`${formId} #${inputId} [name='${input_form}']`);
+
+                                                console.log('Input-form gefunden:',$inputForm.length>0);
+                                                console.log($inputForm);
+                                                
+                                                if ($inputForm.attr('type') === 'checkbox') 
+                                                {
+                                                    $inputForm.prop('checked', isChecked(value[input_form]));
+                                                }
+
+                                                else if($input.prop('tagName') ==='SELECT')
+                                                {
+                                                    $inputForm.val(value[input_form]).change();
+                                                }
+                                                else
+                                                {
+                                                    $inputForm.val(value[input_form]);
+                                                }
+                                            }
+                                        )
+                                    }
+                                )
+                            }
+                        );
+
+                        if(!($('#form_customer_contact_information').find('.loadData').hasClass('d-none')))
+                        {
+                            $('#ltn').removeClass('d-none');
                         }
-                    )
-            },
-            error: function(xhr,status,error)
-            {
-                console.log(error+status);
-                console.log("Antwort vom Server:", xhr.responseText); 
-            } ,
-            complete: function()
-            {
-                console.log('Nicht gespeicherte Einträge wurden geladen.');
-            }      
-        }
-    );
+
+                },
+                error: function(xhr,status,error)
+                {
+                    console.log(error+status);
+                    console.log("Antwort vom Server:", xhr.responseText); 
+                } ,
+                complete: function()
+                {
+                    console.log('Nicht gespeicherte Einträge wurden geladen.');
+                }      
+            }
+        );
     }
    
     function addClient(element) 
@@ -385,6 +392,7 @@ $(document).ready
             {
                 $(inputForm).find(feedback).addClass('d-none');
                 $(inputForm).closest('form').find('.loadData').removeClass('d-none');
+                $('#ltn').removeClass('d-none');
                 // Stamm das Key aus der Warteschlange (queue) dann müssen diese eingefügt werden
                 if(queue && key !== '')
                 {

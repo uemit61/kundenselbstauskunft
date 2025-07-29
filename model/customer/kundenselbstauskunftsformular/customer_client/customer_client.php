@@ -1,5 +1,6 @@
 <?php 
 require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
+
 class Customer_client
 {
 
@@ -16,6 +17,33 @@ class Customer_client
             $client_director,
             $client_bank_details,
             $client_legal_information;
+
+    
+        function __construct($load =false)
+        {
+            if($load)
+            {
+                $folder = strtolower(get_class($this));
+                foreach
+                (glob('C:/xampp/htdocs/Kundenselbstauskunft/model/customer/kundenselbstauskunftsformular/'.$folder.'/*.php') as $filename)
+                {
+                    
+                    require_once $filename;
+                    $subEntity = pathinfo($filename, PATHINFO_FILENAME);
+                    
+                    if($subEntity !== 'customer_client')
+                    {
+                        $class_name = ucfirst($subEntity);
+                        if($class_name !='Db_transactions')
+                        {
+                            $this->$subEntity = new $class_name();
+                        }
+                            
+                    }
+                   
+                }
+            }
+        }
 
     public function basic_info($pdo,$customer)
     {
@@ -194,7 +222,11 @@ class Customer_client
 
     public static function loadFromDB($pdo,$entity_name,$parentEnity_id)
     {
+        // Laden der Primärtabelle
         loadFromDB($pdo,$entity_name,$parentEnity_id);
+
+        // to_do laden der Subtabellen
+
     }
 }
     

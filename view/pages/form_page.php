@@ -51,7 +51,7 @@ class Form_Page
                             <div class="d-flex justify-content-center flex-row">
                                 <h3 class="text-center p-3"><?=$form_infos['form_label'] ?></h3>
                                 <i class="bi bi-arrow-clockwise  text-success loadData d-none " ></i>
-                                <i class="bi  bi-info-circle-fill text-danger loadData d-none "></i>
+                                <i class="bi  bi-info-circle-fill text-danger loadData d-none " ></i>
                             </div>    
 
 <?php
@@ -245,9 +245,10 @@ class Form_Page
 
             
         <!-- Navigation -->
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between buttons">
             <button onclick="step_back()" class="btn btn-outline-secondary rounded-5 d-none" id="prevBtn">Zurück</button>
             <button onclick="save_FromPage_to_Db()" class="btn btn-success rounded-5" id="btn">Kontaktdaten speichern</button>
+            <button onclick="load_data_from_db()" class=" btn btn-success rounded-5 d-none" id="ltn">Daten laden</button>
             <button onclick="step_forward()" class="btn btn-primary rounded-5" id="nextBtn">Weiter</button>
         </div>
     </div>

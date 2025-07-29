@@ -61,6 +61,16 @@ $(document).ready(function()
         formId =  form_ids[currentStepIndex];
         btnTxt =  $(form_ids[currentStepIndex]).data('label') + ' speichern';
         $('#btn').text(btnTxt);
+
+        if(!($(form_ids[currentStepIndex]).find('.loadData').hasClass('d-none')))
+        {
+            $('#ltn').removeClass('d-none');
+        }
+        else
+        {
+            $('#ltn').addClass('d-none');
+        }
+
     };
 
 
@@ -121,6 +131,7 @@ $(document).ready(function()
             success: function (response) 
             {
                 $(formId).find('.loadData').addClass('d-none');
+                $('.buttons').find('#ltn').addClass('d-none');
                 console.log
                 (
                     response,
@@ -146,32 +157,34 @@ $(document).ready(function()
         
     };
 
-    function load_data_from_db()
-    {
-        $.ajax
-        (
-            {
-                url: '/kundenselbstauskunft/temp/session/mySession',
-                type: 'GET',
-                contentType: 'application/json',
-                dataType: 'json',
-                success: function (data)
-                {
+    // function load_data_from_db()
+    // {
+    //     $.ajax
+    //     (
+    //         {
+    //             url: 'indexUtils.php',
+    //             method: 'POST',
+    //             contentType: 'application/json',
+    //             data:  JSON.stringify({page:'load' , load: $(formId).attr('name')}),
 
-                },
-                error: function (error)
-                {
+    //             success: function (response)
+    //             {
 
-                },
-                complete: function ()
-                {
+    //                 console.log(response);
+    //             },
+    //             error: function (error)
+    //             {
 
-                },
-            }
-        )
+    //             },
+    //             complete: function ()
+    //             {
+
+    //             },
+    //         }
+    //     )
         
 
-    }
+    // }
 
     // Alle 3 Sekunden wird zwischengespeichert
     setInterval
@@ -242,37 +255,12 @@ $(document).ready(function()
         3000
     );  
 
-    // $.ajax // könnte auch über eien $_SESSION verwirklicht werden Kommentar nicht vergessen!
-    // ({
-    //     url: './view/main_form.php',
-    //     method: 'GET',
-    //     /* 
-    //         Die `success`-Funktion im bereitgestellten Codeausschnitt verarbeitet die Antwort, die von einer
-    //         AJAX-GET-Anfrage an '/main_form.php' empfangen wurde. Hier ist eine Aufschlüsselung dessen, was sie tut: 
-    //     */
-    //     success: function (response) 
-    //     {
-
-    //         if (!response || Object.keys(response).length === 0)    
-    //         {
-    //             return;
-    //         }
-        
-    //         /* Wenn Daten vorhanden sind, das Formular füllen */
-    //         Object.entries(response).forEach(([key, value]) => {
-    //             const sanitizedValue = $('<div>').text(value).html();
-    //             $($formId + `[name=${key}]`).val(sanitizedValue);
-    //         });
-    //     },
-    //     error: function () 
-    //     {
-    //         alert('Fehler beim Laden der Benutzerdaten.');
-    //     }
-    // });
+    
 
     window.step_back = step_back;
     window.step_forward = step_forward;
     window.save_FromPage_to_Db = save_FromPage_to_Db;
+    
     
 });
  
