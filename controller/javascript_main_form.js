@@ -157,34 +157,34 @@ $(document).ready(function()
         
     };
 
-    // function load_data_from_db()
-    // {
-    //     $.ajax
-    //     (
-    //         {
-    //             url: 'indexUtils.php',
-    //             method: 'POST',
-    //             contentType: 'application/json',
-    //             data:  JSON.stringify({page:'load' , load: $(formId).attr('name')}),
+    function load_data_from_db()
+    {
+        $.ajax
+        (
+            {
+                url: 'indexUtils.php',
+                method: 'POST',
+                contentType: 'application/json',
+                data:  JSON.stringify({page:'load' , load: $(formId).attr('name')}),
 
-    //             success: function (response)
-    //             {
+                success: function (response)
+                {
 
-    //                 console.log(response);
-    //             },
-    //             error: function (error)
-    //             {
+                    console.log(response);
+                },
+                error: function (error)
+                {
 
-    //             },
-    //             complete: function ()
-    //             {
+                },
+                complete: function ()
+                {
 
-    //             },
-    //         }
-    //     )
+                },
+            }
+        )
         
 
-    // }
+    }
 
     // Alle 3 Sekunden wird zwischengespeichert
     setInterval
@@ -260,6 +260,7 @@ $(document).ready(function()
     window.step_back = step_back;
     window.step_forward = step_forward;
     window.save_FromPage_to_Db = save_FromPage_to_Db;
+    window.load_data_from_db = load_data_from_db;
     
     
 });

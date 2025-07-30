@@ -70,7 +70,7 @@
             require_once 'C:\xampp\htdocs\kundenselbstauskunft\controller\load_controller.php';
             require_once 'C:\xampp\htdocs\kundenselbstauskunft\model\load_model.php';
             $controller = new LoadController(new LoadModel(new Connection(true)));
-            $controller->handleRequest($data);
+            $controller->handleRequest($data,$customer);
         break;
 
         //FORM-PAGES

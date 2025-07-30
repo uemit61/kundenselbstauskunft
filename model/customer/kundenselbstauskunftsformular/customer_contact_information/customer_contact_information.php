@@ -157,8 +157,8 @@ class Customer_contact_information
         createRecordToDB($pdo,$data, 'customer_contact_information');
     }
 
-    public static function loadFromDB($pdo,$entity_name,$parentEnity_id)
+    public static function loadFromDB($pdo,$entity_name,$foreignKey,$parentEnity_id)
     {
-        loadFromDB($pdo,$entity_name,$parentEnity_id);
+        loadFromDB($pdo,$entity_name,$foreignKey,$parentEnity_id);
     }
 }

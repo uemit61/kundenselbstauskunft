@@ -7,8 +7,17 @@ class LoadController
         $this->model = $model;
     }
 
-    public function handleRequest($load)
+    public function handleRequest($load,$customer)
     {
-        var_dump($load);
+        $this->model->setCustomer($customer);
+
+        // var_dump($load);
+        $formName = substr($load['load'], 5); 
+
+        $this->model->loadForm($load['load']);
     }
+
+    
+   
+
 }

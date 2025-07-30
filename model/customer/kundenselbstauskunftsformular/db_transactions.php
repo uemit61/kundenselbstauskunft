@@ -100,11 +100,14 @@
         $pdo->closeConnection();
     }
 
-    function loadFromDB($pdo,$entity_name,$parentEnity_id)
+    function loadFromDB($pdo,$entity_name,$foreignKey,$parentEnity_id)
     {
+        $result = null;
         // ob_clean();
         try
         {
+         
+            
             // var_dump($entity_name);
             // exit();
             // ob_clean();
@@ -112,23 +115,29 @@
             // ob_clean();
             $query="SELECT  *
                     FROM    `$entity_name`
-                    WHERE   `$parentEnity_id` = :$parentEnity_id";
+                    WHERE   `$foreignKey` = :id";
 
-            $entity_name = ucfirst($entity_name);
+            $class_name = ucfirst($entity_name);
             $stmt = $con->prepare($query);
-            $stmt->bindValue(':$parentEnity_id',$$parentEnity_id);
+            $stmt->bindValue(':id',$parentEnity_id);
             $stmt->execute();
-            $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, $entity_name);
+            $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, $class_name);
             $result = $stmt->fetch();
 
+            
+            $result = json_encode($result);
             // ob_clean();
             // header('Content-Type: application/json');
             echo json_encode($result);
             // ob_end_flush();
+
+             return $result;
         }
         catch(Exception $e)
         {
             echo 'laden von '.$entity_name.' fehlgeschlagen'.$e;
         }
         // ob_end_flush();
+
+        
     }

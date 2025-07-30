@@ -87,7 +87,6 @@ $(document).ready
                                 {
                                     console.log('drine Man');
                                     $(formId).find('.loadData').removeClass('d-none');
-                                    
                                 }   
 
                                 Object.keys(data[formId]).forEach
@@ -296,13 +295,6 @@ $(document).ready
                 }
             );
         }
-            
-        
-
-
-
-        
-    
 
         // Eingaben werden vor bevor Sie eingefügt werden in die Felder überprüft.
         // Nicht eingefügt Buchstaben oder Wörter werden als negativ Feedback angezeigt.
@@ -323,6 +315,7 @@ $(document).ready
                 inputEvent = event; // Das Ereignis wird zur Übergabe gespeichert
 
                 let delInput = event.originalEvent.inputType;
+
                 if(delInput  ==="deleteContentBackward" || delInput  ==="deleteByCut")
                 {
                     $(inputForm).closest('form').find('.loadData').removeClass('d-none');
