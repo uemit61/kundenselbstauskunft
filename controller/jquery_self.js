@@ -308,7 +308,7 @@ $(document).ready
         // Nicht eingefügt Buchstaben oder Wörter werden als negativ Feedback angezeigt.
         
 
-
+     
 
         $('input').on
         (
@@ -321,6 +321,14 @@ $(document).ready
                 console.log(inputId);
                 inputForm = event.target.form; // die Form des Eingabefeldes wir ermittelt
                 inputEvent = event; // Das Ereignis wird zur Übergabe gespeichert
+
+                let delInput = event.originalEvent.inputType;
+                if(delInput  ==="deleteContentBackward" || delInput  ==="deleteByCut")
+                {
+                    $(inputForm).closest('form').find('.loadData').removeClass('d-none');
+                    $('#ltn').removeClass('d-none');
+                }
+
 
                 if(event.type == 'paste') // Es wird überprüft, ob es sich beim Ereignis um eine Einfügung handelt.
                 {
@@ -446,6 +454,7 @@ $(document).ready
                         {
                             $(inputForm).find(inputId).removeClass('is-valid is-invalid');
                             $(inputForm).find(feedback).addClass('d-none');
+                          
                         }
                         // Feedback wird nicht mehr angezeigt, da entweder ein gültige Eingabe erfolgt ist
                         // oder das Feld wurde gelöscht
