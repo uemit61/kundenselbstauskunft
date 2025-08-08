@@ -73,8 +73,6 @@ ob_clean();
         case 'load':
             
             ob_clean();
-            // var_dump($customer);
-            // exit();
             require_once 'C:\xampp\htdocs\kundenselbstauskunft\controller\load_controller.php';
             require_once 'C:\xampp\htdocs\kundenselbstauskunft\model\load_model.php';
             $controller = new LoadController(new LoadModel(new Connection(true),$customer));

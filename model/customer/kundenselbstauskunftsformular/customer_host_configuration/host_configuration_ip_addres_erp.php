@@ -44,9 +44,9 @@ require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstau
         }
 
                
-        public function setHost_configuration_ip_addres_erp_subnetmask($host_configuration_ip_addres_erp_subnetmasketmask)
+        public function setHost_configuration_ip_addres_erp_subnetmask($host_configuration_ip_addres_erp_subnetmask)
         {
-                $this->host_configuration_ip_addres_erp_subnetmasketmask = $host_configuration_ip_addres_erp_subnetmasketmask;
+                $this->host_configuration_ip_addres_erp_subnetmask = $host_configuration_ip_addres_erp_subnetmask;
 
                 return $this;
         }
@@ -58,9 +58,9 @@ require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstau
         }
 
                
-        public function setHost_configuration_ip_addres_erp_gateway($host_configuration_ip_addres_erp_gatewayway)
+        public function setHost_configuration_ip_addres_erp_gateway($host_configuration_ip_addres_erp_gateway)
         {
-                $this->host_configuration_ip_addres_erp_gatewayway = $host_configuration_ip_addres_erp_gatewayway;
+                $this->host_configuration_ip_addres_erp_gateway = $host_configuration_ip_addres_erp_gateway;
 
                 return $this;
         }

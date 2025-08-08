@@ -137,8 +137,9 @@ $(document).ready
                                                 console.log('Input-form gefunden:',$inputForm.length>0);
                                                 console.log($inputForm);
                                                 
-                                                if ($inputForm.attr('type') === 'checkbox') 
+                                                if ($inputForm.is('input[type="checkbox"]'))
                                                 {
+                                                    
                                                     $inputForm.prop('checked', isChecked(value[input_form]));
                                                 }
 
@@ -668,7 +669,7 @@ $(document).ready
             (
                 function() 
                 {
-                    input = $(inputForm).find(inputId).val();
+                    const input = $(inputForm).find(inputId).val();
                     // Feldtext wird gespeichert.
 
                     if(!($(inputForm).find(inputId).data('file') === 'file'))
