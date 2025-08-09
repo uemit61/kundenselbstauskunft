@@ -191,13 +191,11 @@ $(document).ready
 
                 success: function (data)
                 {
-
                     console.log(data);
                     insertDataToForm(data,formId);
                     $(formId).find('.loadData').addClass('d-none');
                     $('.buttons').find('#ltn').addClass('d-none');
                     console.log('Die gespeicherten Daten wurden geladen.');
-                    
                 },
                 error: function (error)
                 {
@@ -249,6 +247,8 @@ $(document).ready
 
     function insertDataToForm(formData,formId)
     {
+        console.log(formData);
+        console.log(formId);
         Object.keys(formData).forEach
         (
             function(inputId)
@@ -288,15 +288,18 @@ $(document).ready
                         
                         if ($inputForm.attr('type') === 'checkbox') 
                         {
+                            console.log('bensenbensengirdin');
                             $inputForm.prop('checked', isChecked(value[input_form]));
                         }
 
                         else if($input.prop('tagName') ==='SELECT')
                         {
+                            console.log('senessekbenaraba');
                             $inputForm.val(value[input_form]).change();
                         }
                         else
                         {
+                            console.log('geht normal rein')
                             $inputForm.val(value[input_form]);
                         }
                     }
