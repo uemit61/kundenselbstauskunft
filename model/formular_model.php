@@ -119,7 +119,7 @@ class CIModel
 
     public function createRecords($data)
     {
-        
+        var_dump($data);
         $i=0;
         foreach($data as $entity_name => $entity)
         {
@@ -132,7 +132,7 @@ class CIModel
 
     public function saveEntities($data)
     {
-      
+        var_dump($data);
         foreach($data as $entity_name => $entity)
         {
             $this->$entity_name->saveEntity($this->pdo,$entity,$entity_name);

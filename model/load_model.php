@@ -26,7 +26,6 @@ class LoadModel
         $foreignKeyName= implode("_", $parts).'_id';
 
         var_dump($primaeryKeyName.' '.$foreignKeyName);
-
         var_dump($this->getCustomer());
 
         

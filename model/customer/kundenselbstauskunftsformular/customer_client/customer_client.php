@@ -58,7 +58,7 @@ class Customer_client
         return $this->formData;
     }
 
-    public function basic_info($pdo,$customer)
+    public function basic_info($pdo)
     {
         try
         {
