@@ -83,7 +83,7 @@ $(document).ready
                 dataType: 'json',
                 success: function(data)
                 {
-                    console.log(data['#form_customer_host_configuration']);
+                    
                     // var form_data = JSON.parse(data);
                     // console.log(form_data);
 
@@ -98,63 +98,63 @@ $(document).ready
                                     $(formId).find('.loadData').removeClass('d-none');
                                 }   
 
-                                // insertDataToForm(data[formId],formId);
+                                insertDataToForm(data[formId],formId);
                                
-                                Object.keys(data[formId]).forEach
-                                (
-                                    function(inputId)
-                                    {
-                                        console.log(inputId);
-                                        const numberClient = parseInt(inputId[inputId.length-1]) ?? '0' ;
-                                        console.log(numberClient+' '+inputId.includes('customer_client'));
+                                // Object.keys(data[formId]).forEach
+                                // (
+                                //     function(inputId)
+                                //     {
+                                //         console.log(inputId);
+                                //         const numberClient = parseInt(inputId[inputId.length-1]) ?? '0' ;
+                                //         console.log(numberClient+' '+inputId.includes('customer_client'));
         
                                         
-                                        if(numberClient >1 && inputId.includes('customer_client'))
-                                        {
-                                            console.log('Füge Mandant hinzu.');
-                                            let $icon = $('#form_customer_client').find('.client_total');
-                                            console.log($icon);
-                                            addClient($icon);
+                                //         if(numberClient >1 && inputId.includes('customer_client'))
+                                //         {
+                                //             console.log('Füge Mandant hinzu.');
+                                //             let $icon = $('#form_customer_client').find('.client_total');
+                                //             console.log($icon);
+                                //             addClient($icon);
                     
-                                        }
+                                //         }
 
-                                        //Fieldset
-                                        const $input = $(`${formId} #${inputId}`); // Das $-Zeichen ist nur Konvention, kein Muss. Es wird oft verwendet, um zu zeigen, dass eine Variable ein jQuery-Objekt enthält
-                                        const value = data[formId][inputId];
+                                //         //Fieldset
+                                //         const $input = $(`${formId} #${inputId}`); // Das $-Zeichen ist nur Konvention, kein Muss. Es wird oft verwendet, um zu zeigen, dass eine Variable ein jQuery-Objekt enthält
+                                //         const value = data[formId][inputId];
 
-                                        console.log('input',$input) 
-                                        console.log('Input gefunden:', $input.length > 0);
-                                        console.log('Wert aus data:', value);
+                                //         console.log('input',$input) 
+                                //         console.log('Input gefunden:', $input.length > 0);
+                                //         console.log('Wert aus data:', value);
 
-                                        Object.keys(value).forEach
-                                        (
-                                            function(input_form)
-                                            {
-                                                console.log(input_form);
+                                //         Object.keys(value).forEach
+                                //         (
+                                //             function(input_form)
+                                //             {
+                                //                 console.log(input_form);
                                                 
-                                                const $inputForm = $(`${formId} #${inputId} [name='${input_form}']`);
+                                //                 const $inputForm = $(`${formId} #${inputId} [name='${input_form}']`);
 
-                                                console.log('Input-form gefunden:',$inputForm.length>0);
-                                                console.log($inputForm);
+                                //                 console.log('Input-form gefunden:',$inputForm.length>0);
+                                //                 console.log($inputForm);
                                                 
-                                                if ($inputForm.is('input[type="checkbox"]'))
-                                                {
+                                //                 if ($inputForm.is('input[type="checkbox"]'))
+                                //                 {
                                                     
-                                                    $inputForm.prop('checked', isChecked(value[input_form]));
-                                                }
+                                //                     $inputForm.prop('checked', isChecked(value[input_form]));
+                                //                 }
 
-                                                else if($input.prop('tagName') ==='SELECT')
-                                                {
-                                                    $inputForm.val(value[input_form]).change();
-                                                }
-                                                else
-                                                {
-                                                    $inputForm.val(value[input_form]);
-                                                }
-                                            }
-                                        )
-                                    }
-                                )
+                                //                 else if($input.prop('tagName') ==='SELECT')
+                                //                 {
+                                //                     $inputForm.val(value[input_form]).change();
+                                //                 }
+                                //                 else
+                                //                 {
+                                //                     $inputForm.val(value[input_form]);
+                                //                 }
+                                //             }
+                                //         )
+                                //     }
+                                // )
                             }
                         );
 
@@ -268,7 +268,7 @@ $(document).ready
                 }
 
                 //Fieldset
-                const $input = $(`${formId} #${inputId}`); // Das $-Zeichen ist nur Konvention, kein Muss. Es wird oft verwendet, um zu zeigen, dass eine Variable ein jQuery-Objekt enthält
+                const $input = $(`${formId} #${inputId}`); 
                 const value = formData[inputId];
 
                 console.log('input',$input) 
@@ -281,20 +281,17 @@ $(document).ready
                     {
                         console.log(input_form);
                         
-                        const $inputForm = $(`${formId} #${inputId} [name='${input_form}']`);
+                        const $inputForm = $(`${formId} #${inputId} #${input_form}`);
 
                         console.log('Input-form gefunden:',$inputForm.length>0);
                         console.log($inputForm);
                         
-                        if ($inputForm.attr('type') === 'checkbox') 
+                        if ($inputForm.is('input[type="checkbox"]'))
                         {
-                            console.log('bensenbensengirdin');
                             $inputForm.prop('checked', isChecked(value[input_form]));
                         }
-
                         else if($input.prop('tagName') ==='SELECT')
                         {
-                            console.log('senessekbenaraba');
                             $inputForm.val(value[input_form]).change();
                         }
                         else
