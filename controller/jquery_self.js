@@ -15,11 +15,9 @@ $(document).ready
     
     function()
     {
-     
         $('#ltn').data('formId', '#form_customer_contact_information');
         var login_failed = $('#login_failed').data('login-failed');
 
-        
         $('input[type="checkbox"], select').on('change', function() 
         {
             $(this).closest('form').find('.loadData').removeClass('d-none');
@@ -53,7 +51,6 @@ $(document).ready
             }
         );
 
-       
         function openClose(e) 
         {
             console.log(e);
@@ -62,21 +59,21 @@ $(document).ready
             $('#form_customer_client').find(client_main).toggleClass('d-none');
         }
 
-    function isChecked(value)
-    {
-        return value === 'on';
-    }
+        function isChecked(value)
+        {
+            return value === 'on';
+        }
 
-    if($('#main').length)
-    {
-        insertCache();
-    }
+        if($('#main').length)
+        {
+            insertCache();
+        }
 
 
-    function insertCache()
-    {
-         $.ajax
-        (
+        function insertCache()
+        {
+            $.ajax
+            (
             {
                 url: '/kundenselbstauskunft/model/customer/customer_json_load.php',
                 type: 'GET',
@@ -257,14 +254,12 @@ $(document).ready
                 const numberClient = parseInt(inputId[inputId.length-1]) ?? '0' ;
                 console.log(numberClient+' '+inputId.includes('customer_client'));
 
-                
                 if(numberClient >1 && inputId.includes('customer_client'))
                 {
                     console.log('Füge Mandant hinzu.');
                     let $icon = $('#form_customer_client').find('.client_total');
                     console.log($icon);
                     addClient($icon);
-
                 }
 
                 //Fieldset
@@ -342,7 +337,7 @@ $(document).ready
                 total = total-1;
                 $('#form_customer_client').find('.client_total_text').text('Anzahl der Mandanten: '+total);
                 $('#form_customer_client').find('.client_total').data('total', total);
-                updateIdNo()
+                updateIdNo();
             }
             
             if(total ===1 )

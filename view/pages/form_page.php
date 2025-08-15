@@ -116,7 +116,7 @@ class Form_Page
                                         foreach($fieldgroup as $field):
 ?>
                                             <fieldset class="d-flex  flex-fill flex-column gap-1 shadow rounded-5 p-2 mb-3" id=<?=$field['dBName']?>>  
-                                                <label for =<?=$field['field_name']?> class="text p-2 fw-bold"><?=$field['field_name']?></label>
+                                                <h5  class="text p-2 fw-bold"><?=$field['field_name']?></h5>
 <?php   
                                                 $subfield = array_slice($field,2,null,true);
 

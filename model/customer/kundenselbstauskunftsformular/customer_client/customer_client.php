@@ -65,14 +65,10 @@ class Customer_client
             $con = $pdo->connectToDb();
             $query='SELECT count(*) AS "numberClient"
                     FROM    `customer_client`';
-
             $stmt = $con->prepare($query);
             $stmt->execute();
             $pdo->closeConnection();
-
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            
-
             var_dump($result);
         }
         catch (Exception $e)
@@ -129,7 +125,6 @@ class Customer_client
     public function setClient_id($client_id)
     {
         $this->client_id = $client_id;
-
         return $this;
     }
 
