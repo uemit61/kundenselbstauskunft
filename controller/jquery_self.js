@@ -80,9 +80,6 @@ $(document).ready
                 dataType: 'json',
                 success: function(data)
                 {
-                    
-                    // var form_data = JSON.parse(data);
-                    // console.log(form_data);
 
                         Object.keys(data).forEach
                         (
@@ -274,9 +271,15 @@ $(document).ready
                 (
                     function(input_form)
                     {
+                        let lastChar = inputId.at(-1);
+
+                        if(isNaN(lastChar))
+                        {
+                            lastChar = '';
+                        }
                         console.log(input_form);
                         
-                        const $inputForm = $(`${formId} #${inputId} #${input_form}`);
+                        const $inputForm = $(`${formId} #${inputId} #${input_form+lastChar}`);
 
                         console.log('Input-form gefunden:',$inputForm.length>0);
                         console.log($inputForm);
