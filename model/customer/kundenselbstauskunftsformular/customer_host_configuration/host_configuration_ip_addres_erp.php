@@ -3,12 +3,14 @@
 require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
     class Host_configuration_ip_addres_erp
     {
-        private $host_configuration_ip_addres_erp_id,
-                $host_configuration_ip_addres_erp_ip,
-                $host_configuration_ip_addres_erp_subnetmask,
-                $host_configuration_ip_addres_erp_gateway,
-                $host_configuration_ip_addres_erp_dns,
-                $host_configuration_id;
+
+        //!!!!!!!!!!!!!!!!BITTE VERSTEHEN!!!!!!!!!
+        // private $host_configuration_ip_addres_erp_id,
+        //         $host_configuration_ip_addres_erp_ip,
+        //         $host_configuration_ip_addres_erp_subnetmask,
+        //         $host_configuration_ip_addres_erp_gateway,
+        //         $host_configuration_ip_addres_erp_dns,
+        //         $host_configuration_id;
 
         public function getHost_configuration_ip_addres_erp_id()
         {
