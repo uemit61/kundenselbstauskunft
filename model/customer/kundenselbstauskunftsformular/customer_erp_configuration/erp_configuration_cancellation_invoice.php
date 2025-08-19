@@ -2,11 +2,13 @@
 require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
 class Erp_configuration_cancellation_invoice
 {
-    private $erp_configuration_cancellation_invoice_id,
-            $erp_configuration_cancellation_invoice_month,	
-            $erp_configuration_cancellation_invoice_year,	
-            $erp_configuration_cancellation_invoice_first,	
-            $erp_configuration_id;
+    // private $erp_configuration_cancellation_invoice_id,
+    //         $erp_configuration_cancellation_invoice_month,	
+    //         $erp_configuration_cancellation_invoice_year,	
+    //         $erp_configuration_cancellation_invoice_first,	
+    //         $erp_configuration_id;
+
+            
 
     public function setErpConfigurationInvoiceId($erp_configuration_cancellation_invoice_id)
     {
@@ -68,9 +70,9 @@ class Erp_configuration_cancellation_invoice
         createRecordToDB($pdo,$data, $entity_name);
     }
 
-     public static function loadFromDB($pdo,$entity_name,$parentEnity_id)
+    public static function loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id)
     {
-        loadFromDB($pdo,$entity_name,$parentEnity_id);
+        return loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id);     
     }
     
 

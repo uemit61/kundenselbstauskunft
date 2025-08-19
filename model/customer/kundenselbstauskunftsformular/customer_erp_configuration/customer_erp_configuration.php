@@ -2,9 +2,9 @@
 require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
 class Customer_erp_configuration
 {
-    private $erp_configuration_id,
-            $erp_configuration_number_of_user,
-            $customer_id;
+    // private $erp_configuration_id,
+    //         $erp_configuration_number_of_user,
+    //         $customer_id;
         
     private $erp_configuration_service_order,
             $erp_configuration_order_conformation,
@@ -17,6 +17,10 @@ class Customer_erp_configuration
             $erp_configuration_incoming_delivery_note,
             $erp_configuration_delivery_note,
             $erp_configuration_cancellation_invoice;
+
+    public  $pdo,$customer, $customerId,$foreignKeyId, $primaeryKeyId, $primaeryKeyName, $foreignKeyName =null, $entityName = 'customer_erp_configuration', $entityList;
+
+    public $formData;
 
     public function setErp_configuration_id($erp_configuration_id)
     {
@@ -48,46 +52,8 @@ class Customer_erp_configuration
         return $this->customer_id;
     }
 
-    public function basic_info($pdo,$customer)
-    {
-        try
-        {
-            $con = $pdo->connectToDb();
-            $query='SELECT  `customer_erp_configuration`.`erp_configuration_id`,
-                            `customer_erp_configuration`.`erp_configuration_number_of_user`,
-                            `customer_erp_configuration`.`erp_configuration_saved_data`
-                    FROM    `customer_erp_configuration`
-                    WHERE   `customer_erp_configuration`.`customer_id` = :customer_id';
-
-            $stmt = $con->prepare($query);
-            $stmt->bindValue(':customer_id', $customer->getCustomer_id());
-            $stmt->execute();
-            $pdo->closeConnection();
-
-            $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            $retVal['main_id']=$result['erp_configuration_id'];
-            $retVal['saved_data']=$result['erp_configuration_saved_data'];
-        }
-        catch (Exception $e)
-        {
-            echo 'Fehler erp_configuration_id'.$e->getMessage();
-        }
-
-        $pdo->closeConnection();
-
-        return $retVal;
-    }
-
-       public static function saveEntity($pdo,$data,$entity_name)
-    {
-        saveEntityToDB($pdo, $data, $entity_name);
-    }
-
-    public static function createRecord($pdo,$data,$entity_name)
-    {
-        createRecordToDB($pdo,$data, $entity_name);
-    }
+    
+    
 
     
 
@@ -312,8 +278,80 @@ class Customer_erp_configuration
                         return $this;
             }
 
-    public static function loadFromDB($pdo,$entity_name,$parentEnity_id)
+      public function __construct($pdo=null,$customer=null, $primaeryKeyName = null,$foreignKeyName=null)
     {
-        loadFromDB($pdo,$entity_name,$parentEnity_id);
+        $this->pdo = $pdo;
+        $this->customer = $customer;
+        $this->foreignKeyName = $foreignKeyName;
+        $this->primaeryKeyName = $primaeryKeyName;
+
+        foreach(glob('C:/xampp/htdocs/Kundenselbstauskunft/model/customer/kundenselbstauskunftsformular/customer_erp_configuration/*.php') as $path)
+        {
+            require_once $path;
+            $filename = pathinfo($path, PATHINFO_FILENAME);
+            $this->entityList[] =$filename;
+        }       
+    }
+
+    public function loadFormData()
+    {
+        $this->foreignKeyId = $this->basic_info($this->pdo, $this->customer)['main_id'];
+        $this->formData[$this->entityName] = $this->loadFromDB();
+
+        foreach($this->entityList as $entity)
+        {
+            if($entity !== 'customer_erp_configuration')
+            {   
+                $class = ucfirst($entity);
+                $this->$entity =  new $class();
+                $this->formData[$entity] = $this->$entity->loadFromDB($this->pdo,$entity,$this->foreignKeyName,$this->foreignKeyId);
+            }
+        }
+        return $this->formData;
+    }
+
+    public function basic_info($pdo,$customer)
+    {
+        try
+        {
+            $con = $pdo->connectToDb();
+            $query='SELECT  `customer_erp_configuration`.`erp_configuration_id`,
+                            `customer_erp_configuration`.`erp_configuration_number_of_user`,
+                            `customer_erp_configuration`.`erp_configuration_saved_data`
+                    FROM    `customer_erp_configuration`
+                    WHERE   `customer_erp_configuration`.`customer_id` = :customer_id';
+
+            $stmt = $con->prepare($query);
+            $stmt->bindValue(':customer_id', $customer->getCustomer_id());
+            $stmt->execute();
+            $pdo->closeConnection();
+
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            $retVal['main_id']=$result['erp_configuration_id'];
+            $retVal['saved_data']=$result['erp_configuration_saved_data'];
+        }
+        catch (Exception $e)
+        {
+            echo 'Fehler erp_configuration_id'.$e->getMessage();
+        }
+
+        $pdo->closeConnection();
+
+        return $retVal;
+    }
+
+       public static function saveEntity($pdo,$data,$entity_name)
+    {
+        saveEntityToDB($pdo, $data, $entity_name);
+    }
+
+    public static function createRecord($pdo,$data,$entity_name)
+    {
+        createRecordToDB($pdo,$data, $entity_name);
+    }
+    public function loadFromDB()
+    {
+        return loadFromDB($this->pdo,$this->entityName,$this->foreignKeyName,$this->customer->getCustomer_id());
     }
 }

@@ -68,9 +68,8 @@ class Erp_configuration_delivery_note
         createRecordToDB($pdo,$data, $entity_name);
     }
     
-     public static function loadFromDB($pdo,$entity_name,$parentEnity_id)
+    public static function loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id)
     {
-        loadFromDB($pdo,$entity_name,$parentEnity_id);
+        return loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id);     
     }
-
 }
