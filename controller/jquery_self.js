@@ -131,19 +131,24 @@ $(document).ready
                 {
                     console.log(data);
                     const j = $('#form_customer_client').find('.client_total').data('total');
+                     console.log(j);
+                    
+                    for (let i= j; i >1 ; i--) 
+                    {
+                        console.log(j);
+                        deleteClient($(`#form_customer_client #client_body${i} #delteBtn${i}`));
+                        console.log('gelöscht'+i);
+                    }
+
                     insertDataToForm(data,formId);
+
                     $(formId).find('.loadData').addClass('d-none');
                     $('.buttons').find('#ltn').addClass('d-none');
                     console.log('Die gespeicherten Daten wurden geladen.');
 
             
                     
-                    const k = j-1 + j;
-
-                    for (let i = k; i >j ; i--) 
-                    {
-                        deleteClient($(`#form_customer_client #client_body${i} #delteBtn${i}`));
-                    }
+                   
                 
                    
                 },
@@ -192,6 +197,9 @@ $(document).ready
         $('.clientPlus').clone().appendTo('#form_customer_client');
         $('#form_customer_client').find('.clientPlus').eq(1).find('.client_total').data('total',total);
         $('#form_customer_client').find('.clientPlus').find('.client_total').data('total',total);
+
+        $(inputForm).closest('form').find('.loadData').removeClass('d-none');
+        $('#ltn').removeClass('d-none');
         
     }
 
@@ -262,31 +270,6 @@ $(document).ready
         )
     }
     
-        // $('.bi-plus').on
-        // (
-        //     'click',
-        //     // function() 
-        //     // {
-        //     //     var total = $(this).data('total')+1;
-        //     //     $('#form_customer_client').find('.client_total_text').text('Anzahl der Mandanten: '+total);
-        //     //     var client_body = $($('#client_body1')[0].outerHTML);
-        //     //     console.log(client_body);
-        //     //     $(client_body).attr('id', 'client_body'+total);
-        //     //     $(client_body).find('.client_main1').removeClass('client_main1').addClass('client_main'+total);
-                
-        //     //     $(client_body).find('.client_header_text').text('Mandant '+total);
-        //     //     $(client_body).find('.client_delete').removeClass('d-none');
-        //     //     $(client_body).find('.client_no').attr('data-no', total);
-        //     //     $(this).data('total', total);
-                
-        //     //     changeIdNames(client_body,total);
-
-        //     //     $('#form_customer_client').append(client_body);
-        //     //     $(this).data('total', total);
-        //     //     console.log(client_body);
-        //     // }
-        //     addClient(this)
-        // )
 
         function deleteClient(element)
         {
@@ -306,6 +289,8 @@ $(document).ready
             {
                 $('#form_customer_client').find('.clientPlus').eq(1).remove();
             }
+            $(inputForm).closest('form').find('.loadData').removeClass('d-none');
+            $('#ltn').removeClass('d-none');
         }
 
         function updateIdNo() 
@@ -363,10 +348,8 @@ $(document).ready
         // Nicht eingefügt Buchstaben oder Wörter werden als negativ Feedback angezeigt.
         
 
-        $('input').on
-        (
-            // 
-            'keypress paste change input', // Wenn in einem Eingabefeld etwas eingetippt oder eingefügt wird...
+        $(document).on('input paste change keypress', 'input',
+             // Wenn in einem Eingabefeld etwas eingetippt oder eingefügt wird...
             function(event)  // ...wird die folgende Funktion ausgeführt
             {   
                 inputId = '#'+ event.target.id; // die Id des Eingabefeldes wir ermittelt
@@ -476,9 +459,9 @@ $(document).ready
                     console.log('existiert');
                 }
 
-                $(inputId).on
+                 $(document).on
                 (
-                    'input change', 
+                    'input change','input', 
                     function()
                     {
                         console.log('anderer load-zustand: '+load);
