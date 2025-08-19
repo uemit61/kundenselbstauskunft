@@ -2,17 +2,17 @@
 require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
 class Import_supplier_item_data
 {
-    private $import_supplier_item_data_id,
-    	    $import_supplier_item_data_number,
-            $import_supplier_item_data_description,
-            $import_supplier_item_data_purchase_price,
-            $import_supplier_item_data_status,
-            $import_supplier_item_data_standard_item,
-            $import_supplier_item_data_item_description,
-            $import_supplier_item_data_supplier_number,
-            $import_supplier_item_data_item_number,
-            $import_supplier_item_data_procurement_cost,
-            $import_id;
+    // private $import_supplier_item_data_id,
+    // 	    $import_supplier_item_data_number,
+    //         $import_supplier_item_data_description,
+    //         $import_supplier_item_data_purchase_price,
+    //         $import_supplier_item_data_status,
+    //         $import_supplier_item_data_standard_item,
+    //         $import_supplier_item_data_item_description,
+    //         $import_supplier_item_data_supplier_number,
+    //         $import_supplier_item_data_item_number,
+    //         $import_supplier_item_data_procurement_cost,
+    //         $import_id;
 
         
     /**
@@ -242,9 +242,9 @@ class Import_supplier_item_data
         createRecordToDB($pdo,$data, $entity_name);
     }
 
-    public static function loadFromDB($pdo,$entity_name,$parentEnity_id)
+    public static function loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id)
     {
-        loadFromDB($pdo,$entity_name,$parentEnity_id);
+        return loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id);     
     }
 
 }

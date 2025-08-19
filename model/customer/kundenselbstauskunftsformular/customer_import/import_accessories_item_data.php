@@ -3,11 +3,11 @@
 require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
 class Import_accessories_item_data
 {
-    private $import_accessories_item_data_id,
-            $import_accessories_item_data_item_number,	
-            $import_accessories_item_data_import_accessories_number,	
-            $import_accessories_item_data_from_quantity,	
-            $import_id;
+    // private $import_accessories_item_data_id,
+    //         $import_accessories_item_data_item_number,	
+    //         $import_accessories_item_data_import_accessories_number,	
+    //         $import_accessories_item_data_from_quantity,	
+    //         $import_id;
 
     /**
      * Get the value of import_accessories_item_data_id
@@ -119,9 +119,9 @@ class Import_accessories_item_data
         createRecordToDB($pdo,$data, $entity_name);
     }
 
-    public static function loadFromDB($pdo,$entity_name,$parentEnity_id)
+     public static function loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id)
     {
-        loadFromDB($pdo,$entity_name,$parentEnity_id);
+        return loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id);     
     }
 
     

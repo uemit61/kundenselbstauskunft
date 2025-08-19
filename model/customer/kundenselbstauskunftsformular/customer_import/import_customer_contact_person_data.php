@@ -2,17 +2,17 @@
 require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
 class Import_customer_contact_person_data
 {
-    private $import_customer_contact_person_data_id,	
-            $import_customer_contact_person_data_number,	
-            $import_customer_contact_person_data_salutation,	
-            $import_customer_contact_person_data_name,	
-            $import_customer_contact_person_data_surname,	
-            $import_customer_contact_person_data_email,	
-            $import_customer_contact_person_data_phone,	
-            $import_customer_contact_person_data_second_phone,	
-            $import_customer_contact_person_data_fax,	
-            $import_customer_contact_person_data_description,	
-            $import_id;
+    // private $import_customer_contact_person_data_id,	
+    //         $import_customer_contact_person_data_number,	
+    //         $import_customer_contact_person_data_salutation,	
+    //         $import_customer_contact_person_data_name,	
+    //         $import_customer_contact_person_data_surname,	
+    //         $import_customer_contact_person_data_email,	
+    //         $import_customer_contact_person_data_phone,	
+    //         $import_customer_contact_person_data_second_phone,	
+    //         $import_customer_contact_person_data_fax,	
+    //         $import_customer_contact_person_data_description,	
+    //         $import_id;
             
 
     /**
@@ -234,9 +234,9 @@ class Import_customer_contact_person_data
     {
         createRecordToDB($pdo,$data, $entity_name);
     }
-     public static function loadFromDB($pdo,$entity_name,$parentEnity_id)
+      public static function loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id)
     {
-        loadFromDB($pdo,$entity_name,$parentEnity_id);
+        return loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id);     
     }
 
 }

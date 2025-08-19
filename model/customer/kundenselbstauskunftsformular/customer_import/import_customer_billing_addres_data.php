@@ -2,20 +2,20 @@
 require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
 class Import_customer_billing_addres_data
 {
-    private $import_customer_billing_addres_data_id,	
-            $import_customer_billing_addres_data_number,	
-            $import_customer_billing_addres_data_company,	
-            $import_customer_billing_addres_data_name,
-            $import_customer_billing_addres_data_surname,	
-            $import_customer_billing_addres_data_street,	
-            $import_customer_billing_addres_data_house_Number,	
-            $import_customer_billing_addres_data_postcode,	
-            $import_customer_billing_addres_data_city,	
-            $import_customer_billing_addres_data_country,	
-            $import_customer_billing_addres_data_additional_addres,	
-            $import_customer_billing_addres_data_email,	
-            $import_customer_billing_addres_data_phone,	
-            $import_id;
+    // private $import_customer_billing_addres_data_id,	
+    //         $import_customer_billing_addres_data_number,	
+    //         $import_customer_billing_addres_data_company,	
+    //         $import_customer_billing_addres_data_name,
+    //         $import_customer_billing_addres_data_surname,	
+    //         $import_customer_billing_addres_data_street,	
+    //         $import_customer_billing_addres_data_house_Number,	
+    //         $import_customer_billing_addres_data_postcode,	
+    //         $import_customer_billing_addres_data_city,	
+    //         $import_customer_billing_addres_data_country,	
+    //         $import_customer_billing_addres_data_additional_addres,	
+    //         $import_customer_billing_addres_data_email,	
+    //         $import_customer_billing_addres_data_phone,	
+    //         $import_id;
 
     
 
@@ -309,8 +309,8 @@ class Import_customer_billing_addres_data
         createRecordToDB($pdo,$data, $entity_name);
     }
 
-     public static function loadFromDB($pdo,$entity_name,$parentEnity_id)
+     public static function loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id)
     {
-        loadFromDB($pdo,$entity_name,$parentEnity_id);
+        return loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id);     
     }
 }

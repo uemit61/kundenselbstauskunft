@@ -2,20 +2,20 @@
 require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
 class Import_supplier_billing_addres_data
 {
-    private $import_supplier_billing_addres_data_id,	
-            $import_supplier_billing_addres_data_number,	
-            $import_supplier_billing_addres_data_company,	
-            $import_supplier_billing_addres_data_name,	
-            $import_supplier_billing_addres_data_surname,	
-            $import_supplier_billing_addres_data_street,	
-            $import_supplier_billing_addres_data_house_Number,	
-            $import_supplier_billing_addres_data_postcode,	
-            $import_supplier_billing_addres_data_city,	
-            $import_supplier_billing_addres_data_country,	
-            $import_supplier_billing_addres_data_additional_addres,	
-            $import_supplier_billing_addres_data_email,	
-            $import_supplier_billing_addres_data_phone,	
-            $import_id;
+    // private $import_supplier_billing_addres_data_id,	
+    //         $import_supplier_billing_addres_data_number,	
+    //         $import_supplier_billing_addres_data_company,	
+    //         $import_supplier_billing_addres_data_name,	
+    //         $import_supplier_billing_addres_data_surname,	
+    //         $import_supplier_billing_addres_data_street,	
+    //         $import_supplier_billing_addres_data_house_Number,	
+    //         $import_supplier_billing_addres_data_postcode,	
+    //         $import_supplier_billing_addres_data_city,	
+    //         $import_supplier_billing_addres_data_country,	
+    //         $import_supplier_billing_addres_data_additional_addres,	
+    //         $import_supplier_billing_addres_data_email,	
+    //         $import_supplier_billing_addres_data_phone,	
+    //         $import_id;
             
     
 
@@ -309,9 +309,9 @@ class Import_supplier_billing_addres_data
         createRecordToDB($pdo,$data, $entity_name);
     }
 
-    public static function loadFromDB($pdo,$entity_name,$parentEnity_id)
+    public static function loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id)
     {
-        loadFromDB($pdo,$entity_name,$parentEnity_id);
+        return loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id);     
     }
 
 }
