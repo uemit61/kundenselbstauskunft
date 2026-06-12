@@ -1,0 +1,18 @@
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Keine Umleitung für statische Dateien
+    RewriteCond %{REQUEST_URI} !\.(js|css)$
+
+    RewriteCond %{REQUEST_URI} !^/kundenselbstauskunft/temp/session/mySession$
+
+    # Verhindern der Endlosschleife, wenn die Anfrage bereits zu index.php geht
+    RewriteCond %{REQUEST_URI} !^/kundenselbstauskunft/index.php
+    
+    # Weiterleitung aller anderen Anfragen zu index.php
+    RewriteRule ^(.*)$ /kundenselbstauskunft/index.php/$1 [L,R=301]
+
+</IfModule>
+
+
