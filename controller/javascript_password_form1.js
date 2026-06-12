@@ -1,12 +1,9 @@
 
 
 /**
-* @file        javascript_password1_form.js
 * @author      Ümit Yildirim hopes61@icloud.com
 * @copyright   Copyright (c) 2024, Ümit Yildirim. Alle Rechte vorbehalten.
 * @license     Diese Datei darf nicht ohne Zustimmung des Autors weitergegeben oder verändert werden.
-* @version     1.0.0
-* @since       2024-12-18
 */
 $(document).ready(function () 
 {
@@ -20,8 +17,6 @@ $(document).ready(function ()
         * @author      Ümit Yildirim hopes61@icloud.com
         * @copyright   Copyright (c) 2024, Ümit Yildirim. Alle Rechte vorbehalten.
         * @license     Diese Datei darf nicht ohne Zustimmung des Autors weitergegeben oder verändert werden.
-        * @version     1.0.0
-        * @since       2024-12-18
         */
         function password_input_validation()
         {
