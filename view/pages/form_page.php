@@ -39,10 +39,34 @@ class Form_Page
                 
                 <main>
                 <div class="container bg-primary-subtle shadow-lg rounded-5  border border-primary-subtle border-5 p-4 w-75" >
-                    <form id="form-tab1" name="customerInfo" method="post" action="" class="d-flex flex-column  needs-validation gap-3"  novalidate>
+                <form id="form-tab3" name="customerInfo" method="post" action="" class="d-flex flex-column  needs-validation gap-3"  novalidate>
                     <h3 class="text-center p-3">Kontaktdaten</h3>
-    
-                    <?php   foreach ($... as $fieldgroup): ?>
+                    <?php
+                        $step = $customer_client;
+                        if($step == $customer_client):
+                    ?>
+                            <div class="d-flex text p-2" >
+                                <div class="client_total_text">Anzahl der Mandanten: 1</div>
+                                <i class="client_total bi bi-plus"  data-total="1"></i>
+                            </div>
+
+                            <div class="body-group rounded-5 border  border-info p-2" id="client_body1">
+                                <div class="client_header d-flex justify-content-between" >
+                                    <div class="client_add d-flex text p-2" >
+                                        <i class="client_no bi bi-chevron-down" onclick="openClose(this)"  name="client_no[]" data-no="1" ></i> 
+                                        <h5 class="client_header_text">Mandant 1</h5>
+                                    </div>
+
+                                    <div class="client_delete d-flex p-2 d-none" >
+                                        <h5 class="text-danger">Löschen <i class="bi bi-x-lg" onclick="deleteClient(this)"></i> </h5>
+                                    </div>
+                                </div>
+                    
+                                <div class="client_main1 d-none" >
+                    <?php
+                        endif;
+                    ?>
+                    <?php   foreach ($customer_client as $fieldgroup): ?>
                                 <div class="d-flex flex-fill flex-column flex-lg-row  gap-1">
                                 <?php foreach($fieldgroup as $field):?>
                                     
@@ -53,16 +77,27 @@ class Form_Page
                                                 foreach($subfield as $form):
                                                     $vh =null;
                                                     if(isset($form["host_configuration_virtualization_produkt"]))
-                                                    {
-                                                        $vh ='virtualisationFields';
-                                                    };         
+                                                    {$vh ='virtualisationFields';};
+                                                    
                                         ?>
-                                                    <div class="<?php if(isset($vh)){echo 'd-none';} ?> d-flex flex-column flex-lg-row  flex-sm-column gap-1 " id="<?=$vh ?>">
+                                                    <div class="
+                                                                    <?php if(isset($vh)){echo 'd-none';} ?> 
+                                                                    d-flex flex-column flex-lg-row  flex-sm-column gap-1
+                                                                    " id="<?=$vh ?>
+                                                                ">
                                                     <?php   foreach($form as $id => $val): ?>
                                                                 <div class="<?=$val[0] ?>" >
                                                                 <?php   if($val[1][0] != 'select'):?>
                                                                 
-                                                                            <input type=<?=$val[1][0]?> class=  "<?php if($val[1][0] == 'checkbox'): echo 'form-check-input'; else: echo 'form-control ';endif; ?> rounded-5" id=<?=$id ?> name=<?=$id ?> placeholder=<?=$val[2] ?> requier>
+                                                                            <input 
+                                                                                    type=<?=$val[1][0]?>  
+                                                                                    class=  "
+                                                                                                <?php if($val[1][0] == 'checkbox'): echo 'form-check-input'; else: echo 'form-control ';endif; ?> 
+                                                                                                rounded-5
+                                                                                            "
+                                                                                    id=<?=$id ?> name=<?=$id ?> placeholder=<?=$val[2] ?> 
+                                                                                    requierd
+                                                                            >
                                                                 
                                                                 <?php   else: ?>
                                                                             <select class="form-select rounded-5 " name=<?=$id ?> id=<?=$id ?> aria-label=<?=$val[2] ?> >
@@ -81,14 +116,18 @@ class Form_Page
                                                     </div>
                                         <?php   endforeach; ?>
                                         </fieldset>
-                                <?php       
-                                    endforeach;
-                                ?>
+                                   
+                    <?php       endforeach;
+                    ?>
                      </div>
-                        <?php
-                            endforeach; 
-                        ?>
-                    </form>
+            <?php
+                            endforeach;
+                            if($step == $customer_client):
+                    ?>
+                                </div>
+                            </div>
+                    <?php   endif; ?>
+            </form>
                 </div>
 
                     <!-- Navigation -->
