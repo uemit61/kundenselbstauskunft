@@ -14,9 +14,7 @@
     {
 
 ?>
-        
 
-   
         <div class="bg-primary-subtle shadow-lg rounded-5  border border-primary-subtle border-5 p-4 w-50" >
         <form   id="form-tab2" name="hostConfig" method="post" action="" class="d-flex flex-column needs-validation gap-3"     novalidate>
             <h3 class="text-center ">Host-Einstellungen</h3>
@@ -91,7 +89,7 @@
                             </div>
                         </div>
                     </div>
-
+        
                     <div class="form-floating flex-fill ">
                         <input type="text"  class="form-control rounded-5" id="backupIp" name="backupIp"   placeholder required >
                         <label for="backupIp" class="form-label ">IP-Adresse</label>
