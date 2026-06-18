@@ -23,29 +23,29 @@ $website_configuration=
 $contact_information=
 [
     'field_name' => 'Firma',
-    ['contact_information_company_name' => ['form-floating',['text'],'Firmenname']],	
-    ['contact_information_phone'	=>['form-floating ',['number'],'Telefon'],'contact_information_email' => ['form-floating',['email'],'Email']],	
+    ['contact_information_company_name' => ['form-floating flex-fill',['text'],'Firmenname']],	
+    ['contact_information_phone'	=>['form-floating flex-fill',['number'],'Telefon'],'contact_information_email' => ['form-floating flex-fill',['email'],'Email']],	
 ];
 
 $contact_informationen_adress=
 [
     'field_name' => 'Anschrift',
-    ['contact_informationen_adress_street' => ['form-floating col-lg-9',['text'],'Straße'],'contact_informationen_adress_house_number' => ['form-floating col-lg-3',['text'],'Nr.']],	
-    ['contact_informationen_adress_postcode'	=>['form-floating col-lg-3',['number'],'PLZ'],'contact_informationen_adress_city' => ['form-floating col-lg-9',['text'],'Ort']],
+    ['contact_informationen_adress_street' => ['form-floating col-lg-9 flex-fill',['text'],'Straße'],'contact_informationen_adress_house_number' => ['form-floating col-lg-3 flex-fill',['text'],'Nr.']],	
+    ['contact_informationen_adress_postcode'	=>['form-floating col-lg-3 flex-fill',['number'],'PLZ'],'contact_informationen_adress_city' => ['form-floating col-lg-9 flex-fill',['text'],'Ort']],
 ];
 
 $contact_information_contact_person=
 [
     'field_name' => 'Ansprechpartner',
-    ['contact_information_contact_person_gender' => ['form-floating col-lg-5',['select', ['Bitte Auswählen','Frau','Herr']],'Anrede']],
-    ['contact_information_contact_person_name'	=> ['form-floating',['text'],'Vorname'],'contact_information_contact_person_surname' =>['form-floating',['text'],'Nachname']],
+    ['contact_information_contact_person_gender' => ['form-floating col-lg-5 flex-fill',['select', ['Bitte Auswählen','Frau','Herr']],'Anrede']],
+    ['contact_information_contact_person_name'	=> ['form-floating flex-fill',['text'],'Vorname'],'contact_information_contact_person_surname' =>['form-floating',['text'],'Nachname']],
 ];
 
 $customer_contact_informationen=
 [
-    $contact_information,
-    $contact_informationen_adress,
-    $contact_information_contact_person
+    [$contact_information],
+    [$contact_informationen_adress],
+    [$contact_information_contact_person]
 ];
    
    
