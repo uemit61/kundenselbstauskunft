@@ -152,7 +152,7 @@ DROP TABLE IF EXISTS `config_self_disclosure`.`customer_contact_information` ;
 CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`customer_contact_information` (
   `contact_information_id` INT NOT NULL AUTO_INCREMENT,
   `contact_information_company_name` VARCHAR(45) NULL DEFAULT NULL,
-  `contact_information_telefon` INT NULL DEFAULT NULL,
+  `contact_information_phone` INT NULL DEFAULT NULL,
   `contact_information_email` VARCHAR(45) NULL DEFAULT NULL,
   `contact_information_saved_data` TINYINT(1) NULL DEFAULT NULL,
   `customer_id` INT NOT NULL,

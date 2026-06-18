@@ -1,0 +1,150 @@
+
+<!--
+    $website_configuration=
+    [
+        'Logo' =>'website_configuration_logo',
+        'Admin' => 'website_configuration_admin_name',
+        'Admin-Passwort' =>	'website_configuration_admin_password',
+        'Internet-Adresse' => 'website_configuration_internet_address' 	
+    ]
+-->
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset='utf-8'>
+
+    <title>Multi-StepForm</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
+
+            <!-- jQuery -->
+       <script  src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+       
+    body 
+    {
+        font-size: clamp(0.875rem, 2vw, 1.25rem);
+    }
+   
+
+  .bg-violet
+  {
+    background-color: var(--bs-violet);
+    /* color: white; */
+  }
+    </style>
+ 
+    
+</head>
+<body class="bg-primary">
+
+    
+    <div class="sticky-top p-2 rounded-5 bg-primary-subtle navbar navbar-expand-sm bd-navbar d-flex justify-content-between align-items-center border border-primary mb-3">
+
+        <!-- Hamburger Button, nur sichtbar wenn die Blidschirmgröße kleiner md-->
+        <button type="button" class="navbar-toggler" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Logo -->
+        <img class ="rounded-5" src="LogoHeintze.png" style="max-width: 150px">
+        
+        
+        <h1 class="d-none d-md-block">Dashboard</h1>
+
+        <button type="button" class="btn btn-outline-dark rounded-5">Abmelden</button>
+    </div>
+
+    <div class="d-flex vh-100 wh-100">
+        
+            <div class="d-flex flex-column w-25 navbar navbar-expand-sm justify-content-center border border-info rounded-5 bg-primary-subtle mb-3 me-3">
+                
+                <div>
+                    <div class="offcanvas offcanvas-bottom h-75" id="offcanvasNavbar">
+                        <div class="offcanvas-header">
+                            <div class="offcanvas-title">
+                                <img src="LogoHeintze.png" style="max-width: 150px">
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <h1 class="d-block d-sm-none" >Dashboard</h1>
+                            <ul class="d-flex flex-column navbar-nav mb-2 mb-lg-0 ">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link  dropdown-toggle" href="#"  active role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-current="page">
+                                        Home
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a class="dropdown-item" href="#">
+                                                Logo
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item"><a href="#" class="nav-link">Branding</a></li>
+                                <li class="nav-item"><a href="#" class="nav-link">Kunden</a></li>
+                                <li class="nav-item d-sm-none d-block"><a href="#" class="nav-link">Neuste Aktivitäten</a></li>
+                                <form class="d-flex flex-column" role="search">
+                                <input class="form-control me-2 mb-1" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-outline-success" type="submit">Search</button>
+                            </form>
+                            </ul>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+
+            <div class="d-flex flex-column col-12 col-sm-6 rounded-5 border border-dark justify-content-center align-items-center bg-primary-subtle mb-3 me-3">
+                <form>
+                
+                    <div class="mb-3">
+                        <label for="exFile" class="text p-1">Logo</label>
+                        <input id="exFile" type="file" class="form-control form-control-lg" data-file="file">
+                        <div id="exFileFeedback" class="text invalid-feedback"></div>
+                    </div>
+                    
+                    <div class="form-floating mb-3">
+                        <input type="text" id="ex" class="form-control form-control-lg" placeholder="exampleText">
+                        <label for="ex">Admin-Name</label>
+                        <div id="exFeedback" class="text invalid-feedback"></div>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="password" id="ex" class="form-control" placeholder="exampleText">
+                        <label for="ex">Admin-Passwort</label>
+                        <div id="exFeedback" class="text invalid-feedback"></div>
+                    </div>
+
+                    <div class="form-floating">
+                        <input type="password" id="ex" class="form-control" placeholder="exampleText">
+                        <label for="ex">Internet-Adresse</label>
+                        <div id="exFeedback" class="text invalid-feedback"></div>
+                    </div>
+                   
+                </form>
+            </div>
+
+            <div class="d-flex flex-column rounded-5  h-50 w-25 border border-dark  justify-content-center align-items-center bg-primary-subtle fw-bold fs-3">
+                <div class="d-none d-sm-block">
+                    Neusten Aktivitäten
+                </div>
+               
+            </div>
+        </div>
+
+        
+
+           
+       
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!--Custom JavaScript -->
+    <script  src="jquery_self.js"></script>
+
+</body>
+</html>
