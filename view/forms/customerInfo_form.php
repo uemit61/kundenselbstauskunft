@@ -8,6 +8,32 @@
 * @version     1.0.0
 * @since       2024-12-18
 */
+
+    $contact_information=
+    [
+        'table_name' => 'Firma',
+        'contact_information_company_name' => 'Firmenname',	
+        'contact_information_phone'	=> 'Telefon',
+        'contact_information_email' => 'Email',	
+    ];
+
+    $contact_informationen_adress=
+    [
+        'table_name' => '',
+        'contact_informationen_adress_street' => '',
+        'contact_informationen_adress_house_number' => '',	
+        'contact_informationen_adress_postcode'	=> '',
+        'contact_informationen_adress_city' => '',
+    ];
+
+    $contact_information_contact_person=
+    [
+        'contact_information_contact_person_gender' => '',
+        'contact_information_contact_person_name'	=> '',
+        'contact_information_contact_person_surname' =>'',
+    ];
+   
+   
     function contactInfo_form()
     {
 
