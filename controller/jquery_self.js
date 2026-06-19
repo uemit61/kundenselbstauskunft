@@ -14,10 +14,18 @@ $(document).ready
 (
     function()
     {
+     
+        
+        var login_failed = $('#login_failed').data('login-failed');
+        if (login_failed == '1')
+        {
+            $('#passwordFeedback').text('Falche Pazword').show();
+        };
+
         var inputId;
         var inputForm;
         var inputEvent;
-        var openQueue =true;
+        var openQueue =false;
         var  client_main;
         const regex2 = /^.{1}$/;
         console.log('JavaScript is loaded successfully');
@@ -148,152 +156,9 @@ $(document).ready
 
         // Eingaben werden vor bevor Sie eingefügt werden in die Felder überprüft.
         // Nicht eingefügt Buchstaben oder Wörter werden als negativ Feedback angezeigt.
-        function validateInputSqlInj(key,event,queue)
-        {
-            const regex = /[<>"'-()*#=\+?]/;
-            inputId = '#'+event.target.id;
-            inputForm = event.target.form;
-            var feedback = inputId+'Feedback';
-            console.log(regex.test(key));
+        
 
-            if(regex.test(key)) // Ungültige Eingabe... // für email eine eigene regexEmail!!!
-            {
-                event.preventDefault(); // Eingabe aus dem Ereignis wird nicht eingefügt
-                $(inputForm).find(feedback).text('Unzulässige Eingabe. '+key +' wurde nicht eingefügt.').show();
-                $(inputForm).find(feedback).removeClass('d-none');
 
-                if($(inputForm).find(inputId).val().length === 0)
-                {
-                    $(inputForm).find(inputId).removeClass('is-valid');
-                }
-                
-                openQueue = true;
-
-                if($(inputForm).find(inputId).data('file') === 'file')
-                {
-                    $(inputForm).find(inputId).val('');
-                    $(inputForm).find(inputId).removeClass('is-valid');
-                }
-            }
-            else // Gültitge Eingabe...
-            {
-                $(inputForm).find(feedback).addClass('d-none');
-
-                // Stamm das Key aus der Warteschlange (queue) dann müssen diese eingefügt werden
-                if(queue && key !== '')
-                {
-                    if(!($(inputForm).find(inputId).data('file') === 'file'))
-                    {
-                        $(inputForm).find(inputId).val(key);
-                        $(inputForm).find(inputId).addClass('is-valid');
-                    }
-                    
-                    
-                }
-
-                // Zusätzliche Überprüfungen des Keys in einer eigenen Funktion erforderlich !!! MACHEN !!!
-
-                let load = true;
-                console.log('Event-Input geöffnet!: '+load); // Verhalten Browser bedingt.
-                // Ereignis wird nicht ausgelöst, wenn die Daten aus der Warteschlange kommen.
-                if (inputForm.length) 
-                {
-                    console.log('existiert');
-                }
-
-                if(inputForm.checkValidity())
-                {
-                    $('#absenden').prop('disabled', false);
-                }
-                else
-                {
-                    $('#absenden').prop('disabled', true);
-                } 
-
-                $(inputId).on
-                (
-                    'input change', 
-                    function()
-                    {
-                        console.log('anderer load-zustand: '+load);
-                        if($(inputForm).find(inputId).val() !== '' )
-                        {
-                            if(load)
-                            {
-                                console.log('Input geprüft')
-                                openQueue = false;  
-                                load = false;
-                                $(inputForm).find(inputId).addClass('is-valid');
-   
-                            }
-                            else
-                            {
-                                console.log('Input wieder geladen   ');
-                                // wenn während des Ereignisses, gespeicherte Formular-
-                                // daten geladen werden wird, der Input-Event-Händler erneut aufgerufen
-                                // damit die Daten in der Warteschlange landen, wird die Schlange
-                                // geöffnet, so dass Event-Change  (s.U) geprüft werden kann.
-                                openQueue = true;
-                                load = true;
-                                $(inputForm).find(inputId).addClass('is-valid');
-
-                            }
-                        }
-                        else
-                        {
-                            $(inputForm).find(inputId).removeClass('is-valid');
-                            $(inputForm).find(feedback).addClass('d-none');
-                        }
-                        // Feedback wird nicht mehr angezeigt, da entweder ein gültige Eingabe erfolgt ist
-                        // oder das Feld wurde gelöscht
-
-                        if (inputForm.length) 
-                        {
-                            console.log('existiert');
-                        }
-    
-                        if(inputForm.checkValidity())
-                        {
-                            $('#absenden').prop('disabled', false);
-                        }
-                        else
-                        {
-                            $('#absenden').prop('disabled', true);
-                        }
-
-                          
-                    }
-                )
-               
-            }
-        }
-
-        // Die Felddaten Daten der gespeicherten Formulardaten, werden in eine Ereignis-Warteschlange
-        // eingefügt. Die Warteschlange wird nach der ausführung aller Anweisungen des Javascripts ausgeführt.
-        // Alle Eingabefelder die mit den Formulardaten gefüllt wurden, werden nach der Reihe gelöscht und der gelöschte
-        // Inhalt zur Überprüfung weitergeleitet.
-        // Dies kann nicht zur Laufzeit überprüft werden, weil der Browser ein anderes Skript verwendet, und die Eingaben
-        // nicht lesbar sind (input = undefined  s.O). Nach dem die Eingaben gerendert worden sind, können die 
-        // Felder gelesen und überprüft werden. Der letzte Parameter besagt, dass es sich um Daten aus der Warteschlange handelt.
-        function mySetTimeout(inputForm,inputId,event)
-        {
-            setTimeout
-            (
-                function() 
-                {
-                    input = $(inputForm).find(inputId).val();
-                    // Feldtext wird gespeichert.
-
-                    if(!($(inputForm).find(inputId).data('file') === 'file'))
-                    {
-                        
-                        $(inputForm).find(inputId).val(''); 
-                    }
-                    validateInputSqlInj(input,event,true); // Text wird zur Überprüfung weitergeleitet
-                },
-                0
-            )
-        } 
 
         $('input').on
         (
@@ -301,8 +166,9 @@ $(document).ready
             'keypress paste change input', // Wenn in einem Eingabefeld etwas eingetippt oder eingefügt wird...
             function(event)  // ...wird die folgende Funktion ausgeführt
             {   
-                console.log(event);
                 inputId = '#'+ event.target.id; // die Id des Eingabefeldes wir ermittelt
+
+                console.log(inputId);
                 inputForm = event.target.form; // die Form des Eingabefeldes wir ermittelt
                 inputEvent = event; // Das Ereignis wird zur Übergabe gespeichert
 
@@ -313,7 +179,6 @@ $(document).ready
                 }
                 else
                 {
-                    
                     var input = event.key; // der getippte Buchstabe (input) wird ermittelt
                 }
                 // Ist der Input nicht definiert, wurde eine gepeicherte Information aus dem Browserinformationen eingefügt
@@ -343,13 +208,234 @@ $(document).ready
                     // der letzte Parameter gibt an, dass der Input nicht aus der Warteschlange stammt
                     validateInputSqlInj(input,event,false); 
                 }
+            }
+        );
+
+        function validateInputSqlInj(key,event,queue)
+        {
+            const regex = /[<>"'-()*#=\+?]/;
+            inputId = '#'+event.target.id;
+            inputForm = event.target.form;
+            var feedback = inputId+'Feedback';
+            console.log(regex.test(key));
+
+            if(regex.test(key)) // Ungültige Eingabe... // für email eine eigene regexEmail!!!
+            {
+                event.preventDefault(); // Eingabe aus dem Ereignis wird nicht eingefügt
+                $(inputForm).find(feedback).text('Unzulässige Eingabe. '+key +' wurde nicht eingefügt.').show();
+                $(inputForm).find(feedback).removeClass('d-none').addClass('invalid-feedback');
+
+                if($(inputForm).find(inputId).val().length === 0)
+                {
+                    $(inputForm).find(inputId).removeClass('is-valid');
+                }
+                
+                openQueue = true;
+
+                if($(inputForm).find(inputId).data('file') === 'file')
+                {
+                    $(inputForm).find(inputId).val('');
+                    $(inputForm).find(inputId).removeClass('is-valid');
+                }
+            }
+            else // Gültitge Eingabe...
+            {
+                
+                
+                $(inputForm).find(feedback).addClass('d-none');
+
+                // Stamm das Key aus der Warteschlange (queue) dann müssen diese eingefügt werden
+                if(queue && key !== '')
+                {
+                    if(!($(inputForm).find(inputId).data('file') === 'file'))
+                    {
+                        $(inputForm).find(inputId).val(key);
+                        password_input_validation();
+                        
+                    }
+                    
+                    
+                }
+
+                // Zusätzliche Überprüfungen des Keys in einer eigenen Funktion erforderlich !!! MACHEN !!!
 
                 
-            }
+                
 
-        );
+                let load = true;
+                console.log('Event-Input geöffnet!: '+load); // Verhalten Browser bedingt.
+                // Ereignis wird nicht ausgelöst, wenn die Daten aus der Warteschlange kommen.
+                if (inputForm.length) 
+                {
+                    console.log('existiert');
+                }
+
+               
+
+                $(inputId).on
+                (
+                    'input change', 
+                    function()
+                    {
+                        console.log('anderer load-zustand: '+load);
+                        if($(inputForm).find(inputId).val() !== '' )
+                        {
+                            if(load)
+                            {
+                                console.log('Input geprüft')
+                                openQueue = false;  
+                                load = false;
+                                password_input_validation();
+                            }
+                            else
+                            {
+                                console.log('Input wieder geladen   ');
+                                // wenn während des Ereignisses, gespeicherte Formular-
+                                // daten geladen werden wird, der Input-Event-Händler erneut aufgerufen
+                                // damit die Daten in der Warteschlange landen, wird die Schlange
+                                // geöffnet, so dass Event-Change  (s.U) geprüft werden kann.
+                                openQueue = true;
+                                load = true;
+                                // $(inputForm).find(inputId).addClass('is-valid');
+                                password_input_validation();
+                            }
+                           
+                        }
+                        else
+                        {
+                            $(inputForm).find(inputId).removeClass('is-valid is-invalid');
+                            $(inputForm).find(feedback).addClass('d-none');
+                        }
+                        // Feedback wird nicht mehr angezeigt, da entweder ein gültige Eingabe erfolgt ist
+                        // oder das Feld wurde gelöscht
+
+                        if (inputForm.length) 
+                        {
+                            console.log('existiert');
+                        }
+    
+                        // if(inputForm.checkValidity())
+                        // {
+                        //     $(inputForm).find('#save_password').prop('disabled', false); // kann verallgemeinert werden
+                        // }
+                        // else
+                        // {
+                        //     $(inputForm).find('#save_password').prop('disabled', true);
+                        // }
+                    }
+                )
+            }
+        }
+
+        
+        function password_input_validation()
+        {
+
+            const password = $(inputForm).find('#password').val();
+            const confirmPassword = $(inputForm).find('#confirm_password').val();
+
+            let regex = /^(?=.*[A-Z])(?=.*[!$%^&*(),.?:{}|])[a-zA-Z0-9!$%^&*(),.?:{}|]+$/ 
+            let regex2 = /[@#'<>"=]/;  // Nur Zeichen, die nicht @#'<>= enthalten
+
+            
+            if(password.length <8)
+            {   
+                if(password.length > 0)
+                {
+                    console.log('passwort zu kurz');
+                    $('#password').removeClass('is-valid').addClass('is-invalid');
+                    $('#passwordFeedback').text('Das Passwort muss mindesten 8 Zeichen lang sein.').show();
+                    $('#passwordFeedback').removeClass('d-none valid-feedback').addClass('invalid-feedback');
+                    $('#save_password').prop('disabled', true);
+                    
+                }
+                else
+                {
+                    $('#password').removeClass('is-invalid');
+                    $('#password').removeClass('is-valid');
+                    $('#passwordFeedback').text('').show();
+                    $('#save_password').prop('disabled', true);
+                }
+                
+            }
+            else if(regex2.test(password))
+                {
+                    $('#password').removeClass('is-valid').addClass('is-invalid');
+                    $('#passwordFeedback').text('Das Passwort darf keines der folgenden Zeichen enthalten: @ # \' < > " =').show();
+                    $('#passwordFeedback').removeClass('d-none');
+                    $('#save_password').prop('disabled', true);
+                }
+            else if(!regex.test(password))
+            {
+                $('#password').removeClass('is-valid').addClass('is-invalid');
+       
+                $('#passwordFeedback').text('Das Passwort muss mindestens ein Großbuchtaben und ein Sonderzeichen enthalten').show();
+                $('#passwordFeedback').removeClass('d-none');
+                $('#save_password').prop('disabled', true);
+            }
+            else
+            {
+                $('#password').removeClass('is-invalid').addClass('is-valid');
+              
+
+                $('#passwordFeedback').text('Is correct!').show();
+                $('#passwordFeedback').removeClass('d-none invalid-feedback').addClass('valid-feedback');
+
+                if(password !== confirmPassword)
+                {
+                    if(confirmPassword.length>0)
+                    {
+                        $('#confirm_password').removeClass('is-valid').addClass('is-invalid');
+                        $('#confirm_passwordFeedback').removeClass('valid-feedback').addClass('invalid-feedback');
+                        $('#confirm_passwordFeedback').text("Die Passwörter stimmen nicht überein.").show();
+                        $('#confirm_passwordFeedback').removeClass('d-none');
+                        $('#save_password').prop('disabled', true);
+                    }
+                    else
+                    {
+                        $('#confirm_password').removeClass('is-valid',);
+                        $('#confirm_password').removeClass('is-invalid');
+                        $('#confirm_passwordFeedback').text("").show();
+                    }
+                    
+                }
+                else
+                {
+                    $('#confirm_password').removeClass('is-invalid').addClass('is-valid');
+                    $('#confirm_passwordFeedback').text('Is correct').show();
+                    $('#confirm_passwordFeedback').removeClass('d-none invalid-feedback').addClass('valid-feedback');
+                    $('#save_password').prop('disabled', false);
+                }
+            }
+        }
+         // Die Felddaten Daten der gespeicherten Formulardaten, werden in eine Ereignis-Warteschlange
+        // eingefügt. Die Warteschlange wird nach der ausführung aller Anweisungen des Javascripts ausgeführt.
+        // Alle Eingabefelder die mit den Formulardaten gefüllt wurden, werden nach der Reihe gelöscht und der gelöschte
+        // Inhalt zur Überprüfung weitergeleitet.
+        // Dies kann nicht zur Laufzeit überprüft werden, weil der Browser ein anderes Skript verwendet, und die Eingaben
+        // nicht lesbar sind (input = undefined  s.O). Nach dem die Eingaben gerendert worden sind, können die 
+        // Felder gelesen und überprüft werden. Der letzte Parameter besagt, dass es sich um Daten aus der Warteschlange handelt.
+        function mySetTimeout(inputForm,inputId,event)
+        {
+            setTimeout
+            (
+                function() 
+                {
+                    input = $(inputForm).find(inputId).val();
+                    // Feldtext wird gespeichert.
+
+                    if(!($(inputForm).find(inputId).data('file') === 'file'))
+                    {
+                        $(inputForm).find(inputId).val(''); 
+                    }
+                    validateInputSqlInj(input,event,true); // Text wird zur Überprüfung weitergeleitet
+                },
+                0
+            )
+        }
 
         window.openClose = openClose;
         window.deleteClient = deleteClient;
+        window.password_input_validation = password_input_validation;
     }
 );

@@ -25,11 +25,7 @@ $(document).ready(function ()
         */
 
        
-            var login_failed = $('#login-failed').data('login-failed');
-            if (login_failed == '1')
-            {
-                $('#login-feedback').addClass('red').text('Falche Pazword').show();
-            };
+          #
         
 
 
@@ -46,16 +42,16 @@ $(document).ready(function ()
                 if(password.length > 0)
                 {
                     $('#password').removeClass('is-valid').addClass('is-invalid');
-                    $('#password_feedback').removeClass('valid-feedback','green').addClass('invalid-feedback','red');
-                    $('#password_feedback').text('Das Passwort muss mindesten 8 Zeichen lang sein.').show();
+                    $('#passwordFeedback').text('Das Passwort muss mindesten 8 Zeichen lang sein.').show();
+                    $('#passwordFeedback').removeClass('d-none valid-feedback').addClass('invalid-feedback');
                     $('#save_password').prop('disabled', true);
                     
                 }
                 else
                 {
                     $('#password').removeClass('is-invalid');
-                    $('#password').removeClass('is-valid');
-                    $('#password_feedback').text('').show();
+                    $('#password').addClass('is-valid');
+                    $('#passwordFeedback').text('').show();
                     $('#save_password').prop('disabled', true);
                 }
                 
@@ -63,46 +59,47 @@ $(document).ready(function ()
             else if(regex2.test(password))
                 {
                     $('#password').removeClass('is-valid').addClass('is-invalid');
-                    $('#password_feedback').removeClass('valid-feedback','green').addClass('invalid-feedback','red');
-                    $('#password_feedback').text('Das Passwort darf keines der folgenden Zeichen enthalten: @ # \' < > " =').show();
+                    $('#passwordFeedback').text('Das Passwort darf keines der folgenden Zeichen enthalten: @ # \' < > " =').show();
+                    $('#passwordFeedback').removeClass('d-none');
                     $('#save_password').prop('disabled', true);
                 }
             else if(!regex.test(password))
             {
                 $('#password').removeClass('is-valid').addClass('is-invalid');
-                $('#password_feedback').removeClass('valid-feedback',).addClass('invalid-feedback');
-                $('#password_feedback').text('Das Passwort muss mindestens ein Großbuchtaben und ein Sonderzeichen enthalten').show();
+                $('#passwordFeedback').removeClass('valid-feedback',).addClass('invalid-feedback');
+                $('#passwordFeedback').text('Das Passwort muss mindestens ein Großbuchtaben und ein Sonderzeichen enthalten').show();
+                $('#passwordFeedback').removeClass('d-none');
                 $('#save_password').prop('disabled', true);
             }
             else
             {
-                $('#password').removeClass('is-invalid').addClass('is-valid');
-                $('#password_feedback').removeClass('invalid-feedback','red').addClass('valid-feedback','green');
+                $('#password').addClass('is-valid').removeClass('is-invalid');
 
-                $('#password_feedback').text('Is correct!').show();
+                $('#passwordFeedback').text('Is correct!').show();
+                $('#passwordFeedback').removeClass('d-none invalid-feedback').addClass('valid-feedback');
 
                 if(password !== confirmPassword)
                 {
                     if(confirmPassword.length>0)
                     {
                         $('#confirm_password').removeClass('is-valid').addClass('is-invalid');
-                        $('#confirm_password_feedback').removeClass('valid-feedback').addClass('invalid-feedback');
-                        $('#confirm_password_feedback').text("Die Passwörter stimmen nicht überein.").show();
+                        $('#confirm_passwordFeedback').removeClass('valid-feedback');
+                        $('#confirm_passwordFeedback').text("Die Passwörter stimmen nicht überein.").show();
                         $('#save_password').prop('disabled', true);
                     }
                     else
                     {
                         $('#confirm_password').removeClass('is-valid',);
                         $('#confirm_password').removeClass('is-invalid');
-                        $('#confirm_password_feedback').text("").show();
+                        $('#confirm_passwordFeedback').text("").show();
                     }
                     
                 }
                 else
                 {
                     $('#confirm_password').removeClass('is-invalid').addClass('is-valid');
-                    $('#confirm_password_feedback').removeClass('invalid-feedback','red').addClass('valid-feedback','green');
-                    $('#confirm_password_feedback').text('Is correct').show();
+                    $('#confirm_passwordFeedback').text('Is correct').show('');
+                    $('#confirm_passwordFeedback').removeClass('d-none invalid-feedback').addClass('valid-feedback');
                     $('#save_password').prop('disabled', false);
                 }
             }

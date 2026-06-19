@@ -14,7 +14,7 @@ $(document).ready(function()
 {
  
     console.log('Login erfolgreich.');
-    $('#customer_contact_informationen').removeClass('d-none');
+    $('#customer_contact_information').removeClass('d-none');
     
 
     $.ajax
@@ -56,7 +56,7 @@ $(document).ready(function()
     );
 
     let currentStepIndex = 0;
-    var form_ids = ['#customer_contact_informationen','#customer_host_configuration','#customer_client','#customer_erp_configuration','#customer_import'];
+    var form_ids = ['#customer_contact_information','#customer_host_configuration','#customer_client','#customer_erp_configuration','#customer_import'];
     let formId =  form_ids[currentStepIndex];
     let btnTxt = '';
     
@@ -143,14 +143,15 @@ $(document).ready(function()
                 console.log
                 (
                     response,
-                    "Daten erfolgreich gesendet:"+
-                    response.split('\n')[11]+ "\n"+
-                    response.split('\n')[12]+"\n"+
-                    response.split('\n')[13]+"\n"+
-                    response.split('\n')[14]+"\n"+
-                    response.split('\n')[15]+"\n"+
-                    response.split('\n')[16]+"\n"+
-                    response.split('\n')[17]+"\n",
+                //     "Daten erfolgreich gesendet:"+
+                //     response.split('\n')[11]+ "\n"+
+                //     response.split('\n')[12]+"\n"+
+                //     response.split('\n')[13]+"\n"+
+                //     response.split('\n')[14]+"\n"+
+                //     response.split('\n')[15]+"\n"+
+                //     response.split('\n')[16]+"\n"+
+                //     response.split('\n')[17]+"\n",
+                // 
                 );
             },
             error: function (error) {

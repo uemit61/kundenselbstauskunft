@@ -33,11 +33,11 @@
             ['contact_information_phone'	=>['form-floating flex-fill',['number'],'Telefon'],'contact_information_email' => ['form-floating flex-fill',['email'],'Email']],	
         ];
 
-        $contact_informationen_adress=
+        $contact_information_address=
         [
             'field_name' => 'Anschrift',
-            ['contact_informationen_adress_street' => ['form-floating col-lg-9 flex-fill',['text'],'Straße'],'contact_informationen_adress_house_number' => ['form-floating col-lg-3 flex-fill',['text'],'Nr.']],	
-            ['contact_informationen_adress_postcode'	=>['form-floating col-lg-3 flex-fill',['number'],'PLZ'],'contact_informationen_adress_city' => ['form-floating col-lg-9 flex-fill',['text'],'Ort']],
+            ['contact_information_address_street' => ['form-floating col-lg-9 flex-fill',['text'],'Straße'],'contact_information_address_house_number' => ['form-floating col-lg-3 flex-fill',['text'],'Nr.']],	
+            ['contact_information_address_postcode'	=>['form-floating col-lg-3 flex-fill',['number'],'PLZ'],'contact_information_address_city' => ['form-floating col-lg-9 flex-fill',['text'],'Ort']],
         ];
 
         $contact_information_contact_person=
@@ -47,15 +47,15 @@
             ['contact_information_contact_person_name'	=> ['form-floating flex-fill',['text'],'Vorname'],'contact_information_contact_person_surname' =>['form-floating flex-fill',['text'],'Nachname']],
         ];
 
-        $customer_contact_informationen=
+        $customer_contact_information=
         [
 
             [$contact_information],
-            [$contact_informationen_adress],
+            [$contact_information_address],
             [$contact_information_contact_person]
         ];
 
 
 
-        return ['form_label'=>'Kontaktdaten','form_id' =>'customer_contact_informationen','form_body'=>$customer_contact_informationen];
+        return ['form_label'=>'Kontaktdaten','form_id' =>'customer_contact_information','form_body'=>$customer_contact_information];
     }

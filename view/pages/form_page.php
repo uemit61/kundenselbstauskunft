@@ -49,10 +49,10 @@ class Form_Page
                 ?>
 
 
-                <form id=<?= $form_infos['form_id'] ?> name="main_form" method="post" action="" class="step d-flex flex-column  needs-validation gap-3 d-none "  data-label=<?=$form_infos['form_label'] ?> novalidate>
+                <form id=<?= $form_infos['form_id'] ?> name=<?= $form_infos['form_id'] ?> method="post" action="" class="step d-flex flex-column  needs-validation gap-3 d-none "  data-label=<?=$form_infos['form_label'] ?> novalidate>
                 <h3 class="text-center p-3"><?=$form_infos['form_label'] ?></h3>
                 <?php
-                    if($step[0][0]['field_name'] == 'Mandanteninformation'):s
+                    if($step[0][0]['field_name'] == 'Mandanteninformation'):
                 ?>
 
                         <div class="d-flex text p-2" >

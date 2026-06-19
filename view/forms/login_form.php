@@ -15,12 +15,11 @@
                         </span>
 
                         <div class="form-floating">
-                            <input type="text" class="form-control rounded-end-5 " id="username" name="Loginname" placeholder="email adresse">
-                            <label for="Loginname" class="form-label">email adresse</label>
+                            <input type="text" class="form-control rounded-end-5 " id="username" name="username" placeholder="email adresse">
+                            <label for="username" class="form-label">email adresse</label>
                             
                         </div>
                         <div id="usernameFeedback" class="text invalid-feedback"></div>
-                        
                     </div> 
 
                     <div class="text-primary  d-flex p-2 justify-content-end ">Passwort vergessen?</div>
@@ -30,13 +29,13 @@
                             <i class="bi bi-person-fill-lock "></i>
                         </span>
                         <div class="form-floating">
-                            <input type="password" class="form-control rounded-end-5" id="password" name="Password" placeholder="Password">
-                            <label for="Password" class="form-label">Password</label>
+                            <input type="password" class="form-control rounded-end-5" id="password" name="password" placeholder="Password">
+                            <label for="password" class="form-label">Password</label>
                         </div>
+                        <div class="invalid-feedback mb-2" id="passwordFeedback"></div>
                     </div>
 
-                    <div id="login-failed" data-login-failed="<?php echo $login_failed; ?>"></div>
-                    <div class="invalid-feedback mb-2 red" id="login-feedback"></div>
+                    <div id="login_failed" data-login-failed="<?php echo $login_failed; ?>"></div>
                     <input type="submit" id="loginBtn" name="btn" value="Anmelden" class="btn btn-success rounded-5 ">
                 </fieldset>
             </form>
