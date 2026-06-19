@@ -4,7 +4,6 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
-
 -- -----------------------------------------------------
 -- Schema config_self_disclosure
 -- -----------------------------------------------------
@@ -13,7 +12,16 @@ DROP SCHEMA IF EXISTS `config_self_disclosure` ;
 -- -----------------------------------------------------
 -- Schema config_self_disclosure
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `config_self_disclosure` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ;
+CREATE SCHEMA IF NOT EXISTS `config_self_disclosure` DEFAULT CHARACTER SET utf8mb3 ;
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `mydb` ;
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8mb3 ;
 USE `config_self_disclosure` ;
 
 -- -----------------------------------------------------
@@ -29,7 +37,6 @@ CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`customer` (
   `customer_admin` TINYINT(1) NULL DEFAULT NULL,
   PRIMARY KEY (`customer_id`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8mb3;
 
 
@@ -44,9 +51,6 @@ CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`customer_client` (
   `client_company_name` VARCHAR(45) NULL DEFAULT NULL,
   `client_phone_number` INT NULL DEFAULT NULL,
   `client_email` VARCHAR(45) NULL DEFAULT NULL,
-  `client_ust_idnr` VARCHAR(45) NULL DEFAULT NULL,
-  `client_hr_number` VARCHAR(45) NULL DEFAULT NULL,
-  `client_juristication` VARCHAR(45) NULL DEFAULT NULL,
   `customer_id` INT NOT NULL,
   PRIMARY KEY (`client_id`, `customer_id`),
   CONSTRAINT `fk_customer_client_customer1`
@@ -80,28 +84,6 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `config_self_disclosure`.`client_client_main_adress`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `config_self_disclosure`.`client_client_main_adress` ;
-
-CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`client_client_main_adress` (
-  `client_main_adress_id` INT NOT NULL AUTO_INCREMENT,
-  `client_main_adress_street` VARCHAR(45) NULL DEFAULT NULL,
-  `client_main_adress_house_Number` VARCHAR(45) NULL DEFAULT NULL,
-  `client_main_adress_postcode` VARCHAR(45) NULL DEFAULT NULL,
-  `client_main_adress_city` VARCHAR(45) NULL DEFAULT NULL,
-  `client_id` INT NOT NULL,
-  PRIMARY KEY (`client_main_adress_id`, `client_id`),
-  CONSTRAINT `fk_client_client_main_adress_customer_client1`
-    FOREIGN KEY (`client_id`)
-    REFERENCES `config_self_disclosure`.`customer_client` (`client_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
-
--- -----------------------------------------------------
 -- Table `config_self_disclosure`.`client_director`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `config_self_disclosure`.`client_director` ;
@@ -123,19 +105,61 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `config_self_disclosure`.`clinet_second_adress`
+-- Table `config_self_disclosure`.`client_main_address`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `config_self_disclosure`.`clinet_second_adress` ;
+DROP TABLE IF EXISTS `config_self_disclosure`.`client_main_address` ;
 
-CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`clinet_second_adress` (
-  `client_second_adress_id` INT NOT NULL AUTO_INCREMENT,
-  `clinet_second_adress_street` VARCHAR(45) NULL DEFAULT NULL,
-  `clinet_second_adress_house_number` VARCHAR(45) NULL DEFAULT NULL,
-  `clinet_second_adress_postcode` VARCHAR(45) NULL DEFAULT NULL,
-  `clinet_second_adress_city` VARCHAR(45) NULL DEFAULT NULL,
+CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`client_main_address` (
+  `client_main_address_id` INT NOT NULL AUTO_INCREMENT,
+  `client_main_address_street` VARCHAR(45) NULL DEFAULT NULL,
+  `client_main_address_house_Number` VARCHAR(45) NULL DEFAULT NULL,
+  `client_main_address_postcode` VARCHAR(45) NULL DEFAULT NULL,
+  `client_main_address_city` VARCHAR(45) NULL DEFAULT NULL,
   `client_id` INT NOT NULL,
-  PRIMARY KEY (`client_second_adress_id`, `client_id`),
-  CONSTRAINT `fk_clinet_second_adress_customer_client1`
+  PRIMARY KEY (`client_main_address_id`, `client_id`),
+  CONSTRAINT `fk_client_main_address_customer_client1`
+    FOREIGN KEY (`client_id`)
+    REFERENCES `config_self_disclosure`.`customer_client` (`client_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `config_self_disclosure`.`client_second_address`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `config_self_disclosure`.`client_second_address` ;
+
+CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`client_second_address` (
+  `client_second_address_id` INT NOT NULL AUTO_INCREMENT,
+  `client_second_address_street` VARCHAR(45) NULL DEFAULT NULL,
+  `client_second_address_house_number` VARCHAR(45) NULL DEFAULT NULL,
+  `client_second_address_postcode` VARCHAR(45) NULL DEFAULT NULL,
+  `client_second_address_city` VARCHAR(45) NULL DEFAULT NULL,
+  `client_id` INT NOT NULL,
+  PRIMARY KEY (`client_second_address_id`, `client_id`),
+  CONSTRAINT `fk_client_second_address_customer_client1`
+    FOREIGN KEY (`client_id`)
+    REFERENCES `config_self_disclosure`.`customer_client` (`client_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+-- -----------------------------------------------------
+-- Table `config_self_disclosure`.`client_legal_information`
+-- ---------------------------------------------------
+DROP TABLE IF EXISTS `config_self_disclosure`.`client_legal_information` ;
+
+CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`client_legal_information` (
+  `client_legal_information_id` INT NOT NULL AUTO_INCREMENT,
+  `client_legal_information_ust_idnr` VARCHAR(45) NULL DEFAULT NULL,
+  `client_legal_information_hr_number` VARCHAR(45) NULL DEFAULT NULL,
+  `client_legal_information_juristication` VARCHAR(45) NULL DEFAULT NULL,
+  `client_id` INT NOT NULL,
+  PRIMARY KEY (`client_legal_information_id`, `client_id`),
+  CONSTRAINT `fk_client_legal_information_customer_client1`
     FOREIGN KEY (`client_id`)
     REFERENCES `config_self_disclosure`.`customer_client` (`client_id`)
     ON DELETE CASCADE
@@ -176,7 +200,6 @@ CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`contact_information_contact
   `contact_information_contact_person_gender` VARCHAR(45) NULL DEFAULT NULL,
   `contact_information_contact_person_name` VARCHAR(45) NULL DEFAULT NULL,
   `contact_information_contact_person_surname` VARCHAR(45) NULL DEFAULT NULL,
-  `contact_information_contact_person_saved_data` TINYINT(1) NULL DEFAULT NULL,
   `contact_information_id` INT NOT NULL,
   PRIMARY KEY (`contact_information_contact_person_id`, `contact_information_id`),
   CONSTRAINT `fk_contact_information_contact_person_customer_contact_inform1`
@@ -189,20 +212,19 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `config_self_disclosure`.`contact_informationen_adress`
+-- Table `config_self_disclosure`.`contact_information_address`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `config_self_disclosure`.`contact_informationen_adress` ;
+DROP TABLE IF EXISTS `config_self_disclosure`.`contact_information_address` ;
 
-CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`contact_informationen_adress` (
-  `contact_informationen_adress_id` INT NOT NULL AUTO_INCREMENT,
-  `contact_informationen_adress_street` VARCHAR(45) NULL DEFAULT NULL,
-  `contact_informationen_adress_house_number` VARCHAR(45) NULL DEFAULT NULL,
-  `contact_informationen_adress_postcode` VARCHAR(45) NULL DEFAULT NULL,
-  `contact_informationen_adress_city` VARCHAR(45) NULL DEFAULT NULL,
-  `contact_informationen_adress_saved_data` TINYINT(1) NULL DEFAULT NULL,
+CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`contact_information_address` (
+  `contact_information_address_id` INT NOT NULL AUTO_INCREMENT,
+  `contact_information_address_street` VARCHAR(45) NULL DEFAULT NULL,
+  `contact_information_address_house_number` VARCHAR(45) NULL DEFAULT NULL,
+  `contact_information_address_postcode` VARCHAR(45) NULL DEFAULT NULL,
+  `contact_information_address_city` VARCHAR(45) NULL DEFAULT NULL,
   `contact_information_id` INT NOT NULL,
-  PRIMARY KEY (`contact_informationen_adress_id`, `contact_information_id`),
-  CONSTRAINT `fk_contact_informationen_adress_customer_contact_information1`
+  PRIMARY KEY (`contact_information_address_id`, `contact_information_id`),
+  CONSTRAINT `fk_contact_information_address_customer_contact_information1`
     FOREIGN KEY (`contact_information_id`)
     REFERENCES `config_self_disclosure`.`customer_contact_information` (`contact_information_id`)
     ON DELETE CASCADE
@@ -290,6 +312,52 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
+-- Table `config_self_disclosure`.`import_customer_data`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `config_self_disclosure`.`import_customer_data` ;
+
+CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`import_customer_data` (
+  `import_customer_data_id` INT NOT NULL AUTO_INCREMENT,
+  `import_customer_data_status` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_data_customer_number` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_data_different_billing_customer` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_data_salutation` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_data_name` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_data_surname` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_data_street` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_data_house_number` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_data_postcode` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_data_city` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_data_country` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_data_company_name` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_data_additional_address_information` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_data_email` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_data_different_erp_configuration_invoice_email` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_data_phone` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_data_financiall_accounting_account` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_data_tax_number` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_data_informations` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_data_calculate_shipping_cost` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_data_direct_debit_mandate_reference` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_data_direct_debit_bank` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_data_direct_debit_bic` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_data_direct_debit_iban` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_data_direct_debit_account_holder` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_data_sales_tax_exempt` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_data_own_supplier_number` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_data_number_of_additions`  VARCHAR(128) NULL DEFAULT NULL,
+  `import_id` INT NOT NULL,
+  PRIMARY KEY (`import_customer_data_id`, `import_id`),
+  CONSTRAINT `fk_import_customer_data_customer_import1`
+    FOREIGN KEY (`import_id`)
+    REFERENCES `config_self_disclosure`.`customer_import` (`import_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
 -- Table `config_self_disclosure`.`customer_json_cache`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `config_self_disclosure`.`customer_json_cache` ;
@@ -314,11 +382,11 @@ DEFAULT CHARACTER SET = utf8mb3;
 DROP TABLE IF EXISTS `config_self_disclosure`.`customer_token` ;
 
 CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`customer_token` (
-  `token_id` INT NOT NULL AUTO_INCREMENT,
-  `token_key` VARCHAR(255) NULL DEFAULT NULL,
-  `token_used` TINYINT(1) NULL DEFAULT NULL,
+  `customer_token_id` INT NOT NULL AUTO_INCREMENT,
+  `customer_token_key` VARCHAR(255) NULL DEFAULT NULL,
+  `customer_token_used` TINYINT(1) NULL DEFAULT NULL,
   `customer_id` INT NOT NULL,
-  PRIMARY KEY (`token_id`, `customer_id`),
+  PRIMARY KEY (`customer_token_id`, `customer_id`),
   CONSTRAINT `fk_customer_token_customer1`
     FOREIGN KEY (`customer_id`)
     REFERENCES `config_self_disclosure`.`customer` (`customer_id`)
@@ -335,9 +403,9 @@ DROP TABLE IF EXISTS `config_self_disclosure`.`erp_configuration_cancellation_in
 
 CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`erp_configuration_cancellation_invoice` (
   `erp_configuration_cancellation_invoice_id` INT NOT NULL AUTO_INCREMENT,
-  `erp_configuration_cancellation_invoice_month_number` INT NULL DEFAULT NULL,
-  `erp_configuration_cancellation_invoice_year_number` INT NULL DEFAULT NULL,
-  `erp_configuration_cancellation_invoice_first_number` INT NULL DEFAULT NULL,
+  `erp_configuration_cancellation_invoice_month` INT NULL DEFAULT NULL,
+  `erp_configuration_cancellation_invoice_year` INT NULL DEFAULT NULL,
+  `erp_configuration_cancellation_invoice_first` INT NULL DEFAULT NULL,
   `erp_configuration_id` INT NOT NULL,
   PRIMARY KEY (`erp_configuration_cancellation_invoice_id`, `erp_configuration_id`),
   CONSTRAINT `fk_erp_configuration_cancellation_invoice_customer_erp_config1`
@@ -356,9 +424,9 @@ DROP TABLE IF EXISTS `config_self_disclosure`.`erp_configuration_delivery_note` 
 
 CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`erp_configuration_delivery_note` (
   `erp_configuration_delivery_note_id` INT NOT NULL AUTO_INCREMENT,
-  `erp_configuration_delivery_note_month_number` INT NULL DEFAULT NULL,
-  `erp_configuration_delivery_note_year_Number` INT NULL DEFAULT NULL,
-  `erp_configuration_delivery_note_first_Number` INT NULL DEFAULT NULL,
+  `erp_configuration_delivery_note_month` INT NULL DEFAULT NULL,
+  `erp_configuration_delivery_note_year` INT NULL DEFAULT NULL,
+  `erp_configuration_delivery_note_first` INT NULL DEFAULT NULL,
   `erp_configuration_id` INT NOT NULL,
   PRIMARY KEY (`erp_configuration_delivery_note_id`, `erp_configuration_id`),
   CONSTRAINT `fk_erp_configuration_delivery_note_customer_erp_configuration1`
@@ -376,12 +444,12 @@ DEFAULT CHARACTER SET = utf8mb3;
 DROP TABLE IF EXISTS `config_self_disclosure`.`erp_configuration_incoming_delivery_note` ;
 
 CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`erp_configuration_incoming_delivery_note` (
-  `erp_configuration_incoming_delivery_note_id` INT NOT NULL AUTO_INCREMENT,
-  `erp_configuration_incoming_delivery_note_month_number` INT NULL DEFAULT NULL,
-  `erp_configuration_incoming_delivery_note_year_number` INT NULL DEFAULT NULL,
-  `erp_configuration_incoming_delivery_note_first_number` INT NULL DEFAULT NULL,
+  `erp_configuration_delivery_note_id` INT NOT NULL AUTO_INCREMENT,
+  `erp_configuration_delivery_note_month` INT NULL DEFAULT NULL,
+  `erp_configuration_delivery_note_year` INT NULL DEFAULT NULL,
+  `erp_configuration_delivery_note_first` INT NULL DEFAULT NULL,
   `erp_configuration_id` INT NOT NULL,
-  PRIMARY KEY (`erp_configuration_incoming_delivery_note_id`, `erp_configuration_id`),
+  PRIMARY KEY (`erp_configuration_delivery_note_id`, `erp_configuration_id`),
   CONSTRAINT `fk_erp_configuration_incoming_delivery_note_customer_erp_conf1`
     FOREIGN KEY (`erp_configuration_id`)
     REFERENCES `config_self_disclosure`.`customer_erp_configuration` (`erp_configuration_id`)
@@ -397,13 +465,13 @@ DEFAULT CHARACTER SET = utf8mb3;
 DROP TABLE IF EXISTS `config_self_disclosure`.`erp_configuration_incoming_invoice` ;
 
 CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`erp_configuration_incoming_invoice` (
-  `erp_configuration_incoming_invoice_id` INT NOT NULL AUTO_INCREMENT,
-  `erp_configuration_incoming_invoice_month_number` INT NULL DEFAULT NULL,
-  `erp_configuration_incoming_invoice_year_number` INT NULL DEFAULT NULL,
-  `erp_configuration_incoming_invoice_first_number` INT NULL DEFAULT NULL,
+  `erp_configuration_invoice_id` INT NOT NULL AUTO_INCREMENT,
+  `erp_configuration_invoice_month` INT NULL DEFAULT NULL,
+  `erp_configuration_invoice_year` INT NULL DEFAULT NULL,
+  `erp_configuration_invoice_first` INT NULL DEFAULT NULL,
   `erp_configuration_id` INT NOT NULL,
-  PRIMARY KEY (`erp_configuration_incoming_invoice_id`, `erp_configuration_id`),
-  CONSTRAINT `fk_erp_configuration_incoming_invoice_customer_erp_configurat1`
+  PRIMARY KEY (`erp_configuration_invoice_id`, `erp_configuration_id`),
+  CONSTRAINT `fk_erp_configuration_invoice_customer_erp_configurat1`
     FOREIGN KEY (`erp_configuration_id`)
     REFERENCES `config_self_disclosure`.`customer_erp_configuration` (`erp_configuration_id`)
     ON DELETE CASCADE
@@ -419,9 +487,9 @@ DROP TABLE IF EXISTS `config_self_disclosure`.`erp_configuration_invoice` ;
 
 CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`erp_configuration_invoice` (
   `erp_configuration_invoice_id` INT NOT NULL AUTO_INCREMENT,
-  `erp_configuration_invoice_month_number` INT NULL DEFAULT NULL,
-  `erp_configuration_invoice_year_number` INT NULL DEFAULT NULL,
-  `erp_configuration_invoice_first_Number` INT NULL DEFAULT NULL,
+  `erp_configuration_invoice_month` INT NULL DEFAULT NULL,
+  `erp_configuration_invoice_year` INT NULL DEFAULT NULL,
+  `erp_configuration_invoice_first` INT NULL DEFAULT NULL,
   `erp_configuration_id` INT NOT NULL,
   PRIMARY KEY (`erp_configuration_invoice_id`, `erp_configuration_id`),
   CONSTRAINT `fk_erp_configuration_invoice_customer_erp_configuration1`
@@ -483,12 +551,12 @@ DROP TABLE IF EXISTS `config_self_disclosure`.`erp_configuration_offer` ;
 
 CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`erp_configuration_offer` (
   `erp_configuration_offer_id` INT NOT NULL AUTO_INCREMENT,
-  `erp_configuration_offer_month_number` INT NULL DEFAULT NULL,
-  `erp_configuration_offer_year_number` INT NULL DEFAULT NULL,
-  `erp_configuration_offer_first_number` INT NULL DEFAULT NULL,
+  `erp_configuration_offer_month` INT NULL DEFAULT NULL,
+  `erp_configuration_offer_year` INT NULL DEFAULT NULL,
+  `erp_configuration_offer_first` INT NULL DEFAULT NULL,
   `erp_configuration_id` INT NOT NULL,
   PRIMARY KEY (`erp_configuration_offer_id`, `erp_configuration_id`),
-  CONSTRAINT `fk_erp_configuration_offer_customer_erp_configuration1`
+  CONSTRAINT `fk_erp_configuration_customer_erp_configuration1`
     FOREIGN KEY (`erp_configuration_id`)
     REFERENCES `config_self_disclosure`.`customer_erp_configuration` (`erp_configuration_id`)
     ON DELETE CASCADE
@@ -504,9 +572,9 @@ DROP TABLE IF EXISTS `config_self_disclosure`.`erp_configuration_order` ;
 
 CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`erp_configuration_order` (
   `erp_configuration_order_id` INT NOT NULL AUTO_INCREMENT,
-  `erp_configuration_order_month_number` INT NULL DEFAULT NULL,
-  `erp_configuration_order_year_number` INT NULL DEFAULT NULL,
-  `erp_configuration_order_first_number` INT NULL DEFAULT NULL,
+  `erp_configuration_order_month` INT NULL DEFAULT NULL,
+  `erp_configuration_order_year` INT NULL DEFAULT NULL,
+  `erp_configuration_order_first` INT NULL DEFAULT NULL,
   `erp_configuration_id` INT NOT NULL,
   PRIMARY KEY (`erp_configuration_order_id`, `erp_configuration_id`),
   CONSTRAINT `fk_erp_configuration_order_customer_erp_configuration1`
@@ -525,9 +593,9 @@ DROP TABLE IF EXISTS `config_self_disclosure`.`erp_configuration_order_conformat
 
 CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`erp_configuration_order_conformation` (
   `erp_configuration_order_conformation_id` INT NOT NULL AUTO_INCREMENT,
-  `erp_configuration_order_conformation_month_number` INT NULL DEFAULT NULL,
-  `erp_configuration_order_conformation_year_number` INT NULL DEFAULT NULL,
-  `erp_configuration_order_conformation_first_Number` INT NULL DEFAULT NULL,
+  `erp_configuration_order_conformation_month` INT NULL DEFAULT NULL,
+  `erp_configuration_order_conformation_year` INT NULL DEFAULT NULL,
+  `erp_configuration_order_conformation_first` INT NULL DEFAULT NULL,
   `erp_configuration_id` INT NOT NULL,
   PRIMARY KEY (`erp_configuration_order_conformation_id`, `erp_configuration_id`),
   CONSTRAINT `fk_erp_configuration_order_conformation_customer_erp_configur1`
@@ -545,39 +613,15 @@ DEFAULT CHARACTER SET = utf8mb3;
 DROP TABLE IF EXISTS `config_self_disclosure`.`erp_configuration_service_order` ;
 
 CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`erp_configuration_service_order` (
-  `service_order_id` INT NOT NULL AUTO_INCREMENT,
-  `service_order_month_number` INT NULL DEFAULT NULL,
-  `service_order_year_number` INT NULL DEFAULT NULL,
-  `service_order_first_number` INT NULL DEFAULT NULL,
+  `erp_configuration_service_order_id` INT NOT NULL AUTO_INCREMENT,
+  `erp_configuration_service_order_month` INT NULL DEFAULT NULL,
+  `erp_configuration_service_order_year` INT NULL DEFAULT NULL,
+  `erp_configuration_service_order_first` INT NULL DEFAULT NULL,
   `erp_configuration_id` INT NOT NULL,
-  PRIMARY KEY (`service_order_id`, `erp_configuration_id`),
+  PRIMARY KEY (`erp_configuration_service_order_id`, `erp_configuration_id`),
   CONSTRAINT `fk_erp_configuration_service_order_customer_erp_configuration1`
     FOREIGN KEY (`erp_configuration_id`)
     REFERENCES `config_self_disclosure`.`customer_erp_configuration` (`erp_configuration_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
-
--- -----------------------------------------------------
--- Table `config_self_disclosure`.`host_configuration_ip_address_connect_external_device`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `config_self_disclosure`.`host_configuration_ip_address_connect_external_device` ;
-
-CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`host_configuration_ip_address_connect_external_device` (
-  `host_configuration_ip_address_connect_external_device_id` INT NOT NULL AUTO_INCREMENT,
-  `host_configuration_ip_address_connect_external_device_share_name` VARCHAR(45) NULL DEFAULT NULL,
-  `host_configuration_ip_address_connect_external_device_user` VARCHAR(45) NULL DEFAULT NULL,
-  `host_configuration_ip_address_connect_external_device_password` VARCHAR(45) NULL DEFAULT NULL,
-  `host_configuration_ip_address_connect_external_device_ip_sftp` TINYINT(1) NULL DEFAULT NULL,
-  `host_configuration_ip_address_connect_external_device_ip_ftp` TINYINT(1) NULL DEFAULT NULL,
-  `host_configuration_ip_address_connect_external_device_ip_smb` TINYINT(1) NULL DEFAULT NULL,
-  `host_configuration_id` INT NOT NULL,
-  PRIMARY KEY (`host_configuration_ip_address_connect_external_device_id`, `host_configuration_id`),
-  CONSTRAINT `fk_host_configuration_ip_adress_connect_external_device_custo1`
-    FOREIGN KEY (`host_configuration_id`)
-    REFERENCES `config_self_disclosure`.`customer_host_configuration` (`host_configuration_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
@@ -590,16 +634,17 @@ DEFAULT CHARACTER SET = utf8mb3;
 DROP TABLE IF EXISTS `config_self_disclosure`.`host_configuration_ip_address_data_backup` ;
 
 CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`host_configuration_ip_address_data_backup` (
-  `host_configuration_ip_address_data_backup_id` INT NOT NULL AUTO_INCREMENT,
-  `host_configuration_ip_address_data_backup_ip` VARCHAR(45) NULL DEFAULT NULL,
-  `host_configuration_ip_address_data_backup_share_name` VARCHAR(45) NULL DEFAULT NULL,
-  `host_configuration_ip_address_data_backup_user` VARCHAR(45) NULL DEFAULT NULL,
-  `host_configuration_ip_address_data_backup_password` VARCHAR(45) NULL DEFAULT NULL,
-  `host_configuration_ip_address_data_backup_sftp` TINYINT(1) NULL DEFAULT NULL,
-  `host_configuration_ip_address_data_backup_ftp` TINYINT(1) NULL DEFAULT NULL,
-  `host_configuration_ip_address_data_backup_smb` TINYINT(1) NULL DEFAULT NULL,
+  `backup_id` INT NOT NULL AUTO_INCREMENT,
+  `backup_sftp` TINYINT(1) NULL DEFAULT NULL,
+  `backup_ftp` TINYINT(1) NULL DEFAULT NULL,
+  `backup_smb` TINYINT(1) NULL DEFAULT NULL,
+  `backup_ip` VARCHAR(45) NULL DEFAULT NULL,
+  `backup_share_name` VARCHAR(45) NULL DEFAULT NULL,
+  `backup_user` VARCHAR(45) NULL DEFAULT NULL,
+  `backup_password` VARCHAR(45) NULL DEFAULT NULL,
+
   `host_configuration_id` INT NOT NULL,
-  PRIMARY KEY (`host_configuration_ip_address_data_backup_id`, `host_configuration_id`),
+  PRIMARY KEY (`backup_id`, `host_configuration_id`),
   CONSTRAINT `fk_host_configuration_ip_address_data_backup_customer_host_co1`
     FOREIGN KEY (`host_configuration_id`)
     REFERENCES `config_self_disclosure`.`customer_host_configuration` (`host_configuration_id`)
@@ -610,19 +655,44 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `config_self_disclosure`.`host_configuration_ip_adress_erp`
+-- Table `config_self_disclosure`.`host_configuration_ip_address_connect_external_device`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `config_self_disclosure`.`host_configuration_ip_adress_erp` ;
+DROP TABLE IF EXISTS `config_self_disclosure`.`host_configuration_ip_address_connect_external_device` ;
 
-CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`host_configuration_ip_adress_erp` (
-  `host_configuration_ip_adress_erp_id` INT NOT NULL AUTO_INCREMENT,
-  `host_configuration_ip_adress_erp_ip` VARCHAR(45) NULL DEFAULT NULL,
-  `host_configuration_ip_adress_erp_subnetmask` VARCHAR(45) NULL DEFAULT NULL,
-  `host_configuration_ip_adress_erp_gateway` VARCHAR(45) NULL DEFAULT NULL,
-  `host_configuration_ip_adress_erp_dns` VARCHAR(45) NULL DEFAULT NULL,
+CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`host_configuration_ip_address_connect_external_device` (
+  `ip_address_connect_external_device_id` INT NOT NULL AUTO_INCREMENT,
+  `device_ip` VARCHAR(45) NULL DEFAULT NULL,
+   `device_ip_sftp` TINYINT(1) NULL DEFAULT NULL,
+  `device_ip_ftp` TINYINT(1) NULL DEFAULT NULL,
+  `device_ip_smb` TINYINT(1) NULL DEFAULT NULL,
+  `device_share_name` VARCHAR(45) NULL DEFAULT NULL,
+  `device_user` VARCHAR(45) NULL DEFAULT NULL,
+  `device_password` VARCHAR(45) NULL DEFAULT NULL,
   `host_configuration_id` INT NOT NULL,
-  PRIMARY KEY (`host_configuration_ip_adress_erp_id`, `host_configuration_id`),
-  CONSTRAINT `fk_host_configuration_ip_adress_erp_customer_host_configurati1`
+  PRIMARY KEY (`ip_address_connect_external_device_id`, `host_configuration_id`),
+  CONSTRAINT `fk_host_configuration_ip_address_connect_external_device_custo1`
+    FOREIGN KEY (`host_configuration_id`)
+    REFERENCES `config_self_disclosure`.`customer_host_configuration` (`host_configuration_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `config_self_disclosure`.`host_configuration_ip_address_erp`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `config_self_disclosure`.`host_configuration_ip_address_erp` ;
+
+CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`host_configuration_ip_address_erp` (
+  `ip_address_erp_id` INT NOT NULL AUTO_INCREMENT,
+  `ip_address_erp_ip` VARCHAR(45) NULL DEFAULT NULL,
+  `ip_address_erp_subnetmask` VARCHAR(45) NULL DEFAULT NULL,
+  `ip_address_erp_gateway` VARCHAR(45) NULL DEFAULT NULL,
+  `ip_address_erp_dns` VARCHAR(45) NULL DEFAULT NULL,
+  `host_configuration_id` INT NOT NULL,
+  PRIMARY KEY (`ip_address_erp_id`, `host_configuration_id`),
+  CONSTRAINT `fk_host_configuration_ip_address_erp_customer_host_configurati1`
     FOREIGN KEY (`host_configuration_id`)
     REFERENCES `config_self_disclosure`.`customer_host_configuration` (`host_configuration_id`)
     ON DELETE CASCADE
@@ -637,11 +707,11 @@ DEFAULT CHARACTER SET = utf8mb3;
 DROP TABLE IF EXISTS `config_self_disclosure`.`host_configuration_virtualization` ;
 
 CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`host_configuration_virtualization` (
-  `host_configuration_virtualization_id` INT NOT NULL AUTO_INCREMENT,
-  `host_configuration_virtualization_produkt` VARCHAR(45) NULL DEFAULT NULL,
-  `host_configuration_virtualization_version` VARCHAR(45) NULL DEFAULT NULL,
+  `virtualization_id` INT NOT NULL AUTO_INCREMENT,
+  `virtualization_produkt` VARCHAR(45) NULL DEFAULT NULL,
+  `virtualization_version` VARCHAR(45) NULL DEFAULT NULL,
   `host_configuration_id` INT NOT NULL,
-  PRIMARY KEY (`host_configuration_virtualization_id`, `host_configuration_id`),
+  PRIMARY KEY (`virtualization_id`, `host_configuration_id`),
   CONSTRAINT `fk_host_configuration_virtualization_customer_host_configurat1`
     FOREIGN KEY (`host_configuration_id`)
     REFERENCES `config_self_disclosure`.`customer_host_configuration` (`host_configuration_id`)
@@ -652,18 +722,18 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `config_self_disclosure`.`import_accessories_data`
+-- Table `config_self_disclosure`.`import_accessories_item_data`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `config_self_disclosure`.`import_accessories_data` ;
+DROP TABLE IF EXISTS `config_self_disclosure`.`import_accessories_item_data` ;
 
-CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`import_accessories_data` (
-  `import_accessories_data_id` INT NOT NULL AUTO_INCREMENT,
-  `import_accessories_data_item_number` TINYINT(1) NULL DEFAULT NULL,
-  `import_accessories_data_accessories_item_number` TINYINT(1) NULL DEFAULT NULL,
-  `import_accessories_data_from_quantity` TINYINT(1) NULL DEFAULT NULL,
+CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`import_accessories_item_data` (
+  `import_accessories_item_data_id` INT NOT NULL AUTO_INCREMENT,
+  `import_accessories_item_data_item_number` TINYINT(1) NULL DEFAULT NULL,
+  `import_accessories_item_data_import_accessories_item_item_number` TINYINT(1) NULL DEFAULT NULL,
+  `import_accessories_item_data_from_quantity` TINYINT(1) NULL DEFAULT NULL,
   `import_id` INT NOT NULL,
-  PRIMARY KEY (`import_accessories_data_id`, `import_id`),
-  CONSTRAINT `fk_import_accessories_data_customer_import1`
+  PRIMARY KEY (`import_accessories_item_data_id`, `import_id`),
+  CONSTRAINT `fk_import_accessories_item_data_customer_import1`
     FOREIGN KEY (`import_id`)
     REFERENCES `config_self_disclosure`.`customer_import` (`import_id`)
     ON DELETE CASCADE
@@ -700,27 +770,56 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `config_self_disclosure`.`import_customer_invoice_data`
+-- Table `config_self_disclosure`.`import_supplier_billing_address_data`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `config_self_disclosure`.`import_customer_invoice_data` ;
+DROP TABLE IF EXISTS `config_self_disclosure`.`import_supplier_billing_address_data` ;
 
-CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`import_customer_invoice_data` (
-  `import_customer_invoice_data_id` INT NOT NULL AUTO_INCREMENT,
-  `import_customer_invoice_data_number` TINYINT(1) NULL DEFAULT NULL,
-  `import_customer_invoice_data_company` TINYINT(1) NULL DEFAULT NULL,
-  `import_customer_invoice_data_name` TINYINT(1) NULL DEFAULT NULL,
-  `import_customer_invoice_data_surname` TINYINT(1) NULL DEFAULT NULL,
-  `import_customer_invoice_data_street` TINYINT(1) NULL DEFAULT NULL,
-  `import_customer_invoice_data_house_number` TINYINT(1) NULL DEFAULT NULL,
-  `import_customer_invoice_data_postcode` TINYINT(1) NULL DEFAULT NULL,
-  `import_customer_invoice_data_city` TINYINT(1) NULL DEFAULT NULL,
-  `import_customer_invoice_data_country` TINYINT(1) NULL DEFAULT NULL,
-  `import_customer_invoice_data_additional_adress_information` TINYINT(1) NULL DEFAULT NULL,
-  `import_customer_invoice_data_email` TINYINT(1) NULL DEFAULT NULL,
-  `import_customer_invoice_data_phone` TINYINT(1) NULL DEFAULT NULL,
+CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`import_supplier_billing_address_data` (
+  `import_supplier_billing_address_data_id` INT NOT NULL AUTO_INCREMENT,
+  `import_supplier_billing_address_data_number` TINYINT(1) NULL DEFAULT NULL,
+  `import_supplier_billing_address_data_company` TINYINT(1) NULL DEFAULT NULL,
+  `import_supplier_billing_address_data_name` TINYINT(1) NULL DEFAULT NULL,
+  `import_supplier_billing_address_data_surname` TINYINT(1) NULL DEFAULT NULL,
+  `import_supplier_billing_address_data_street` TINYINT(1) NULL DEFAULT NULL,
+  `import_supplier_billing_address_data_house_Number` TINYINT(1) NULL DEFAULT NULL,
+  `import_supplier_billing_address_data_postcode` TINYINT(1) NULL DEFAULT NULL,
+  `import_supplier_billing_address_data_city` TINYINT(1) NULL DEFAULT NULL,
+  `import_supplier_billing_address_data_country` TINYINT(1) NULL DEFAULT NULL,
+  `import_supplier_billing_address_data_additional_address` TINYINT(1) NULL DEFAULT NULL,
+  `import_supplier_billing_address_data_email` TINYINT(1) NULL DEFAULT NULL,
+  `import_supplier_billing_address_data_phone` TINYINT(1) NULL DEFAULT NULL,
   `import_id` INT NOT NULL,
-  PRIMARY KEY (`import_customer_invoice_data_id`, `import_id`),
-  CONSTRAINT `fk_import_customer_invoice_data_customer_import1`
+  PRIMARY KEY (`import_supplier_billing_address_data_id`, `import_id`),
+  CONSTRAINT `fk_import_supplier_billing_address_data_customer_import1`
+    FOREIGN KEY (`import_id`)
+    REFERENCES `config_self_disclosure`.`customer_import` (`import_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+-- -----------------------------------------------------
+-- Table `config_self_disclosure`.`import_customer_billing_address_data`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `config_self_disclosure`.`import_customer_billing_address_data` ;
+
+CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`import_customer_billing_address_data` (
+  `import_customer_billing_address_data_id` INT NOT NULL AUTO_INCREMENT,
+  `import_customer_billing_address_data_number` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_billing_address_data_company` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_billing_address_data_name` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_billing_address_data_surname` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_billing_address_data_street` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_billing_address_data_house_Number` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_billing_address_data_postcode` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_billing_address_data_city` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_billing_address_data_country` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_billing_address_data_additional_address` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_billing_address_data_email` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_billing_address_data_phone` TINYINT(1) NULL DEFAULT NULL,
+  `import_id` INT NOT NULL,
+  PRIMARY KEY (`import_customer_billing_address_data_id`, `import_id`),
+  CONSTRAINT `fk_import_customer_billing_address_data_customer_import1`
     FOREIGN KEY (`import_id`)
     REFERENCES `config_self_disclosure`.`customer_import` (`import_id`)
     ON DELETE CASCADE
@@ -730,96 +829,20 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `config_self_disclosure`.`import_customized_item_data`
+-- Table `config_self_disclosure`.`import_customer_item_data`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `config_self_disclosure`.`import_customized_item_data` ;
+DROP TABLE IF EXISTS `config_self_disclosure`.`import_customer_item_data` ;
 
-CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`import_customized_item_data` (
-  `import_customized_item_data_id` INT NOT NULL AUTO_INCREMENT,
-  `import_customized_item_data_customer_number` TINYINT(1) NULL DEFAULT NULL,
-  `import_customized_item_data_item_number` TINYINT(1) NULL DEFAULT NULL,
-  `import_customized_item_data_price` TINYINT(1) NULL DEFAULT NULL,
-  `import_customized_item_data_from_quantity` TINYINT(1) NULL DEFAULT NULL,
-  `import_customized_item_data_description` TINYINT(1) NULL DEFAULT NULL,
+CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`import_customer_item_data` (
+  `import_customer_item_data_id` INT NOT NULL AUTO_INCREMENT,
+  `import_customer_item_data_customer_number` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_item_data_item_number` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_item_data_price` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_item_data_from_Quantity` TINYINT(1) NULL DEFAULT NULL,
+  `import_customer_item_data_description` TINYINT(1) NULL DEFAULT NULL,
   `import_id` INT NOT NULL,
-  PRIMARY KEY (`import_customized_item_data_id`, `import_id`),
-  CONSTRAINT `fk_import_customized_item_data_customer_import1`
-    FOREIGN KEY (`import_id`)
-    REFERENCES `config_self_disclosure`.`customer_import` (`import_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
-
--- -----------------------------------------------------
--- Table `config_self_disclosure`.`import_cust_sup_adress_data`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `config_self_disclosure`.`import_cust_sup_adress_data` ;
-
-CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`import_cust_sup_adress_data` (
-  `import_cust_sup_adress_data_id` INT NOT NULL AUTO_INCREMENT,
-  `import_cust_sup_adress_data_number` TINYINT(1) NULL DEFAULT NULL,
-  `import_cust_sup_adress_data_company` TINYINT(1) NULL DEFAULT NULL,
-  `import_cust_sup_adress_data_name` TINYINT(1) NULL DEFAULT NULL,
-  `import_cust_sup_adress_data_surname` TINYINT(1) NULL DEFAULT NULL,
-  `import_cust_sup_adress_data_street` TINYINT(1) NULL DEFAULT NULL,
-  `import_cust_sup_adress_data_house_Number` TINYINT(1) NULL DEFAULT NULL,
-  `import_cust_sup_adress_data_postcode` TINYINT(1) NULL DEFAULT NULL,
-  `import_cust_sup_adress_data_city` TINYINT(1) NULL DEFAULT NULL,
-  `import_cust_sup_adress_data_country` TINYINT(1) NULL DEFAULT NULL,
-  `import_cust_sup_adress_data_additional_adress_information` TINYINT(1) NULL DEFAULT NULL,
-  `import_cust_sup_adress_data_email` TINYINT(1) NULL DEFAULT NULL,
-  `import_cust_sup_adress_data_phone` TINYINT(1) NULL DEFAULT NULL,
-  `import_id` INT NOT NULL,
-  PRIMARY KEY (`import_cust_sup_adress_data_id`, `import_id`),
-  CONSTRAINT `fk_import_cust_sup_adress_data_customer_import1`
-    FOREIGN KEY (`import_id`)
-    REFERENCES `config_self_disclosure`.`customer_import` (`import_id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
-
--- -----------------------------------------------------
--- Table `config_self_disclosure`.`import_data`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `config_self_disclosure`.`import_data` ;
-
-CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`import_data` (
-  `import_data_id` INT NOT NULL AUTO_INCREMENT,
-  `import_data_status` TINYINT(1) NULL DEFAULT NULL,
-  `import_data_salutation` TINYINT(1) NULL DEFAULT NULL,
-  `import_data_customer_number` TINYINT(1) NULL DEFAULT NULL,
-  `import_data_different_billing_customer` TINYINT(1) NULL DEFAULT NULL,
-  `import_data_name` TINYINT(1) NULL DEFAULT NULL,
-  `import_data_surname` TINYINT(1) NULL DEFAULT NULL,
-  `import_data_street` TINYINT(1) NULL DEFAULT NULL,
-  `import_data_house_number` TINYINT(1) NULL DEFAULT NULL,
-  `import_data_postcode` TINYINT(1) NULL DEFAULT NULL,
-  `import_data_city` TINYINT(1) NULL DEFAULT NULL,
-  `import_data_country` TINYINT(1) NULL DEFAULT NULL,
-  `import_data_company_name` TINYINT(1) NULL DEFAULT NULL,
-  `import_data_additional_adress_information` TINYINT(1) NULL DEFAULT NULL,
-  `import_data_email` TINYINT(1) NULL DEFAULT NULL,
-  `import_data_different_invoice_email` TINYINT(1) NULL DEFAULT NULL,
-  `import_data_phone` TINYINT(1) NULL DEFAULT NULL,
-  `import_data_financiall_accounting_account` TINYINT(1) NULL DEFAULT NULL,
-  `import_data_tax_number` TINYINT(1) NULL DEFAULT NULL,
-  `import_data_informations` TINYINT(1) NULL DEFAULT NULL,
-  `import_data_calculate_shipping_cost` TINYINT(1) NULL DEFAULT NULL,
-  `import_data_direct_debit_mandate_reference` TINYINT(1) NULL DEFAULT NULL,
-  `import_data_direct_debit_bank` TINYINT(1) NULL DEFAULT NULL,
-  `import_data_direct_debit_bic` TINYINT(1) NULL DEFAULT NULL,
-  `import_data_direct_debit_iban` TINYINT(1) NULL DEFAULT NULL,
-  `import_data_direct_debit_account_holder` TINYINT(1) NULL DEFAULT NULL,
-  `import_data_sales_tax_exempt` TINYINT(1) NULL DEFAULT NULL,
-  `import_data_own_supplier_number` TINYINT(1) NULL DEFAULT NULL,
-  `import_data_number_of_additions` INT NULL DEFAULT NULL,
-  `import_id` INT NOT NULL,
-  PRIMARY KEY (`import_data_id`, `import_id`),
-  CONSTRAINT `fk_import_data_customer_import1`
+  PRIMARY KEY (`import_customer_item_data_id`, `import_id`),
+  CONSTRAINT `fk_import_customer_item_data_customer_import1`
     FOREIGN KEY (`import_id`)
     REFERENCES `config_self_disclosure`.`customer_import` (`import_id`)
     ON DELETE CASCADE
@@ -841,15 +864,15 @@ CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`import_item_data` (
   `import_item_data_name` TINYINT(1) NULL DEFAULT NULL,
   `import_item_data_text` TINYINT(1) NULL DEFAULT NULL,
   `import_item_data_unit` TINYINT(1) NULL DEFAULT NULL,
-  `import_item_datatyp` TINYINT(1) NULL DEFAULT NULL,
+  `import_item_data_typ` TINYINT(1) NULL DEFAULT NULL,
   `import_item_data_single_category_name` TINYINT(1) NULL DEFAULT NULL,
   `import_item_data_weight` TINYINT(1) NULL DEFAULT NULL,
-  `import_item_data_number_of_selling_prices` INT NULL DEFAULT NULL,
-  `import_item_data_surcharge_number_of_additions_selling_prices` INT NULL DEFAULT NULL,
+  `import_item_data_number_of_selling_prices` VARCHAR(128) NULL DEFAULT NULL,
+  `import_item_data_surcharge_number_of_additions_selling_prices` VARCHAR(128) NULL DEFAULT NULL,
   `import_item_data_purchase_price` TINYINT(1) NULL DEFAULT NULL,
   `import_item_data_procurment_costs` TINYINT(1) NULL DEFAULT NULL,
   `import_item_data_quality_managment` TINYINT(1) NULL DEFAULT NULL,
-  `import_item_datanumber_of_additions` TINYINT(1) NULL DEFAULT NULL,
+  `import_item_data_number_of_additions` VARCHAR(128) NULL DEFAULT NULL,
   `import_id` INT NOT NULL,
   PRIMARY KEY (`import_item_data_id`, `import_id`),
   CONSTRAINT `fk_import_item_data_customer_import1`
@@ -907,7 +930,7 @@ CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`import_supplier_data` (
   `import_supplier_data_email` TINYINT(1) NULL DEFAULT NULL,
   `import_supplier_data_hompage` TINYINT(1) NULL DEFAULT NULL,
   `import_supplier_data_phone` TINYINT(1) NULL DEFAULT NULL,
-  `import_supplier_data_company_name` TINYINT(1) NULL DEFAULT NULL,
+  `import_supplier_data_company_Name` TINYINT(1) NULL DEFAULT NULL,
   `import_supplier_data_sales_tax_id` TINYINT(1) NULL DEFAULT NULL,
   `import_supplier_data_fibu_account` TINYINT(1) NULL DEFAULT NULL,
   `import_supplier_data_own_customer_number` TINYINT(1) NULL DEFAULT NULL,
@@ -932,15 +955,15 @@ DROP TABLE IF EXISTS `config_self_disclosure`.`import_supplier_item_data` ;
 
 CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`import_supplier_item_data` (
   `import_supplier_item_data_id` INT NOT NULL AUTO_INCREMENT,
-  `import_supplier_item_data_supplier_item_number` TINYINT(1) NULL DEFAULT NULL,
-  `import_supplier_item_data_supplier_item_description` TINYINT(1) NULL DEFAULT NULL,
+  `import_supplier_item_data_number` TINYINT(1) NULL DEFAULT NULL,
+  `import_supplier_item_data_description` TINYINT(1) NULL DEFAULT NULL,
   `import_supplier_item_data_purchase_price` TINYINT(1) NULL DEFAULT NULL,
   `import_supplier_item_data_status` TINYINT(1) NULL DEFAULT NULL,
-  `import_supplier_item_data_standart_item` TINYINT(1) NULL DEFAULT NULL,
+  `import_supplier_item_data_standard_item` TINYINT(1) NULL DEFAULT NULL,
   `import_supplier_item_data_item_description` TINYINT(1) NULL DEFAULT NULL,
   `import_supplier_item_data_supplier_number` TINYINT(1) NULL DEFAULT NULL,
   `import_supplier_item_data_item_number` TINYINT(1) NULL DEFAULT NULL,
-  `import_supplier_item_data_procurement_Cost` TINYINT(1) NULL DEFAULT NULL,
+  `import_supplier_item_data_procurement_cost` TINYINT(1) NULL DEFAULT NULL,
   `import_id` INT NOT NULL,
   PRIMARY KEY (`import_supplier_item_data_id`, `import_id`),
   CONSTRAINT `fk_import_supplier_item_data_customer_import1`
@@ -961,7 +984,24 @@ CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`website_configuration` (
   `website_configuration_logo` BLOB NULL DEFAULT NULL,
   `website_configuration_admin_name` VARCHAR(45) NULL DEFAULT NULL,
   `website_configuration_admin_password` VARCHAR(255) NULL DEFAULT NULL,
-  `website_configuration_internet_adress` VARCHAR(45) NULL DEFAULT NULL)
+  `website_configuration_internet_address` VARCHAR(45) NULL DEFAULT NULL)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
+
+USE `mydb` ;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`customer`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`customer` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`customer` (
+  `Customer_ID` INT NOT NULL AUTO_INCREMENT,
+  `Loginname` VARCHAR(45) NULL DEFAULT NULL,
+  `Password` VARCHAR(45) NULL DEFAULT NULL,
+  `Infos_Imported` TINYINT(1) NULL DEFAULT NULL,
+  `Legacy_Customer_ID` INT NOT NULL,
+  PRIMARY KEY (`Customer_ID`, `Legacy_Customer_ID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
 
