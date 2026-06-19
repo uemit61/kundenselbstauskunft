@@ -23,17 +23,10 @@ $(document).ready(function ()
         * @version     1.0.0
         * @since       2024-12-18
         */
-
-       
-          #
-        
-
-
         function password_input_validation()
         {
             const password = $('#password').val();
             const confirmPassword = $('#confirm_password').val();
-
             let regex = /^(?=.*[A-Z])(?=.*[!$%^&*(),.?:{}|])[a-zA-Z0-9!$%^&*(),.?:{}|]+$/ 
             let regex2 = /[@#'<>"=]/;  // Nur Zeichen, die nicht @#'<>= enthalten
 
@@ -45,7 +38,6 @@ $(document).ready(function ()
                     $('#passwordFeedback').text('Das Passwort muss mindesten 8 Zeichen lang sein.').show();
                     $('#passwordFeedback').removeClass('d-none valid-feedback').addClass('invalid-feedback');
                     $('#save_password').prop('disabled', true);
-                    
                 }
                 else
                 {
@@ -54,7 +46,6 @@ $(document).ready(function ()
                     $('#passwordFeedback').text('').show();
                     $('#save_password').prop('disabled', true);
                 }
-                
             }
             else if(regex2.test(password))
                 {
@@ -74,10 +65,8 @@ $(document).ready(function ()
             else
             {
                 $('#password').addClass('is-valid').removeClass('is-invalid');
-
                 $('#passwordFeedback').text('Is correct!').show();
                 $('#passwordFeedback').removeClass('d-none invalid-feedback').addClass('valid-feedback');
-
                 if(password !== confirmPassword)
                 {
                     if(confirmPassword.length>0)
@@ -93,7 +82,6 @@ $(document).ready(function ()
                         $('#confirm_password').removeClass('is-invalid');
                         $('#confirm_passwordFeedback').text("").show();
                     }
-                    
                 }
                 else
                 {
@@ -104,10 +92,6 @@ $(document).ready(function ()
                 }
             }
         }
-
-        
-            
-        
         window.password_input_validation = password_input_validation;
        
 });

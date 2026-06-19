@@ -26,10 +26,7 @@ $(document).ready(function()
             dataType: 'text',
             success: function(data)
             { 
-                
-                
                 var form_data = JSON.parse(data);
-
                     Object.keys(form_data).forEach
                     (
                         function(formId)   
@@ -38,7 +35,18 @@ $(document).ready(function()
                             (
                                 function(inputId)
                                 {
-                                    $(formId).find('#' + inputId).val(form_data[formId][inputId]);
+                                    if($(formId).find('#' + inputId).attr('type') === 'checkbox')
+                                    {
+                                        $(formId).find('#' + inputId).prop('checked',!!form_data[formId][inputId]);
+                                    }
+                                    else if($(formId).find('#' + inputId).prop('tagName').toLowerCase()==='select')
+                                    {
+                                        $(formId).find('#' + inputId).val(form_data[formId][inputId]).change();
+                                    }
+                                    else
+                                    {
+                                        $(formId).find('#' + inputId).val(form_data[formId][inputId]);
+                                    }
                                 }
                             )
                         }
@@ -64,16 +72,36 @@ $(document).ready(function()
  
     function sanitizeInput(formId)
     {
-        return $(formId).serializeArray().reduce
-                (
-                    function(acc, field) 
+        var formData ={};
+        $(formId).find('fieldset').each(function()
+        {
+            var fieldsetId= $(this).attr('id');
+
+            var fieldsetData = $(this).serializeArray().reduce
+            (
+                function(acc, field) 
+                {
+                    if($(`input[name="${field.name}']`).is(':checkbox'))
+                    {
+                        acc[field.name] = $(`input[name="${field.name}"]`).prop('checked') ? DOMPurify.sanitize(field.value.trim()) : 'false';
+                    }
+                    else
                     {
                         acc[field.name] = DOMPurify.sanitize(field.value.trim()) ?? '';
-                        return acc;
-                    }     
-                    ,
-                    {}
-                );
+                    }
+                    
+                    return acc;
+                }     
+                ,
+                {}
+            )
+            formData[fieldsetId] = fieldsetData;
+        })
+
+       
+        return formData;
+
+        
     };
     
 
@@ -81,6 +109,7 @@ $(document).ready(function()
     function updateSteps() 
     {    
         $(form_ids[currentStepIndex]).removeClass('d-none');
+        formId =  form_ids[currentStepIndex];
         btnTxt =  $(form_ids[currentStepIndex]).data('label') + ' speichern';
         $('#btn').text(btnTxt);
     };
@@ -129,12 +158,13 @@ $(document).ready(function()
         }
     };
 
-    function save_tabFrom_to_Db() 
+    function save_FromPage_to_Db() 
     {
+        
         const formData =sanitizeInput(formId);
         $.ajax
         ({
-            url: '.',
+            url: 'indexUtils.php',
             method: 'POST',
             contentType: 'application/json',
             data:  JSON.stringify({ json_form_data: formData, page: $(formId).attr('name')}),
@@ -143,18 +173,18 @@ $(document).ready(function()
                 console.log
                 (
                     response,
-                //     "Daten erfolgreich gesendet:"+
-                //     response.split('\n')[11]+ "\n"+
-                //     response.split('\n')[12]+"\n"+
-                //     response.split('\n')[13]+"\n"+
-                //     response.split('\n')[14]+"\n"+
-                //     response.split('\n')[15]+"\n"+
-                //     response.split('\n')[16]+"\n"+
-                //     response.split('\n')[17]+"\n",
-                // 
+                    // "Daten erfolgreich gesendet:"+
+                    // response.split('\n')[11]+ "\n"+
+                    // response.split('\n')[12]+"\n"+
+                    // response.split('\n')[13]+"\n"+
+                    // response.split('\n')[14]+"\n"+
+                    // response.split('\n')[15]+"\n"+
+                    // response.split('\n')[16]+"\n"+
+                    // response.split('\n')[17]+"\n",
                 );
             },
-            error: function (error) {
+            error: function (error) 
+            {
                 console.error('Fehler bei der Anfrage:');
             },
             complete: function () 
@@ -186,31 +216,27 @@ $(document).ready(function()
                 {
 
                 },
-
-
             }
         )
         
 
     }
 
+    // Alle 3 Sekunden wird zwischengespeichert
     setInterval
     (
         function()
         {
-
             var form_data ={};
             $.each
             (
                 //enumeration
-                form_ids,
+                form_ids,  // alle Seiten(Formular) werden durchlaufen
                 function(i,form_id)
                 {
                     form_data[form_id] =sanitizeInput(form_id);
                 }
             );
-
-            
             $.ajax
             (
                 { 
@@ -244,7 +270,6 @@ $(document).ready(function()
                             +"  um in die Datenbank zu speichern,\n"
                             +"drücken Sie auf die Speicherbuttons.\n"
                             +"Nächste Speicherung in 3 sekunden"
-                            
                         );
                     }
                 }
@@ -284,7 +309,7 @@ $(document).ready(function()
 
     window.step_back = step_back;
     window.step_forward = step_forward;
-    window.save_tabFrom_to_Db = save_tabFrom_to_Db;
+    window.save_FromPage_to_Db = save_FromPage_to_Db;
     
 });
  
