@@ -32,16 +32,17 @@ $(document).ready
             'click', 
             function() 
             {
-                $(this).toggleClass('d-none');
+                $('#virtualisationFields').toggleClass('d-none');
             }
         );
 
        
         function openClose(e) 
         {
+            console.log(e);
             $(e).toggleClass('bi-chevron-down bi-chevron-right');
             client_main = '.client_main'+$(e).data('no');
-            $('#form-tab3').find(client_main).toggleClass('d-none');
+            $('#customer_client').find(client_main).toggleClass('d-none');
         }
 
         $('.bi-plus').on
@@ -50,9 +51,9 @@ $(document).ready
             function() 
             {
                 var total = $(this).data('total')+1;
-                $('#form-tab3').find('.client_total_text').text('Anzahl der Mandanten: '+total);
-                var client_body = $('#client_body1').clone();
-
+                $('#customer_client').find('.client_total_text').text('Anzahl der Mandanten: '+total);
+                var client_body = $($('#client_body1')[0].outerHTML);
+                console.log(client_body);
                 $(client_body).attr('id', 'client_body'+total);
                 $(client_body).find('.client_main1').removeClass('client_main1').addClass('client_main'+total);
                 
@@ -64,7 +65,7 @@ $(document).ready
 
                 changeIdNames(client_body,total);
 
-                $('#form-tab3').append(client_body);
+                $('#customer_client').append(client_body);
                 $(this).data('total', total);
                 console.log(client_body);
             }
@@ -74,15 +75,15 @@ $(document).ready
         {
             
             var client_body =$(element).closest('.body-group');
-            $('#form-tab3').find(client_body).remove();
+            $('#customer_client').find(client_body).remove();
 
 
-            var total = $('#form-tab3').find($('.client_total')).data('total');
+            var total = $('#customer_client').find($('.client_total')).data('total');
             if(total != 1)
             {
                 total = total-1;
-                $('#form-tab3').find('.client_total_text').text('Anzahl der Mandanten: '+total);
-                $('#form-tab3').find('.client_total').data('total', total);
+                $('#customer_client').find('.client_total_text').text('Anzahl der Mandanten: '+total);
+                $('#customer_client').find('.client_total').data('total', total);
                 updateIdNo()
             }
         }
@@ -103,9 +104,9 @@ $(document).ready
                         client_main = client_main.attr('class').split(' ').find(c => c.startsWith('client_main'));
 
                         $(this).find('.client_no').attr('data-no',newIndex);
+                        $(this).find('.client_no').data('no',newIndex);
                         $(this).find('.client_header_text').text('Mandant '+newIndex);
-                        $(this).find('.'+client_main).removeClass(client_main).addClass('client_main'+newIndex);
-                         
+                        $(this).find('.'+client_main).removeClass(client_main,'d-none').addClass('client_main'+newIndex, 'd-none');
                         changeIdNames($(this),newIndex);
                     }
                 }
@@ -153,6 +154,7 @@ $(document).ready
             inputId = '#'+event.target.id;
             inputForm = event.target.form;
             var feedback = inputId+'Feedback';
+            console.log(regex.test(key));
 
             if(regex.test(key)) // Ungültige Eingabe... // für email eine eigene regexEmail!!!
             {
@@ -164,7 +166,14 @@ $(document).ready
                 {
                     $(inputForm).find(inputId).removeClass('is-valid');
                 }
+                
                 openQueue = true;
+
+                if($(inputForm).find(inputId).data('file') === 'file')
+                {
+                    $(inputForm).find(inputId).val('');
+                    $(inputForm).find(inputId).removeClass('is-valid');
+                }
             }
             else // Gültitge Eingabe...
             {
@@ -173,8 +182,13 @@ $(document).ready
                 // Stamm das Key aus der Warteschlange (queue) dann müssen diese eingefügt werden
                 if(queue && key !== '')
                 {
-                    $(inputForm).find(inputId).val(key);
-                    $(inputForm).find(inputId).addClass('is-valid');
+                    if(!($(inputForm).find(inputId).data('file') === 'file'))
+                    {
+                        $(inputForm).find(inputId).val(key);
+                        $(inputForm).find(inputId).addClass('is-valid');
+                    }
+                    
+                    
                 }
 
                 // Zusätzliche Überprüfungen des Keys in einer eigenen Funktion erforderlich !!! MACHEN !!!
@@ -267,8 +281,14 @@ $(document).ready
             (
                 function() 
                 {
-                    input = $(inputForm).find(inputId).val(); // Feldtext wird gespeichert.
-                    $(inputForm).find(inputId).val(''); // Feldtext wird gelöscht
+                    input = $(inputForm).find(inputId).val();
+                    // Feldtext wird gespeichert.
+
+                    if(!($(inputForm).find(inputId).data('file') === 'file'))
+                    {
+                        
+                        $(inputForm).find(inputId).val(''); 
+                    }
                     validateInputSqlInj(input,event,true); // Text wird zur Überprüfung weitergeleitet
                 },
                 0
@@ -293,6 +313,7 @@ $(document).ready
                 }
                 else
                 {
+                    
                     var input = event.key; // der getippte Buchstabe (input) wird ermittelt
                 }
                 // Ist der Input nicht definiert, wurde eine gepeicherte Information aus dem Browserinformationen eingefügt
@@ -300,6 +321,7 @@ $(document).ready
                 // und somit wurde die Warteschlange geschlossen, mit dem Change-Ereignis wird das Feld nicht erneut angereiht.
                 if((input==undefined) && openQueue)	  
                 {
+                    
                     // Diese Eingabefeld-Informationen werden in eine Ereignis-Warteschlange hinzugefügt
                     // Die mySetTimeout verarbeitet die Felder (nach der Reihenfolge der Übergabe), 
                     // wenn alle nachfolgenden Anweisungen ausgeführt wurden sind, also wenn die Seite komplett gerendert wurde.
@@ -308,6 +330,7 @@ $(document).ready
                 else if(event.type == 'change')
                 {
                     console.log('es tat sich was');
+                    console.log(event.type)
                     openQueue = true;  // Warteschlange wird freigegeben.  
                 }
                 // Es werden zunächst nur Zahlen, Buchstaben, und Sonderzeichen akzeptiert,

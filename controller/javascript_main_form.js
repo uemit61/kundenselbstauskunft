@@ -14,6 +14,8 @@ $(document).ready(function()
 {
  
     console.log('Login erfolgreich.');
+    $('#customer_contact_informationen').removeClass('d-none');
+    
 
     $.ajax
     (
@@ -53,15 +55,11 @@ $(document).ready(function()
         }
     );
 
-    let currentTabIndex = 0;
-    const tabs = $('#tabs .nav-link');
-    const tabContents = $('.tab-pane');
-    const tabId = $(this).data('tab-id');
-    const formTabId = '#formTab'+(currentTabIndex+1);
-    let formId = '#form-tab'+(currentTabIndex+1);
-    let urlStr = '/.controller/formTab'+currentTabIndex+'_Controller.php';
+    let currentStepIndex = 0;
+    var form_ids = ['#customer_contact_informationen','#customer_host_configuration','#customer_client','#customer_erp_configuration','#customer_import'];
+    let formId =  form_ids[currentStepIndex];
     let btnTxt = '';
-    var form_ids = ['#form-tab1','#form-tab2','#form-tab3','#form-tab4','#form-tab5'];
+    
     
  
     function sanitizeInput(formId)
@@ -80,37 +78,54 @@ $(document).ready(function()
     
 
 
-    function updateTabs() 
+    function updateSteps() 
     {    
-        tabs.removeClass('active');
-        tabContents.removeClass('show active');
-        $(tabs[currentTabIndex]).addClass('active');
-        $(tabContents[currentTabIndex]).addClass('show active');
-        btnTxt =  $('.nav-link.active').data('name') + ' speichern';
+        $(form_ids[currentStepIndex]).removeClass('d-none');
+        btnTxt =  $(form_ids[currentStepIndex]).data('label') + ' speichern';
         $('#btn').text(btnTxt);
-        formId = '#form-tab'+(currentTabIndex+1);
     };
 
 
 
     // Navigation "Weiter"
-    function tap_forward() 
+    function step_forward() 
     {
-        if (currentTabIndex < tabs.length - 1) 
+        if (currentStepIndex < 4) 
         {
-            currentTabIndex++;
-            updateTabs();
+            $(form_ids[currentStepIndex]).addClass('d-none');
+            if(currentStepIndex == 3)
+            {
+                $('#nextBtn').addClass('d-none');
+                
+            }
+            
+            if(currentStepIndex == 0)
+            {
+                $('#prevBtn').removeClass('d-none');
+            }    
+            currentStepIndex++;
+            updateSteps();
         }
     };
 
     
 
     // Navigation "Zurück"
-    function tap_back() 
+    function step_back() 
     {
-        if (currentTabIndex > 0) {
-            currentTabIndex--;
-            updateTabs();
+        if (currentStepIndex > 0) 
+        {
+            $(form_ids[currentStepIndex]).addClass('d-none');
+            if(currentStepIndex == 1)
+            {
+                $('#prevBtn').addClass('d-none');
+            }
+            if(currentStepIndex == 4)
+            {
+                $('#nextBtn').removeClass('d-none');
+            }
+            currentStepIndex--;
+            updateSteps();
         }
     };
 
@@ -178,66 +193,65 @@ $(document).ready(function()
 
     }
 
-        setInterval
-        (
-            function()
-            {
+    setInterval
+    (
+        function()
+        {
 
-                var form_data ={};
-                $.each
-                (
-                    //enumeration
-                    form_ids,
-                    function(i,form_id)
-                    {
-                        
-                        form_data[form_id] =sanitizeInput(form_id);
-                    }
-                );
+            var form_data ={};
+            $.each
+            (
+                //enumeration
+                form_ids,
+                function(i,form_id)
+                {
+                    form_data[form_id] =sanitizeInput(form_id);
+                }
+            );
 
-                
-                $.ajax
-                (
-                    { 
-                        url : '.',
-                        method: 'POST',
-                        contentType: 'application/json',
-                        data:  JSON.stringify({json_form_data: JSON.stringify(form_data), 'page':'save_json_cache'} ),
-                        success: function (response) 
-                        {
-                            var line = response.split('\n');
-                            console.log
-                            (
-                                'Daten erfolgreich gesendet.\n'+   
-                               line[11]+'\n'+
-                               line[12]
-                            );
-                        },
-                        error: function (xhr, status, error) 
-                        {
-                            console.error
-                            (
-                                'Fehler bei der Anfrage:', 
-                                error
-                            );
-                        },
-                        complete: function ()
-                        {
-                            console.log
-                            (
-                                "Die Daten wurden nur in ein  Cache gespeichert,\n"
-                                +"  um in die Datenbank zu speichern,\n"
-                                +"drücken Sie auf die Speicherbuttons.\n"
-                                +"Nächste Speicherung in 3 sekunden"
-                                
-                            );
-                        }
-                    }
-                );
-            },
             
-            3000
-        );  
+            $.ajax
+            (
+                { 
+                    url : '.',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data:  JSON.stringify({json_form_data: JSON.stringify(form_data), 'page':'save_json_cache'} ),
+                    success: function (response) 
+                    {
+                        var line = response.split('\n');
+                        console.log
+                        (
+                            'Daten erfolgreich gesendet.\n'+   
+                            line[11]+'\n'+
+                            line[12]
+                        );
+                    },
+                    error: function (xhr, status, error) 
+                    {
+                        console.error
+                        (
+                            'Fehler bei der Anfrage:', 
+                            error
+                        );
+                    },
+                    complete: function ()
+                    {
+                        console.log
+                        (
+                            "Die Daten wurden nur in ein  Cache gespeichert,\n"
+                            +"  um in die Datenbank zu speichern,\n"
+                            +"drücken Sie auf die Speicherbuttons.\n"
+                            +"Nächste Speicherung in 3 sekunden"
+                            
+                        );
+                    }
+                }
+            );
+        },
+        
+        3000
+    );  
 
     // $.ajax // könnte auch über eien $_SESSION verwirklicht werden Kommentar nicht vergessen!
     // ({
@@ -267,8 +281,8 @@ $(document).ready(function()
     //     }
     // });
 
-    window.tap_back = tap_back;
-    window.tap_forward = tap_forward;
+    window.step_back = step_back;
+    window.step_forward = step_forward;
     window.save_tabFrom_to_Db = save_tabFrom_to_Db;
     
 });
