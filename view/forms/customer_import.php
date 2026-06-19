@@ -2,11 +2,12 @@
 
 
 
-    function import_form()
+    function customer_import()
     {
         $import_customer_data=
-        [
+        [ 
             'field_name'=>'Kunden',
+            'dBName' => 'import_customer_data',
             ['import_customer_data_status' => ['form-check flex-fill',['checkbox'],'Status']],
             ['import_customer_data_customer_number' => ['form-check flex-fill',['checkbox'],'Kundennummer']],
             ['import_customer_data_different_billing_customer' => ['form-check flex-fill',['checkbox'],'Abweichender Rechnungskunde']],
@@ -40,6 +41,7 @@
         $import_supplier_data=
         [
             'field_name' =>'Lieferanten',
+            'dBName' => 'import_supplier_data',
             ['import_supplier_data_status' => ['form-check flex-fill',['checkbox'],'Status']],
             ['import_supplier_data_number' => ['form-check flex-fill',['checkbox'],'Lieferantennummer']],	
             ['import_supplier_data_salutation' => ['form-check flex-fill',['checkbox'],'Anrede']],	
@@ -65,6 +67,7 @@
         $import_item_data=
         [
             'field_name' =>'Artikel',
+            'dBName' => 'import_item_data',
             ['import_item_data_status'=> ['form-check flex-fill',['checkbox'],'Status']],
             ['import_item_data_number'=> ['form-check flex-fill',['checkbox'],'Artikelnummer']],	
             ['import_item_data_description'=> ['form-check flex-fill',['checkbox'],'Artikelbeschreibung']],
@@ -85,6 +88,7 @@
         $import_customer_contact_person_data=
         [
             'fieldname' =>'Kunden-Ansprechpartner',
+            'dBName' => 'import_customer_contact_person_Data',
             ['import_customer_contact_person_data_number'  => ['form-check flex-fill',['checkbox'],'Kundennummer']], 	
             ['import_customer_contact_person_data_salutation'  => ['form-check flex-fill',['checkbox'],'Anrede']], 	
             ['import_customer_contact_person_data_name' => ['form-check flex-fill',['checkbox'],'Vorname']], 	
@@ -99,6 +103,7 @@
         $import_customer_contact_person_data=
         [
             'field_name' =>'Kunden-Ansprechpartner',
+            'dBName' => 'import_customer_contact_person_data',
             ['import_customer_contact_person_data_number' => ['form-check flex-fill',['checkbox'],'Kundennummer']],
             ['import_customer_contact_person_data_salutation'  => ['form-check flex-fill',['checkbox'],'Anrede']], 		
             ['import_customer_contact_person_data_name' => ['form-check flex-fill',['checkbox'],'Vorname']],
@@ -113,6 +118,7 @@
         $import_supplier_contact_person_data=
         [
             'field_name' =>'Lieferanten-Ansprechpartner',
+            'dBName' => 'import_supplier_contact_person_data',
             ['import_supplier_contact_person_data_number'  => ['form-check flex-fill',['checkbox'],'Lieferantennummer']], 	
             ['import_supplier_contact_person_data_salutation'  => ['form-check flex-fill',['checkbox'],'Anrede']], 	
             ['import_supplier_contact_person_data_name' => ['form-check flex-fill',['checkbox'],'Vorname']], 	
@@ -127,6 +133,7 @@
         $import_customer_billing_address_data=
         [
             'field_name' =>'Kunden-Rechnungsadresse',
+            'dBName' => 'import_customer_billing_address_data',
             ['import_customer_billing_address_data_number'  => ['form-check flex-fill',['checkbox'],'Kundennummer']], 	
             ['import_customer_billing_address_data_company'  => ['form-check flex-fill',['checkbox'],'Firma']], 	
             ['import_customer_billing_address_data_name'  => ['form-check flex-fill',['checkbox'],'Vorname']], 	
@@ -144,6 +151,7 @@
         $import_supplier_billing_address_data=
         [
             'field_name' =>'Lieferanten-Rechnungsadresse',
+            'dBName' => 'import_supplier_billing_address_data',
             ['import_supplier_billing_address_data_number'  => ['form-check flex-fill',['checkbox'],'Kundennummer']], 	
             ['import_supplier_billing_address_data_company'  => ['form-check flex-fill',['checkbox'],'Firma']], 	
             ['import_supplier_billing_address_data_name'  => ['form-check flex-fill',['checkbox'],'Vorname']], 	
@@ -161,6 +169,7 @@
         $import_customer_item_data=
         [
             'field_name' => 'Kundenspezifische Artikel',
+            'dBName' => 'import_customer_item_data',
             ['import_customer_item_data_customer_number'  => ['form-check flex-fill',['checkbox'],'Kundennummer']], 	
             ['import_customer_item_data_item_number'  => ['form-check flex-fill',['checkbox'],'Artikelnummer']], 	
             ['import_customer_item_data_price'  => ['form-check flex-fill',['checkbox'],'Preis']], 	
@@ -171,6 +180,7 @@
         $import_supplier_item_data=
         [
             'field_name' => 'Lieferantenartikel',
+            'dBName' => 'import_supplier_item_data',
             ['import_supplier_item_data_number'  => ['form-check flex-fill',['checkbox'],'Lieferanten Artikelnummer']], 	
             ['import_supplier_item_data_description'  => ['form-check flex-fill',['checkbox'],'Lieferanten Artikelnummer']], 	
             ['import_supplier_item_data_purchase_price'  => ['form-check flex-fill',['checkbox'],'Einkaufspreis']], 	
@@ -185,6 +195,7 @@
         $import_accessories_item_data=
         [
             'field_name' => 'Zubehörartikel',
+            'dBName' => 'import_accessories_item_data',
             ['import_accessories_item_data_item_number'  => ['form-check flex-fill',['checkbox'],'Artikelnummer'],
             'import_accessories_item_data_import_accessories_item_item_number'  => ['form-check flex-fill',['checkbox'],'Zubehör-Artikelnummer'], 	
             'import_accessories_item_data_from_quantity'  => ['form-check flex-fill',['checkbox'],'Ab Menge']]

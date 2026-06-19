@@ -11,19 +11,21 @@
 */
 
 
-    function hostConfig_form()
+    function customer_host_configuration()
     {
                 
         $host_configuration_virtualization=
         [
             'field_name' => 'Virtualisierung',
+            'dBName' => 'host_configuration_virtualization',
             ['virtualizationYes' =>  ['form-check',['checkbox'],'Virtualisierungshost']],
-            [ 'host_configuration_virtualization_produkt'=>['form-floating flex-fill',['text'],'Produkt'],'host_configuration_virtualization_version' => ['form-floating flex-fill',['text'],'Version']],	
+            [ 'host_configuration_virtualization_product'=>['form-floating flex-fill',['text'],'Produkt'],'host_configuration_virtualization_version' => ['form-floating flex-fill',['text'],'Version']],	
         ];
 
         $host_configuration_ip_adress_erp=
         [
             'field_name' => 'Legacy-ERP',
+            'dBName' => 'host_configuration__ip_adress_erp',
             ['host_configuration_ip_adress_erp_ip' => ['form-floating flex-fill',['text'],'IP-Adresse']],	
             ['host_configuration_ip_adress_erp_subnetmask'	=>['form-floating flex-fill',['text'],'Subnetzmaske']],
             ['host_configuration_ip_adress_erp_gateway' => ['form-floating flex-fill',['text'],'Gateway']],
@@ -33,6 +35,7 @@
         $host_configuration_ip_address_data_backup=
         [
             'field_name' => 'Datensicherung',
+            'dBName' => 'host_configuration__ip_adress_data_backup',
             ['host_configuration_ip_address_data_backup_sftp' =>  ['form-check',['checkbox'],'SFTP'],
             'host_configuration_ip_address_data_backup_ftp' =>  ['form-check',['checkbox'],'FTP'],
             'host_configuration_ip_address_data_backup_smb' =>  ['form-check',['checkbox'],'SMB']],
@@ -46,6 +49,7 @@
         $host_configuration_ip_address_connect_external_device=
         [
             'field_name' => 'Externe Laufwerke',
+            'dBName' => 'host_configuration__ip_adress_connect_External_device',
             ['host_configuration_ip_addres_connect_external_device_sftp' =>  ['form-check',['checkbox'],'SFTP'],
             'host_configuration_ip_addres_connect_external_device_ftp' =>  ['form-check',['checkbox'],'FTP'],
             'host_configuration_ip_addres_connect_external_device_smb' =>  ['form-check',['checkbox'],'SMB']],
