@@ -1,2 +1,14 @@
 .idea/
 temp/session/
+
+# Windows / PowerShell
+Microsoft/
+
+# LaTeX-Build-Artefakte
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.synctex.gz
+*.toc
+*.out
