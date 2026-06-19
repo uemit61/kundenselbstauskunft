@@ -39,6 +39,8 @@
     {
         session_start();
         $page = $_SESSION['page'] ?? 'start_page';
+
+        
     }
     else
     {  
@@ -68,7 +70,8 @@
             $controller->start();
         break;
 
-        case 'customerInfo':
+        case 'customer_contact_information':
+           
             require 'C:/xampp/htdocs/Kundenselbstauskunft/model/customerInfo_form_model.php';
             require 'C:/xampp/htdocs/Kundenselbstauskunft/view/pages/form_page.php';
             $model = new Customer_Model(new Form_Page(),new Connection(true));

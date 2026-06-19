@@ -79,7 +79,7 @@
             
             $this->internet_address = explode('/',$_SERVER['REQUEST_URI'])[1]; // Später mit $_SERVER['HTTP_HOST'] arbeiten
             try
-            {
+            {   
                 $con = $this->pdo->connect_to_db();
 
                 $query = "SELECT website_configuration_logo
@@ -118,9 +118,9 @@
             {
                 $con = $this->pdo->connect_to_db();
 
-                $query = "  SELECT json_data
-                            FROM `customer_json_cache` 
-                            WHERE customer_id = :customer_id";
+                $query ="SELECT json_data
+                        FROM `customer_json_cache` 
+                        WHERE customer_id = :customer_id";
 
                 $stmt = $con->prepare($query);
                 $stmt->bindValue(':customer_id',$this->customer_id);
@@ -130,13 +130,10 @@
 
                 $file = fopen("C:\\xampp\\htdocs\\kundenselbstauskunft\\temp\\session\\mySession","w+");
 
-                echo var_dump($result['json_data']);
                 
                 fwrite($file, $result['json_data']);
                 fclose($file);
                     
-
-                echo "Zwichenspeicher wurde geladen.";
             }
             catch (PDOException $e)
             {
@@ -218,17 +215,14 @@
             $this->get_legacy_customer_logo();
         }
 
-        function check_password($user,$password)
+        function check_password($user,$password) //
         {
             $this->get_customer_id($user);
 
             // hexa random reinhauen 
             define('DECODE', 'maypass61'); // verstecken unsicher!!! siehe vorschlag chatgpt!!!
             $pepperPass = $password. DECODE;
-
-            $bo = password_verify($pepperPass,'$argon2id$v=19$m=65536,t=4,p=1$'.$this->password);
-            echo  'qq'.$bo;
-
+            
             if(password_verify($pepperPass,'$argon2id$v=19$m=65536,t=4,p=1$'.$this->password))
             {
                 session_start();
@@ -252,7 +246,6 @@
             session_start();
                 $this->customer_id= $_SESSION['customer_id'];
             session_write_close();
-
 
             try
             {

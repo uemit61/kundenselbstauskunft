@@ -19,10 +19,10 @@
                 $customer_id = $_SESSION['customer_id'];
             session_write_close();
 
-            $query = "UPDATE `json_cache` SET `json_data` = :j_data WHERE `json_cache`.`Json_Cache_ID` = 1 AND `json_cache`.`customer_id` = :customer_id; ";
+            $query = "UPDATE `customer_json_cache` SET `json_data` = :json_data WHERE `customer_json_cache`.`json_cache_id` = 1 AND `customer_json_cache`.`customer_id` = :customer_id; ";
     
             $stmt = $con->prepare($query);
-            $stmt->bindValue(':j_data', $data);
+            $stmt->bindValue(':json_data', $data);
             $stmt->bindValue(':customer_id',$customer_id);
             $stmt->execute();
 
@@ -34,8 +34,5 @@
         {
             echo "Error: " . $e->getMessage();
         }
-      
-
     }
-
  }

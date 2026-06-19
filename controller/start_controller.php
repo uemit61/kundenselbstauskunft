@@ -19,7 +19,7 @@
 
                 if($action  === "Speichern")
                 {
-                    $this->model->save_password($_POST['Password']);
+                    $this->model->save_password($_POST['password']);
                     session_start();
                         $_SESSION['page']= 'form_page';
                     session_write_close();
@@ -29,7 +29,7 @@
                 else if($action === "Anmelden")
                 {
                     
-                    $this->model->check_password($_POST['Loginname'],$_POST['Password']); // 
+                    $this->model->check_password($_POST['username'],$_POST['password']); // 
                     header('Location: .');
                     exit();
                 }
