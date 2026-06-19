@@ -1,5 +1,7 @@
 <?php
 
+    // require '../utils/controllerUtils.php';
+
     class Customer_controller
     {
         private $model;
@@ -11,7 +13,7 @@
 
         function start()
         {
-            
             $this->model->updateView();
         }
     }
+    

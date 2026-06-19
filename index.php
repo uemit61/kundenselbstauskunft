@@ -11,77 +11,66 @@
 
 <?php 
   
-    require './own_functions.php';
-    require './connection.php';
     
-    $data = json_decode(file_get_contents('php://input'), true);
-
-
-    $token =null;
-
-
-    if(!empty($_GET)) // keine GETS erlaubt!
+    require './connection.php';
+    require './indexUtils.php';
+    require_once 'C:/xampp/htdocs/Kundenselbstauskunft/model/customer/customer.php';
+    
+    // GET-REQUESTS werden blockiert Seite lädt sich selbst ohne GET-REQUESTS
+    if(!empty($_GET))
     {
         header('Location: index.php');
     }
     
-    $uri = $_SERVER['REQUEST_URI'];
-    $parts = explode("/", $uri);
-    $last_part = implode("/", array_slice($parts, 3));
-    
-    
-    if (!preg_match("/[\^'=\"]/", $uri, $matches))  // zusatzliche uberprufung
-    {
-        $token=$last_part;
-    }
-    
-    if($data == null)
-    {
-        session_start();
-        $page = $_SESSION['page'] ?? 'start_page';
+    // Daten werden geholt per AJAX-POST_REQUEST 
+    $data = getData();
 
-        
-    }
-    else
-    {  
-        session_start();
-            $page = $data['page'] ?? 'start_page';
-    }
-    $_SESSION['page']=null;
-    session_write_close();
-        
+    // Token wird aus der URL geholt
+    $token =getToken();
 
+    $page = getPage($data);
+
+    $customer = getCustomer();
+    
 
     switch ($page)
     {
         case 'start_page':
             require 'C:/xampp/htdocs/Kundenselbstauskunft/model/start_model.php';
-            require 'C:/xampp/htdocs/Kundenselbstauskunft/view/pages/start_page.php';
             require 'C:/xampp/htdocs/Kundenselbstauskunft/controller/start_controller.php';
+            require 'C:/xampp/htdocs/Kundenselbstauskunft/view/pages/start_page.php';
             $controller = new Start_Controller(new Start_Model($token,new Login_Page(), new Connection()));
             $controller->handleRequest();
         break;
 
         case 'form_page':
-            require 'C:/xampp/htdocs/Kundenselbstauskunft/model/customerInfo_form_model.php';
+            require 'C:/xampp/htdocs/Kundenselbstauskunft/model/formular_model.php';
             require 'C:/xampp/htdocs/Kundenselbstauskunft/view/pages/form_page.php';
             require 'C:/xampp/htdocs/Kundenselbstauskunft/controller/customer_controller.php';
-            $controller =new Customer_Controller(new Customer_Model(new Form_Page(),new Connection()));
+            $controller =new Customer_Controller(new CIModel(new Form_Page(),new Connection()));
             $controller->start();
-        break;
-
-        case 'customer_contact_information':
-           
-            require 'C:/xampp/htdocs/Kundenselbstauskunft/model/customerInfo_form_model.php';
-            require 'C:/xampp/htdocs/Kundenselbstauskunft/view/pages/form_page.php';
-            $model = new Customer_Model(new Form_Page(),new Connection(true));
-            $model->loading_infos();
-            $model->create_database_infos($data['json_form_data'] ?? '');
-            $model->save_to_database();
             die();
         break;
 
-        case 'host':
+        case 'dash_page':
+            break;
+
+        case 'customer_contact_information':
+            require_once 'C:/xampp/htdocs/Kundenselbstauskunft/model/formular_model.php';
+            require_once 'C:/xampp/htdocs/Kundenselbstauskunft/view/pages/form_page.php';
+            require_once 'C:/xampp/htdocs/Kundenselbstauskunft/controller/customer_contact_information_controller.php';           
+            $controller = new CIController(new CIModel(new Form_Page(),new Connection(true),$data));
+            $controller->handleRequest($data,$customer);
+            die();
+        break;
+
+        case 'customer_host_configuration':
+            require_once 'C:/xampp/htdocs/Kundenselbstauskunft/model/formular_model.php';
+            require_once 'C:/xampp/htdocs/Kundenselbstauskunft/view/pages/form_page.php';
+            require_once 'C:/xampp/htdocs/Kundenselbstauskunft/controller/customer_contact_information_controller.php';           
+            $controller = new CIController(new CIModel(new Form_Page(),new Connection(true),$data));
+            $controller->handleRequest($data,$customer);
+            die();
           
         break;
 

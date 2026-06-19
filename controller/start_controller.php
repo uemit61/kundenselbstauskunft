@@ -1,47 +1,35 @@
 <?php
+   
 
     class Start_Controller
     {
         private $model =null;
-
         function __construct($model)
         {
             $this->model = $model;
         }
-
-        function handleRequest($feedback=false)
+        function handleRequest()
         {
-           
-
             if($_SERVER['REQUEST_METHOD'] === 'POST')
             {
                 $action = $_POST['btn'];
 
                 if($action  === "Speichern")
                 {
-                    $this->model->save_password($_POST['password']);
-                    session_start();
-                        $_SESSION['page']= 'form_page';
-                    session_write_close();
-                    header('Location: .');
-                    exit();
+                    $this->model->savePassword($_POST['password']);
                 }
                 else if($action === "Anmelden")
-                {
-                    
-                    $this->model->check_password($_POST['username'],$_POST['password']); // 
-                    header('Location: .');
-                    exit();
+                {   
+                    $this->model->login($_POST['username'],$_POST['password']); // 
                 }
+                header('Location: .');
+                exit();
             }
             else
-            {
-                $this->model->check_token();
+            {   
+                $this->model->checkToken();
                 $this->model->update_view(); 
                 exit();
             }
-            
-            
-            
         }
     }
