@@ -20,7 +20,7 @@ class Customer_Model
     private $contact_person_id;
     private $address_id;
     private $is_saved;
-    private $contact_information=['Contact_Information_ID'=>'','CompanyName'=>'','Phone'=>'','Email'=>'','Saved' => '','Customer_ID'=>''];
+    private $contact_information=['Contact_Information_ID'=>'','CompanyName'=>'','Phone'=>'','Email'=>'','Saved' => '','customer_id'=>''];
     private $contact_person=['Contact_Person_ID'=>'','Gender'=>'','PersonName'=>'','Surname'=>'','Contact_Information_ID'=>''];
     private $address=['Address_ID'=>'','Street'=>'','House_Number'=>'','Postcode'=>'','City'=>'','Contact_Information_ID'=>''];
 
@@ -29,10 +29,10 @@ class Customer_Model
         $this->view=$view;
         $this->pdo=$pdo;
         session_start();
-            $this->customer_id = $_SESSION['Customer_ID'];
-            $this->legacy_customer_id = $_SESSION['Legacy_Customer_ID'];
+            $this->customer_id = $_SESSION['customer_id'];
+            // $this->legacy_customer_id = $_SESSION['Legacy_customer_id'];
         session_write_close();
-        $this->contact_information['Customer_ID'] = $this->customer_id;
+        $this->contact_information['customer_id'] = $this->customer_id;
     }
 
     function create_database_infos($data)   
@@ -101,7 +101,7 @@ class Customer_Model
             $query= "SELECT `address`.`Address_ID`,`contact_person`.`Contact_Person_ID`,
                             `contact_information`.`Contact_Information_ID`, `contact_information`.`Saved`
                     FROM   `contact_information`, `contact_person`,`address`
-                    WHERE  `contact_information`.`Customer_ID` = :customer_id;";
+                    WHERE  `contact_information`.`customer_id` = :customer_id;";
 
             $stmt = $con->prepare($query);
             $stmt->bindValue('customer_id', $this->customer_id, PDO::PARAM_INT);
@@ -151,7 +151,7 @@ class Customer_Model
                 $query ="UPDATE `contact_information` 
                          SET CompanyName = :CompanyName, Phone = :Phone, Email = :Email, Saved = :Saved 
                          WHERE Contact_Information_ID = :Contact_Information_ID
-                         AND Customer_ID = :Customer_ID;";
+                         AND customer_id = :customer_id;";
                 $stmt= $con->prepare($query);
                 $stmt->execute($this->contact_information);
 
@@ -172,15 +172,15 @@ class Customer_Model
             else
             {
                 $con = $this->pdo->connect_to_db();
-                $query ='INSERT INTO `contact_information` (`Contact_Information_ID`, `CompanyName`, `Phone`, `Email`, `Saved`, `Customer_ID`) 
-                         VALUES (:Contact_Information_ID, :CompanyName, :Phone, :Email, :Saved, :Customer_ID)';
+                $query ='INSERT INTO `contact_information` (`Contact_Information_ID`, `CompanyName`, `Phone`, `Email`, `Saved`, `customer_id`) 
+                         VALUES (:Contact_Information_ID, :CompanyName, :Phone, :Email, :Saved, :customer_id)';
 
                 $stmt = $con->prepare($query);
                 $stmt->execute($this->contact_information);
 
-                $query ='SELECT Contact_Information_ID FROM `contact_information` WHERE `Customer_ID` = :Customer_ID';
+                $query ='SELECT Contact_Information_ID FROM `contact_information` WHERE `customer_id` = :customer_id';
                 $stmt = $con->prepare($query);
-                $stmt->bindValue(':Customer_ID',$this->customer_id);
+                $stmt->bindValue(':customer_id',$this->customer_id);
                 $stmt->execute();
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
                 $this->contact_information_id = $result['Contact_Information_ID'];

@@ -17,7 +17,10 @@
                         <div class="form-floating">
                             <input type="text" class="form-control rounded-end-5 " id="username" name="Loginname" placeholder="email adresse">
                             <label for="Loginname" class="form-label">email adresse</label>
+                            
                         </div>
+                        <div id="usernameFeedback" class="text invalid-feedback"></div>
+                        
                     </div> 
 
                     <div class="text-primary  d-flex p-2 justify-content-end ">Passwort vergessen?</div>

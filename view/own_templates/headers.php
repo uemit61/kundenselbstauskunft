@@ -24,9 +24,9 @@
 
     function logout_header($logo)
     {
-?>      <header class="p-3">
+?>      <header class="sticky-top bg-white p-3">
             <div class=" d-flex  justify-content-between  align-items-center">
-                <img src="<?php echo $logo ?>" alt="Logo" class="logo" style="max-width: 150px;"> // Logo des Kunden
+                <img src="<?php echo $logo ?>" alt="Logo" class="logo" style="max-width: 150px;">
                 <button class="btn btn-outline-dark">Abmelden</button> <!-- Abmelden-Icon -->
             </div>
         </header>

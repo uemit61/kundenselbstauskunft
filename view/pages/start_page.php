@@ -49,6 +49,11 @@
 
                 <!-- Eigene JavaScript  -->
                 <script src="/kundenselbstauskunft/controller/javascript_password_form1.js"></script>
+
+                  <!-- Bootstrap JS -->
+                  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" ></script>
+             
+                <script type="module" src='/kundenselbstauskunft/controller/jquery_self.js'></script>
             </body>
             </html>
 <?php
