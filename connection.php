@@ -24,7 +24,7 @@
          $this->ajax_procedure = $ajax_procedure;
       }
 
-      function connect_to_db() 
+      function connectToDb() 
       {
          $this->dsn = "mysql:host=$this->servername;dbname=$this->db;charset=utf8";
          
@@ -53,7 +53,7 @@
             return $this->pdo;
       }
 
-      function close_connection()
+      function closeConnection()
       {
          if($this->ajax_procedure)
          {
