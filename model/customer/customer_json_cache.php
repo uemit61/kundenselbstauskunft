@@ -1,6 +1,6 @@
 <?php
 
- class Cache_Model
+ class Customer_json_cache
  {
     private $pdo;
 
