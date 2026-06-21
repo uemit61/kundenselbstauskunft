@@ -53,10 +53,7 @@ class Customer implements SEInterface
         $stmt->execute($attr);
     }
 
-    // public function __construct()
-    // {
-    //     //
-    // }
+ 
     //Statische Mehtode zum generieren von einem User
     public static function loadEntity($pdo,$login_name,$password=0)
     {

@@ -70,7 +70,7 @@
 
         function savePassword($password)
         {
-            $this->customer = new Customer($password,$this->pdo);
+            $this->customer = new Customer();
             $this->customer->setCustomer_password($password,$this->pdo);
 
              $this->customer_token = Customer_token::getCustomer_token($this->pdo,$this->token);
