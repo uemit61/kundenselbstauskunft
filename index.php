@@ -55,39 +55,14 @@
         case 'dash_page':
             break;
 
-        case 'customer_contact_information':
+        //FORM-PAGES
+        default:
             require_once 'C:/xampp/htdocs/Kundenselbstauskunft/model/formular_model.php';
             require_once 'C:/xampp/htdocs/Kundenselbstauskunft/view/pages/form_page.php';
             require_once 'C:/xampp/htdocs/Kundenselbstauskunft/controller/customer_contact_information_controller.php';           
             $controller = new CIController(new CIModel(new Form_Page(),new Connection(true),$data));
             $controller->handleRequest($data,$customer);
             die();
-        break;
-
-        case 'customer_host_configuration':
-            require_once 'C:/xampp/htdocs/Kundenselbstauskunft/model/formular_model.php';
-            require_once 'C:/xampp/htdocs/Kundenselbstauskunft/view/pages/form_page.php';
-            require_once 'C:/xampp/htdocs/Kundenselbstauskunft/controller/customer_contact_information_controller.php';           
-            $controller = new CIController(new CIModel(new Form_Page(),new Connection(true),$data));
-            $controller->handleRequest($data,$customer);
-            die();
-          
-        break;
-
-        case 'client':
-
-        break;
-
-        case 'erp':
-
-        break;
-
-        case 'import':
-        
-        break;
-
-        case 'test':
-            require './test.php';
         break;
 
         case 'save_json_cache':
