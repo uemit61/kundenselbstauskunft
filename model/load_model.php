@@ -9,35 +9,41 @@ class LoadModel
     public function __construct(Connection $pdo) 
     {
         $this->pdo = $pdo;
+        
     
     }
 
     public function loadForm($load)
     {
+        ob_start();
+        ob_clean();
         var_dump($load);
         $formName = substr($load, 5); 
         var_dump($formName);
 
         
         $parts = explode("_", $formName);
-        $mainForeignKey = array_shift($parts).'_id';
-        $subForeignKey = implode("_", $parts).'_id';
+        $primaeryKeyName = array_shift($parts).'_id';
+        $foreignKeyName= implode("_", $parts).'_id';
 
-        var_dump($mainForeignKey.' '.$subForeignKey);
+        var_dump($primaeryKeyName.' '.$foreignKeyName);
 
         var_dump($this->getCustomer()->getCustomer_id());
 
-
+        exit();
         $filename ='C:/xampp/htdocs/Kundenselbstauskunft/model/customer/kundenselbstauskunftsformular/'.$formName.'/'.$formName.'.php';
         require_once $filename;
 
         $subEntity =pathinfo($filename, PATHINFO_FILENAME);
         $class = ucfirst($subEntity);
-        $entity = new $class();
-        $data = $entity->loadFromDB($this->pdo,$formName, $mainForeignKey,$this->getCustomer()->getCustomer_id());
-
-        var_dump($data);
-
+        $entity = new $class($primaeryKeyName,$foreignKeyName);
+        $loadedForm = $entity->loadFromDB($this->pdo,$formName, $primaeryKeyName,$this->getCustomer()->getCustomer_id());
+        
+        ob_clean();
+        header('Content-Type: application/json');
+        echo json_encode($loadedForm);
+        ob_end_flush();
+        
         // foreach
         // (glob('C:/xampp/htdocs/Kundenselbstauskunft/model/customer/kundenselbstauskunftsformular/'.$formName.'/*.php') as $filename)
         // {
@@ -48,7 +54,7 @@ class LoadModel
         //     $entity = new $class();
 
 
-        //     $entity->loadFromDB($this->pdo,$formName,$subForeignKey,$this->getCustomer()->getCustomer_id());
+        //     $entity->loadFromDB($this->pdo,$formName,$foreignKeyName,$this->getCustomer()->getCustomer_id());
         // }
     }
 

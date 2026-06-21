@@ -4,21 +4,31 @@ require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstau
 
 class Customer_contact_information
 {
-    private $contact_information_id,
+    public  $contact_information_id,
             $contact_information_company_name,
             $contact_information_phone,
             $contact_information_email,
             $contact_information_saved_data;
 
-    private $contact_information_contact_person,
+    public  $contact_information_contact_person,
             $contact_information_addres;
 
+    public  $primaeryKeyName, $foreignKeyName, $parentEnityId;
 
-    
+  
+    public function __construct($primaeryKeyName = null,$foreignKeyName=null,$parentEnityId=null)
+    {
+        $this->foreignKeyName = $foreignKeyName;
+        $this->primaeryKeyName = $primaeryKeyName;
+        $this->parentEnityId = $parentEnityId;
+        require_once 'C:/xampp/htdocs/Kundenselbstauskunft/model/customer/kundenselbstauskunftsformular/customer_contact_information/contact_information_contact_person.php';
+        require_once 'C:/xampp/htdocs/Kundenselbstauskunft/model/customer/kundenselbstauskunftsformular/customer_contact_information/contact_information_addres.php';
+        
+    }
 
     /**
      * Get the value of contact_information_id
-     */ 
+    */ 
     public function getContact_information_id()
     {
         return $this->contact_information_id;
@@ -157,8 +167,8 @@ class Customer_contact_information
         createRecordToDB($pdo,$data, 'customer_contact_information');
     }
 
-    public static function loadFromDB($pdo,$entity_name,$foreignKey,$parentEnity_id)
+    public static function loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnityId)
     {
-        loadFromDB($pdo,$entity_name,$foreignKey,$parentEnity_id);
+        return loadFromDB($pdo,$entity_name,$foreignKey,$parentEnity_id);
     }
 }

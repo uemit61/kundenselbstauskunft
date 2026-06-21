@@ -1,7 +1,7 @@
 <?php
     class Contact_information_addres 
     {
-        private $contact_information_addres_id, 
+        public $contact_information_addres_id, 
                 $contact_information_addres_street,
                 $contact_information_addres_house_number,
                 $contact_information_addres_postcode,

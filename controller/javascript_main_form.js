@@ -167,10 +167,11 @@ $(document).ready(function()
                 contentType: 'application/json',
                 data:  JSON.stringify({page:'load' , load: $(formId).attr('name')}),
 
-                success: function (response)
+                success: function (data,response)
                 {
-
                     console.log(response);
+                    console.log(data);
+                    
                 },
                 error: function (error)
                 {
@@ -213,7 +214,7 @@ $(document).ready(function()
             );
 
             
-            // console.log(form_data);
+            console.log(form_data);
 
             $.ajax
             (

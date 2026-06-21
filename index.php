@@ -1,4 +1,7 @@
-
+<?php
+ob_start();
+ob_clean();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- 
@@ -11,7 +14,7 @@
 -->
 
 <?php 
-  
+ob_clean();
     
     require './connection.php';
     require './indexUtils.php';
@@ -59,7 +62,7 @@
         case 'dash_page':
             break;
         case 'save_json_cache':
-            var_dump($data);
+            // var_dump($data);
             require_once 'C:/xampp/htdocs/Kundenselbstauskunft/model/customer/customer_json_cache.php';
             $model = new Customer_json_cache(new Connection(true));
             $model->save_json_to_db($data['json_form_data'],$customer);
@@ -67,6 +70,8 @@
         break;
 
         case 'load':
+            
+            ob_clean();
             require_once 'C:\xampp\htdocs\kundenselbstauskunft\controller\load_controller.php';
             require_once 'C:\xampp\htdocs\kundenselbstauskunft\model\load_model.php';
             $controller = new LoadController(new LoadModel(new Connection(true)));
