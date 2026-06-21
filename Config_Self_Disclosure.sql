@@ -143,8 +143,8 @@ CREATE TABLE `customer` (
   `customer_id` int(11) NOT NULL,
   `customer_login_name` varchar(45) DEFAULT NULL,
   `customer_password` varchar(255) DEFAULT NULL,
-  `customer_infos_imported` tinyint(1) DEFAULT NULL,
-  `customer_admin` tinyint(1) DEFAULT NULL
+  `customer_infos_imported` varchar(3) DEFAULT NULL,
+  `customer_admin` varchar(3) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
@@ -202,7 +202,7 @@ CREATE TABLE `customer_email_configuration` (
   `email_configuration_smtp_host` varchar(45) DEFAULT NULL,
   `email_configuration_smtp_port` varchar(45) DEFAULT NULL,
   `email_configuration_smtp_user` varchar(45) DEFAULT NULL,
-  `email_configuration_smtp_encryption` tinyint(1) DEFAULT NULL,
+  `email_configuration_smtp_encryption` varchar(3) DEFAULT NULL,
   `email_configuration_bcc_email` varchar(45) DEFAULT NULL,
   `customer_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -246,6 +246,7 @@ INSERT INTO `customer_host_configuration` (`host_configuration_id`, `host_config
 
 CREATE TABLE `customer_import` (
   `import_id` int(11) NOT NULL,
+  `import_save_data` int(1) DEFAULT NULL,
   `customer_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -270,7 +271,7 @@ CREATE TABLE `customer_json_cache` (
 CREATE TABLE `customer_token` (
   `customer_token_id` int(11) NOT NULL,
   `customer_token_key` varchar(255) DEFAULT NULL,
-  `customer_token_used` tinyint(1) DEFAULT NULL,
+  `customer_token_used` varchar(3) DEFAULT NULL,
   `customer_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -359,10 +360,10 @@ CREATE TABLE `erp_configuration_invoice` (
 
 CREATE TABLE `erp_configuration_item_types` (
   `erp_configuration_item_types_id` int(11) NOT NULL,
-  `erp_configuration_item_types_item` tinyint(1) DEFAULT NULL,
-  `erp_configuration_item_types_bom` tinyint(1) DEFAULT NULL,
-  `erp_configuration_item_types_services` tinyint(1) DEFAULT NULL,
-  `erp_configuration_item_types_variant_item` tinyint(1) DEFAULT NULL,
+  `erp_configuration_item_types_item` varchar(3) DEFAULT NULL,
+  `erp_configuration_item_types_bom` varchar(3) DEFAULT NULL,
+  `erp_configuration_item_types_services` varchar(3) DEFAULT NULL,
+  `erp_configuration_item_types_variant_item` varchar(3) DEFAULT NULL,
   `erp_configuration_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -445,9 +446,9 @@ CREATE TABLE `erp_configuration_service_order` (
 CREATE TABLE `host_configuration_ip_addres_connect_external_device` (
   `ip_addres_connect_external_device_id` int(11) NOT NULL,
   `device_ip` varchar(45) DEFAULT NULL,
-  `device_ip_sftp` tinyint(1) DEFAULT NULL,
-  `device_ip_ftp` tinyint(1) DEFAULT NULL,
-  `device_ip_smb` tinyint(1) DEFAULT NULL,
+  `device_ip_sftp` varchar(3) DEFAULT NULL,
+  `device_ip_ftp` varchar(3) DEFAULT NULL,
+  `device_ip_smb` varchar(3) DEFAULT NULL,
   `device_share_name` varchar(45) DEFAULT NULL,
   `device_user` varchar(45) DEFAULT NULL,
   `device_password` varchar(45) DEFAULT NULL,
@@ -462,9 +463,9 @@ CREATE TABLE `host_configuration_ip_addres_connect_external_device` (
 
 CREATE TABLE `host_configuration_ip_addres_data_backup` (
   `backup_id` int(11) NOT NULL,
-  `backup_sftp` tinyint(1) DEFAULT NULL,
-  `backup_ftp` tinyint(1) DEFAULT NULL,
-  `backup_smb` tinyint(1) DEFAULT NULL,
+  `backup_sftp` varchar(3) DEFAULT NULL,
+  `backup_ftp`varchar(3) DEFAULT NULL,
+  `backup_smb` varchar(3) DEFAULT NULL,
   `backup_ip` varchar(45) DEFAULT NULL,
   `backup_share_name` varchar(45) DEFAULT NULL,
   `backup_user` varchar(45) DEFAULT NULL,
@@ -516,9 +517,9 @@ INSERT INTO `host_configuration_virtualization` (`host_configuration_virtualizat
 
 CREATE TABLE `import_accessories_item_data` (
   `import_accessories_item_data_id` int(11) NOT NULL,
-  `import_accessories_item_data_item_number` tinyint(1) DEFAULT NULL,
-  `import_accessories_item_data_import_accessories_item_item_number` tinyint(1) DEFAULT NULL,
-  `import_accessories_item_data_from_quantity` tinyint(1) DEFAULT NULL,
+  `import_accessories_item_data_item_number` varchar(3) DEFAULT NULL,
+  `import_accessories_item_data_import_accessories_item_item_number` varchar(3) DEFAULT NULL,
+  `import_accessories_item_data_from_quantity` varchar(3) DEFAULT NULL,
   `import_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -530,18 +531,18 @@ CREATE TABLE `import_accessories_item_data` (
 
 CREATE TABLE `import_customer_billing_addres_data` (
   `import_customer_billing_addres_data_id` int(11) NOT NULL,
-  `import_customer_billing_addres_data_number` tinyint(1) DEFAULT NULL,
-  `import_customer_billing_addres_data_company` tinyint(1) DEFAULT NULL,
-  `import_customer_billing_addres_data_name` tinyint(1) DEFAULT NULL,
-  `import_customer_billing_addres_data_surname` tinyint(1) DEFAULT NULL,
-  `import_customer_billing_addres_data_street` tinyint(1) DEFAULT NULL,
-  `import_customer_billing_addres_data_house_Number` tinyint(1) DEFAULT NULL,
-  `import_customer_billing_addres_data_postcode` tinyint(1) DEFAULT NULL,
-  `import_customer_billing_addres_data_city` tinyint(1) DEFAULT NULL,
-  `import_customer_billing_addres_data_country` tinyint(1) DEFAULT NULL,
-  `import_customer_billing_addres_data_additional_addres` tinyint(1) DEFAULT NULL,
-  `import_customer_billing_addres_data_email` tinyint(1) DEFAULT NULL,
-  `import_customer_billing_addres_data_phone` tinyint(1) DEFAULT NULL,
+  `import_customer_billing_addres_data_number` varchar(3) DEFAULT NULL,
+  `import_customer_billing_addres_data_company` varchar(3) DEFAULT NULL,
+  `import_customer_billing_addres_data_name` varchar(3) DEFAULT NULL,
+  `import_customer_billing_addres_data_surname` varchar(3) DEFAULT NULL,
+  `import_customer_billing_addres_data_street` varchar(3) DEFAULT NULL,
+  `import_customer_billing_addres_data_house_Number` varchar(3) DEFAULT NULL,
+  `import_customer_billing_addres_data_postcode` varchar(3) DEFAULT NULL,
+  `import_customer_billing_addres_data_city` varchar(3) DEFAULT NULL,
+  `import_customer_billing_addres_data_country` varchar(3) DEFAULT NULL,
+  `import_customer_billing_addres_data_additional_addres` varchar(3) DEFAULT NULL,
+  `import_customer_billing_addres_data_email` varchar(3) DEFAULT NULL,
+  `import_customer_billing_addres_data_phone` varchar(3) DEFAULT NULL,
   `import_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -553,15 +554,15 @@ CREATE TABLE `import_customer_billing_addres_data` (
 
 CREATE TABLE `import_customer_contact_person_data` (
   `import_customer_contact_person_data_id` int(11) NOT NULL,
-  `import_customer_contact_person_data_number` tinyint(1) DEFAULT NULL,
-  `import_customer_contact_person_data_salutation` tinyint(1) DEFAULT NULL,
-  `import_customer_contact_person_data_name` tinyint(1) DEFAULT NULL,
-  `import_customer_contact_person_data_surname` tinyint(1) DEFAULT NULL,
-  `import_customer_contact_person_data_email` tinyint(1) DEFAULT NULL,
-  `import_customer_contact_person_data_phone` tinyint(1) DEFAULT NULL,
-  `import_customer_contact_person_data_second_phone` tinyint(1) DEFAULT NULL,
-  `import_customer_contact_person_data_fax` tinyint(1) DEFAULT NULL,
-  `import_customer_contact_person_data_description` tinyint(1) DEFAULT NULL,
+  `import_customer_contact_person_data_number` varchar(3) DEFAULT NULL,
+  `import_customer_contact_person_data_salutation` varchar(3) DEFAULT NULL,
+  `import_customer_contact_person_data_name` varchar(3) DEFAULT NULL,
+  `import_customer_contact_person_data_surname` varchar(3) DEFAULT NULL,
+  `import_customer_contact_person_data_email` varchar(3) DEFAULT NULL,
+  `import_customer_contact_person_data_phone` varchar(3) DEFAULT NULL,
+  `import_customer_contact_person_data_second_phone` varchar(3) DEFAULT NULL,
+  `import_customer_contact_person_data_fax` varchar(3) DEFAULT NULL,
+  `import_customer_contact_person_data_description` varchar(3) DEFAULT NULL,
   `import_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -573,33 +574,33 @@ CREATE TABLE `import_customer_contact_person_data` (
 
 CREATE TABLE `import_customer_data` (
   `import_customer_data_id` int(11) NOT NULL,
-  `import_customer_data_status` tinyint(1) DEFAULT NULL,
-  `import_customer_data_customer_number` tinyint(1) DEFAULT NULL,
-  `import_customer_data_different_billing_customer` tinyint(1) DEFAULT NULL,
-  `import_customer_data_salutation` tinyint(1) DEFAULT NULL,
-  `import_customer_data_name` tinyint(1) DEFAULT NULL,
-  `import_customer_data_surname` tinyint(1) DEFAULT NULL,
-  `import_customer_data_street` tinyint(1) DEFAULT NULL,
-  `import_customer_data_house_number` tinyint(1) DEFAULT NULL,
-  `import_customer_data_postcode` tinyint(1) DEFAULT NULL,
-  `import_customer_data_city` tinyint(1) DEFAULT NULL,
-  `import_customer_data_country` tinyint(1) DEFAULT NULL,
-  `import_customer_data_company_name` tinyint(1) DEFAULT NULL,
-  `import_customer_data_additional_addres_information` tinyint(1) DEFAULT NULL,
-  `import_customer_data_email` tinyint(1) DEFAULT NULL,
-  `import_customer_data_different_erp_configuration_invoice_email` tinyint(1) DEFAULT NULL,
-  `import_customer_data_phone` tinyint(1) DEFAULT NULL,
-  `import_customer_data_financiall_accounting_account` tinyint(1) DEFAULT NULL,
-  `import_customer_data_tax_number` tinyint(1) DEFAULT NULL,
-  `import_customer_data_informations` tinyint(1) DEFAULT NULL,
-  `import_customer_data_calculate_shipping_cost` tinyint(1) DEFAULT NULL,
-  `import_customer_data_direct_debit_mandate_reference` tinyint(1) DEFAULT NULL,
-  `import_customer_data_direct_debit_bank` tinyint(1) DEFAULT NULL,
-  `import_customer_data_direct_debit_bic` tinyint(1) DEFAULT NULL,
-  `import_customer_data_direct_debit_iban` tinyint(1) DEFAULT NULL,
-  `import_customer_data_direct_debit_account_holder` tinyint(1) DEFAULT NULL,
-  `import_customer_data_sales_tax_exempt` tinyint(1) DEFAULT NULL,
-  `import_customer_data_own_supplier_number` tinyint(1) DEFAULT NULL,
+  `import_customer_data_status` varchar(3) DEFAULT NULL,
+  `import_customer_data_customer_number` varchar(3) DEFAULT NULL,
+  `import_customer_data_different_billing_customer` varchar(3) DEFAULT NULL,
+  `import_customer_data_salutation` varchar(3) DEFAULT NULL,
+  `import_customer_data_name` varchar(3) DEFAULT NULL,
+  `import_customer_data_surname` varchar(3) DEFAULT NULL,
+  `import_customer_data_street` varchar(3) DEFAULT NULL,
+  `import_customer_data_house_number` varchar(3) DEFAULT NULL,
+  `import_customer_data_postcode` varchar(3) DEFAULT NULL,
+  `import_customer_data_city` varchar(3) DEFAULT NULL,
+  `import_customer_data_country` varchar(3) DEFAULT NULL,
+  `import_customer_data_company_name` varchar(3) DEFAULT NULL,
+  `import_customer_data_additional_addres_information` varchar(3) DEFAULT NULL,
+  `import_customer_data_email` varchar(3) DEFAULT NULL,
+  `import_customer_data_different_erp_configuration_invoice_email` varchar(3) DEFAULT NULL,
+  `import_customer_data_phone` varchar(3) DEFAULT NULL,
+  `import_customer_data_financiall_accounting_account` varchar(3) DEFAULT NULL,
+  `import_customer_data_tax_number` varchar(3) DEFAULT NULL,
+  `import_customer_data_informations` varchar(3) DEFAULT NULL,
+  `import_customer_data_calculate_shipping_cost` varchar(3) DEFAULT NULL,
+  `import_customer_data_direct_debit_mandate_reference` varchar(3) DEFAULT NULL,
+  `import_customer_data_direct_debit_bank` varchar(3) DEFAULT NULL,
+  `import_customer_data_direct_debit_bic` varchar(3) DEFAULT NULL,
+  `import_customer_data_direct_debit_iban` varchar(3) DEFAULT NULL,
+  `import_customer_data_direct_debit_account_holder` varchar(3) DEFAULT NULL,
+  `import_customer_data_sales_tax_exempt` varchar(3) DEFAULT NULL,
+  `import_customer_data_own_supplier_number` varchar(3) DEFAULT NULL,
   `import_customer_data_number_of_additions` varchar(128) DEFAULT NULL,
   `import_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -612,11 +613,11 @@ CREATE TABLE `import_customer_data` (
 
 CREATE TABLE `import_customer_item_data` (
   `import_customer_item_data_id` int(11) NOT NULL,
-  `import_customer_item_data_customer_number` tinyint(1) DEFAULT NULL,
-  `import_customer_item_data_item_number` tinyint(1) DEFAULT NULL,
-  `import_customer_item_data_price` tinyint(1) DEFAULT NULL,
-  `import_customer_item_data_from_Quantity` tinyint(1) DEFAULT NULL,
-  `import_customer_item_data_description` tinyint(1) DEFAULT NULL,
+  `import_customer_item_data_customer_number` varchar(3) DEFAULT NULL,
+  `import_customer_item_data_item_number` varchar(3) DEFAULT NULL,
+  `import_customer_item_data_price` varchar(3) DEFAULT NULL,
+  `import_customer_item_data_from_Quantity` varchar(3) DEFAULT NULL,
+  `import_customer_item_data_description` varchar(3) DEFAULT NULL,
   `import_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -628,20 +629,20 @@ CREATE TABLE `import_customer_item_data` (
 
 CREATE TABLE `import_item_data` (
   `import_item_data_id` int(11) NOT NULL,
-  `import_item_data_status` tinyint(1) DEFAULT NULL,
-  `import_item_data_number` tinyint(1) DEFAULT NULL,
-  `import_item_data_description` tinyint(1) DEFAULT NULL,
-  `import_item_data_name` tinyint(1) DEFAULT NULL,
-  `import_item_data_text` tinyint(1) DEFAULT NULL,
-  `import_item_data_unit` tinyint(1) DEFAULT NULL,
-  `import_item_data_typ` tinyint(1) DEFAULT NULL,
-  `import_item_data_single_category_name` tinyint(1) DEFAULT NULL,
-  `import_item_data_weight` tinyint(1) DEFAULT NULL,
+  `import_item_data_status` varchar(3) DEFAULT NULL,
+  `import_item_data_number` varchar(3) DEFAULT NULL,
+  `import_item_data_description` varchar(3) DEFAULT NULL,
+  `import_item_data_name` varchar(3) DEFAULT NULL,
+  `import_item_data_text` varchar(3) DEFAULT NULL,
+  `import_item_data_unit` varchar(3) DEFAULT NULL,
+  `import_item_data_typ` varchar(3) DEFAULT NULL,
+  `import_item_data_single_category_name` varchar(3) DEFAULT NULL,
+  `import_item_data_weight` varchar(3) DEFAULT NULL,
   `import_item_data_number_of_selling_prices` varchar(128) DEFAULT NULL,
   `import_item_data_surcharge_number_of_additions_selling_prices` varchar(128) DEFAULT NULL,
-  `import_item_data_purchase_price` tinyint(1) DEFAULT NULL,
-  `import_item_data_procurment_costs` tinyint(1) DEFAULT NULL,
-  `import_item_data_quality_managment` tinyint(1) DEFAULT NULL,
+  `import_item_data_purchase_price` varchar(3) DEFAULT NULL,
+  `import_item_data_procurment_costs` varchar(3) DEFAULT NULL,
+  `import_item_data_quality_managment` varchar(3) DEFAULT NULL,
   `import_item_data_number_of_additions` varchar(128) DEFAULT NULL,
   `import_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -654,18 +655,18 @@ CREATE TABLE `import_item_data` (
 
 CREATE TABLE `import_supplier_billing_addres_data` (
   `import_supplier_billing_addres_data_id` int(11) NOT NULL,
-  `import_supplier_billing_addres_data_number` tinyint(1) DEFAULT NULL,
-  `import_supplier_billing_addres_data_company` tinyint(1) DEFAULT NULL,
-  `import_supplier_billing_addres_data_name` tinyint(1) DEFAULT NULL,
-  `import_supplier_billing_addres_data_surname` tinyint(1) DEFAULT NULL,
-  `import_supplier_billing_addres_data_street` tinyint(1) DEFAULT NULL,
-  `import_supplier_billing_addres_data_house_Number` tinyint(1) DEFAULT NULL,
-  `import_supplier_billing_addres_data_postcode` tinyint(1) DEFAULT NULL,
-  `import_supplier_billing_addres_data_city` tinyint(1) DEFAULT NULL,
-  `import_supplier_billing_addres_data_country` tinyint(1) DEFAULT NULL,
-  `import_supplier_billing_addres_data_additional_addres` tinyint(1) DEFAULT NULL,
-  `import_supplier_billing_addres_data_email` tinyint(1) DEFAULT NULL,
-  `import_supplier_billing_addres_data_phone` tinyint(1) DEFAULT NULL,
+  `import_supplier_billing_addres_data_number` varchar(3) DEFAULT NULL,
+  `import_supplier_billing_addres_data_company` varchar(3) DEFAULT NULL,
+  `import_supplier_billing_addres_data_name` varchar(3) DEFAULT NULL,
+  `import_supplier_billing_addres_data_surname` varchar(3) DEFAULT NULL,
+  `import_supplier_billing_addres_data_street` varchar(3) DEFAULT NULL,
+  `import_supplier_billing_addres_data_house_Number` varchar(3) DEFAULT NULL,
+  `import_supplier_billing_addres_data_postcode` varchar(3) DEFAULT NULL,
+  `import_supplier_billing_addres_data_city` varchar(3) DEFAULT NULL,
+  `import_supplier_billing_addres_data_country` varchar(3) DEFAULT NULL,
+  `import_supplier_billing_addres_data_additional_addres` varchar(3) DEFAULT NULL,
+  `import_supplier_billing_addres_data_email` varchar(3) DEFAULT NULL,
+  `import_supplier_billing_addres_data_phone` varchar(3) DEFAULT NULL,
   `import_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -677,14 +678,14 @@ CREATE TABLE `import_supplier_billing_addres_data` (
 
 CREATE TABLE `import_supplier_contact_person_data` (
   `import_supplier_contact_person_data_id` int(11) NOT NULL,
-  `import_supplier_contact_person_data_number` tinyint(1) DEFAULT NULL,
-  `import_supplier_contact_person_data_salutation` tinyint(1) DEFAULT NULL,
-  `import_supplier_contact_person_data_name` tinyint(1) DEFAULT NULL,
-  `import_supplier_contact_person_data_surname` tinyint(1) DEFAULT NULL,
-  `import_supplier_contact_person_data_email` tinyint(1) DEFAULT NULL,
-  `import_supplier_contact_person_data_phone` tinyint(1) DEFAULT NULL,
-  `import_supplier_contact_person_data_second_phone` tinyint(1) DEFAULT NULL,
-  `import_supplier_contact_person_data_description` tinyint(1) DEFAULT NULL,
+  `import_supplier_contact_person_data_number` varchar(3) DEFAULT NULL,
+  `import_supplier_contact_person_data_salutation` varchar(3) DEFAULT NULL,
+  `import_supplier_contact_person_data_name`varchar(3) DEFAULT NULL,
+  `import_supplier_contact_person_data_surname` varchar(3) DEFAULT NULL,
+  `import_supplier_contact_person_data_email` varchar(3) DEFAULT NULL,
+  `import_supplier_contact_person_data_phone` varchar(3) DEFAULT NULL,
+  `import_supplier_contact_person_data_second_phone` varchar(3) DEFAULT NULL,
+  `import_supplier_contact_person_data_description` varchar(3) DEFAULT NULL,
   `import_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
@@ -696,25 +697,25 @@ CREATE TABLE `import_supplier_contact_person_data` (
 
 CREATE TABLE `import_supplier_data` (
   `import_supplier_data_id` int(11) NOT NULL,
-  `import_supplier_data_status` tinyint(1) DEFAULT NULL,
-  `import_supplier_data_number` tinyint(1) DEFAULT NULL,
-  `import_supplier_data_salutation` tinyint(1) DEFAULT NULL,
-  `import_supplier_data_name` tinyint(1) DEFAULT NULL,
-  `import_supplier_data_surname` tinyint(1) DEFAULT NULL,
-  `import_supplier_data_street` tinyint(1) DEFAULT NULL,
-  `import_supplier_data_house_number` tinyint(1) DEFAULT NULL,
-  `import_supplier_data_postcode` tinyint(1) DEFAULT NULL,
-  `import_supplier_data_city` tinyint(1) DEFAULT NULL,
-  `import_supplier_data_country` tinyint(1) DEFAULT NULL,
-  `import_supplier_data_email` tinyint(1) DEFAULT NULL,
-  `import_supplier_data_hompage` tinyint(1) DEFAULT NULL,
-  `import_supplier_data_phone` tinyint(1) DEFAULT NULL,
-  `import_supplier_data_company_Name` tinyint(1) DEFAULT NULL,
-  `import_supplier_data_sales_tax_id` tinyint(1) DEFAULT NULL,
-  `import_supplier_data_fibu_account` tinyint(1) DEFAULT NULL,
-  `import_supplier_data_own_customer_number` tinyint(1) DEFAULT NULL,
-  `import_supplier_data_informations` tinyint(1) DEFAULT NULL,
-  `import_supplier_data_tax_free_delivery` tinyint(1) DEFAULT NULL,
+  `import_supplier_data_status` varchar(3) DEFAULT NULL,
+  `import_supplier_data_number` varchar(3) DEFAULT NULL,
+  `import_supplier_data_salutation` varchar(3) DEFAULT NULL,
+  `import_supplier_data_name` varchar(3) DEFAULT NULL,
+  `import_supplier_data_surname` varchar(3) DEFAULT NULL,
+  `import_supplier_data_street` varchar(3) DEFAULT NULL,
+  `import_supplier_data_house_number` varchar(3) DEFAULT NULL,
+  `import_supplier_data_postcode` varchar(3) DEFAULT NULL,
+  `import_supplier_data_city` varchar(3) DEFAULT NULL,
+  `import_supplier_data_country` varchar(3) DEFAULT NULL,
+  `import_supplier_data_email` varchar(3) DEFAULT NULL,
+  `import_supplier_data_hompage` varchar(3) DEFAULT NULL,
+  `import_supplier_data_phone` varchar(3) DEFAULT NULL,
+  `import_supplier_data_company_Name` varchar(3) DEFAULT NULL,
+  `import_supplier_data_sales_tax_id` varchar(3) DEFAULT NULL,
+  `import_supplier_data_fibu_account` varchar(3) DEFAULT NULL,
+  `import_supplier_data_own_customer_number` varchar(3) DEFAULT NULL,
+  `import_supplier_data_informations` varchar(3) DEFAULT NULL,
+  `import_supplier_data_tax_free_delivery` varchar(3) DEFAULT NULL,
   `import_supplier_data_addition_number` int(11) DEFAULT NULL,
   `import_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -727,15 +728,15 @@ CREATE TABLE `import_supplier_data` (
 
 CREATE TABLE `import_supplier_item_data` (
   `import_supplier_item_data_id` int(11) NOT NULL,
-  `import_supplier_item_data_number` tinyint(1) DEFAULT NULL,
-  `import_supplier_item_data_description` tinyint(1) DEFAULT NULL,
-  `import_supplier_item_data_purchase_price` tinyint(1) DEFAULT NULL,
-  `import_supplier_item_data_status` tinyint(1) DEFAULT NULL,
-  `import_supplier_item_data_standard_item` tinyint(1) DEFAULT NULL,
-  `import_supplier_item_data_item_description` tinyint(1) DEFAULT NULL,
-  `import_supplier_item_data_supplier_number` tinyint(1) DEFAULT NULL,
-  `import_supplier_item_data_item_number` tinyint(1) DEFAULT NULL,
-  `import_supplier_item_data_procurement_cost` tinyint(1) DEFAULT NULL,
+  `import_supplier_item_data_number` varchar(3) DEFAULT NULL,
+  `import_supplier_item_data_description` varchar(3) DEFAULT NULL,
+  `import_supplier_item_data_purchase_price` varchar(3) DEFAULT NULL,
+  `import_supplier_item_data_status` varchar(3) DEFAULT NULL,
+  `import_supplier_item_data_standard_item` varchar(3) DEFAULT NULL,
+  `import_supplier_item_data_item_description` varchar(3) DEFAULT NULL,
+  `import_supplier_item_data_supplier_number` varchar(3) DEFAULT NULL,
+  `import_supplier_item_data_item_number`varchar(3) DEFAULT NULL,
+  `import_supplier_item_data_procurement_cost` varchar(3) DEFAULT NULL,
   `import_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
