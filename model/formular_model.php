@@ -78,7 +78,7 @@ class CIModel
         // var_dump($entity);
         // exit();
 
-        if($entity == 'customer_host_configuration')
+        if($entity == 'customer_host_configuration' || $entity == 'customer_import')
         {
             // var_dump(61);
             // exit();
@@ -143,8 +143,6 @@ class CIModel
     {
         $this->$entity->delete($this->pdo,$id);
     }
-            
-
 
     function updateView()
     {

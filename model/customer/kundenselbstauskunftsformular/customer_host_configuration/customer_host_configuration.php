@@ -2,6 +2,7 @@
     class customer_host_configuration
     {
         private $host_configuration_id,
+                $host_configuration_saved_data,
                 $customer_id;
 
         public function getHost_configuration_id()
@@ -102,4 +103,24 @@
             $pdo->closeConnection();
         }
 
+
+                /**
+                 * Get the value of host_configuration_saved_data
+                 */ 
+                public function getHost_configuration_saved_data()
+                {
+                                return $this->host_configuration_saved_data;
+                }
+
+                /**
+                 * Set the value of host_configuration_saved_data
+                 *
+                 * @return  self
+                 */ 
+                public function setHost_configuration_saved_data($host_configuration_saved_data)
+                {
+                                $this->host_configuration_saved_data = $host_configuration_saved_data;
+
+                                return $this;
+                }
     }

@@ -59,18 +59,18 @@
         [
             'field_name' =>'Rechnung',
             'dBName' => 'erp_configuration_invoice',
-            ['erp_configuration_invoice' =>['form-floating flex-fill',['number'],'Jahreszahl']],
-            ['erp_configuration_invoice' => ['form-floating flex-fill',['number'],'Monatszahl']],	
-            ['erp_configuration_invoice' =>['form-floating flex-fill',['number'],'Die erste Nummer']],
+            ['erp_configuration_invoice_month' =>['form-floating flex-fill',['number'],'Jahreszahl']],
+            ['erp_configuration_invoice_year' => ['form-floating flex-fill',['number'],'Monatszahl']],	
+            ['erp_configuration_invoice_first' =>['form-floating flex-fill',['number'],'Die erste Nummer']],
         ];
 
         $erp_configuration_cancellation_invoice=
         [
             'field_name' =>'Storno-Rechnung',
             'dBName' => 'erp_configuration_cancellation_invoice',
-            ['erp_configuration_cancellation_invoice' =>['form-floating flex-fill',['number'],'Jahreszahl']],
-            ['erp_configuration_cancellation_invoice' => ['form-floating flex-fill',['number'],'Monatszahl']],	
-            ['erp_configuration_cancellation_invoice' =>['form-floating flex-fill',['number'],'Die erste Nummer']],
+            ['erp_configuration_cancellation_invoice_month' =>['form-floating flex-fill',['number'],'Jahreszahl']],
+            ['erp_configuration_cancellation_invoice_year' => ['form-floating flex-fill',['number'],'Monatszahl']],	
+            ['erp_configuration_cancellation_invoice_first' =>['form-floating flex-fill',['number'],'Die erste Nummer']],
         ];
 
         $erp_configuration_incoming_delivery_note=

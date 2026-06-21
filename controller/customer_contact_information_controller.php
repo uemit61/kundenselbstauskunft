@@ -16,19 +16,15 @@
 
         public function handleRequest($data,$customer)
         {
+            // var_dump($data);
+            // exit();
             
-            var_dump($data);
-            exit();
-
-
             // Das Customer-Objekt wird übergeben.s
             $this->model->setCustomer($customer);
 
             // Die Informationen, PrimaryKey und SekundaryKey werden in die Model geladen
             $this->model->basic_info($data['page']);
             
-           
-
             // Die Infoswerden von der Model geholt
             if($data['page'] != 'customer_client')
             {
@@ -42,8 +38,6 @@
                 $numberClients = count($data['json_form_data'])/6;
                 $infoNumClients = $this->model->getNumberClients() ;
 
-               
-                
                 $datas[]= array_chunk($data['json_form_data'],6,true);
 
                 //Wenn etwas gelöscht wurde 
@@ -109,7 +103,7 @@
 
             foreach ($data['json_form_data'] as $name => $arr)
             {
-                if($i==0 && $main_id_name != 'host_configuration')
+                if($i==0 && $main_id_name != 'host_configuration' && $main_id_name != 'import')
                 {
                     $arr = [$main_id_name.'_id' => $main_id ]+$arr+[$main_id_name.'_saved_data' => '1']+['customer_id' => $this->model->getCustomer()->getCustomer_id()];   
                 }
@@ -125,9 +119,9 @@
                 $i++;
             }
         
-            // var_dump($sortData);
-            // var_dump($is_saved);
-            // exit();
+            var_dump($sortData);
+            var_dump($is_saved);
+            exit();
 
             if($is_saved==null || $is_saved== false)
             {
