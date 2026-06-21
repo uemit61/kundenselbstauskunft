@@ -1,5 +1,5 @@
 <?php
-
+ob_clean();
 require_once 'C:/xampp/htdocs/Kundenselbstauskunft/model/customer/customer.php';
 
 function getToken()
