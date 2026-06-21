@@ -35,7 +35,7 @@ class Erp_configuration_offer
 
     public function getErpConfigurationOfferYear()
     {
-        return $this->erp_configuration_year;
+        return $this->erp_configuration_offer_year;
     }
 
     public function setErpConfigurationOfferFirst($erp_configuration_offer_first)

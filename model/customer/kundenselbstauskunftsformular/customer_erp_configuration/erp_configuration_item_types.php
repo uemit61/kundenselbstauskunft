@@ -9,42 +9,42 @@ class erp_configuration_item_types
             $erp_configuration_item_types_variant_item,
             $erp_configuration_id;
 
-    public function setErpConfigurationOfferId($erp_configuration_item_types_id)
+    public function setErpConfigurationItemTypesId($erp_configuration_item_types_id)
     {
         $this->erp_configuration_item_types_id = $erp_configuration_item_types_id;
     }
 
-    public function getErpConfigurationOfferId()
+    public function getErpConfigurationItemTypesId()
     {
         return $this->erp_configuration_item_types_id;
     }
 
-    public function setErpConfigurationOfferMonth($erp_configuration_item_types_item)
+    public function setErpConfigurationItemTypesItem($erp_configuration_item_types_item)
     {
         $this->erp_configuration_item_types_item = $erp_configuration_item_types_item;
     }
 
-    public function getErpConfigurationOfferMonth()
+    public function getErpConfigurationItemTypesItem()
     {
         return $this->erp_configuration_item_types_item;
     }
 
-    public function setErpConfigurationOfferYear($erp_configuration_item_types_bom)
+    public function setErpConfigurationItemTypesbom($erp_configuration_item_types_bom)
     {
         $this->erp_configuration_item_types_bom = $erp_configuration_item_types_bom;
     }
 
-    public function getErpConfigurationOfferYear()
+    public function getErpConfigurationItemTypesbom()
     {
-        return $this->erp_configuration_year;
+        return $this->erp_configuration_item_types_bom;
     }
 
-    public function setErpConfigurationOfferFirst($erp_configuration_item_types_services)
+    public function setErpConfigurationItemTypesServices($erp_configuration_item_types_services)
     {
         $this->erp_configuration_item_types_services = $erp_configuration_item_types_services;
     }
 
-    public function getErpConfigurationOfferFirst()
+    public function getErpConfigurationItemTypesServices()
     {
         return $this->erp_configuration_item_types_services;
     }

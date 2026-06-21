@@ -35,7 +35,7 @@ class Erp_configuration_delivery_note
 
     public function getErpConfigurationDeliveryNoteYear()
     {
-        return $this->erp_configuration_year;
+        return $this->erp_configuration_delivery_note_year;
     }
 
     public function setErpConfigurationDeliveryNoteFirst($erp_configuration_delivery_note_first)
