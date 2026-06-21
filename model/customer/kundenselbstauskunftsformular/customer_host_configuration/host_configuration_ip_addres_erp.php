@@ -98,18 +98,18 @@
                 // var_dump($host_configuration_ip_addres_erp);
                 // exit();
                 $con = $pdo->connectToDb();
-                $query = 'INSERT INTO`host_configuration_ip_addres_erp` 
+                $query = 'INSERT INTO `host_configuration_ip_addres_erp` 
                                         (`host_configuration_ip_addres_erp_id`, 
-                                        `host_configuration_ip_addres_ip_addres_erp_ip`, 
-                                        `host_configuration_ip_addres_ip_addres_erp_subnetmask`, 
-                                        `host_configuration_ip_addres_ip_addres_erp_gateway`, 
-                                        `host_configuration_ip_addres_ip_addres_erp_dns`, 
+                                        `host_configuration_ip_addres_erp_ip`, 
+                                        `host_configuration_ip_addres_erp_subnetmask`, 
+                                        `host_configuration_ip_addres_erp_gateway`, 
+                                        `host_configuration_ip_addres_erp_dns`, 
                                         `host_configuration_id`) 
                         VALUES (:host_configuration_ip_addres_erp_id,
-                                :host_configuration_ip_addres_ip_addres_erp_ip, 
-                                :host_configuration_ip_addres_ip_addres_erp_subnetmask, 
-                                :host_configuration_ip_addres_ip_addres_erp_gateway,
-                                :host_configuration_ip_addres_ip_addres_erp_dns
+                                :host_configuration_ip_addres_erp_ip, 
+                                :host_configuration_ip_addres_erp_subnetmask, 
+                                :host_configuration_ip_addres_erp_gateway,
+                                :host_configuration_ip_addres_erp_dns,
                                 :host_configuration_id)';
 
                 $stmt = $con->prepare($query);
@@ -131,10 +131,10 @@
                 // exit();
                 $con = $pdo->connectToDb();
                 $query="UPDATE `host_configuration_ip_addres_erp` 
-                        SET     `host_configuration_ip_addres_ip_addres_erp_ip` = :host_configuration_ip_addres_ip_addres_erp_ip,
-                                `host_configuration_ip_addres_ip_addres_erp_subnetmask` = :host_configuration_ip_addres_ip_addres_erp_subnetmask,
-                                `host_configuration_ip_addres_ip_addres_erp_gateway` = :host_configuration_ip_addres_ip_addres_erp_gateway, 
-                                `host_configuration_ip_addres_ip_addres_erp_dns` = :host_configuration_ip_addres_ip_addres_erp_dns
+                        SET     `host_configuration_ip_addres_erp_ip` = :host_configuration_ip_addres_erp_ip,
+                                `host_configuration_ip_addres_erp_subnetmask` = :host_configuration_ip_addres_erp_subnetmask,
+                                `host_configuration_ip_addres_erp_gateway` = :host_configuration_ip_addres_erp_gateway, 
+                                `host_configuration_ip_addres_erp_dns` = :host_configuration_ip_addres_erp_dns
                         WHERE `host_configuration_ip_addres_erp`.`host_configuration_id` = :host_configuration_id";
             $stmt = $con->prepare($query);
             $stmt->execute($host_configuration_ip_addres_erp);

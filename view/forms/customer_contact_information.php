@@ -9,10 +9,6 @@
 * @since       2024-12-18
 */
 
-   
-
-   
-   
     function customer_contact_information()
     {
 
@@ -21,7 +17,7 @@
             'Logo' =>'website_configuration_logo',
             'Admin' => 'website_configuration_admin_name',
             'Admin-Passwort' =>	'website_configuration_admin_password',
-            'Internet-Adresse' => 'website_configuration_internet_address' 	
+            'Internet-Adresse' => 'website_configuration_internet_addres' 	
         ];
 
         //Fieldsets [id : [form and responsive_size,[type],gui_name]]  if type select -> ['select' :[optionen_namen]]
@@ -35,12 +31,12 @@
             
         ];
 
-        $contact_information_address=
+        $contact_information_addres=
         [
             'field_name' => 'Anschrift',
-            'dBName' => 'contact_information_address',
-            ['contact_information_address_street' => ['form-floating col-lg-9 flex-fill',['text'],'Straße'],'contact_information_address_house_number' => ['form-floating col-lg-3 flex-fill',['text'],'Nr.']],	
-            ['contact_information_address_postcode'	=>['form-floating col-lg-3 flex-fill',['number'],'PLZ'],'contact_information_address_city' => ['form-floating col-lg-9 flex-fill',['text'],'Ort']],
+            'dBName' => 'contact_information_addres',
+            ['contact_information_addres_street' => ['form-floating col-lg-9 flex-fill',['text'],'Straße'],'contact_information_addres_house_number' => ['form-floating col-lg-3 flex-fill',['text'],'Nr.']],	
+            ['contact_information_addres_postcode'	=>['form-floating col-lg-3 flex-fill',['number'],'PLZ'],'contact_information_addres_city' => ['form-floating col-lg-9 flex-fill',['text'],'Ort']],
             
         ];
 
@@ -56,7 +52,7 @@
         $customer_contact_information=
         [
             [$contact_information],
-            [$contact_information_address],
+            [$contact_information_addres],
             [$contact_information_contact_person]
         ];
 

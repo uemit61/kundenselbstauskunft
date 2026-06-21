@@ -17,8 +17,8 @@
 
         function handleRequest($data,$customer)
         {
-            var_dump($data);
-            exit();
+            // var_dump($data);
+            // exit();
            
             // Das Customer-Objekt wird übergeben.s
             $this->model->setCustomer($customer);
