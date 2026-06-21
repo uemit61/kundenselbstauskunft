@@ -128,7 +128,7 @@
                 
                 if($data['page'] != null && $data['page']!='customer_client')
                 {
-                    if($data['page'] != 'customer_host_configuration')
+                    if($data['page'] != 'customer_host_configuration' && $data['page'] != 'customer_import' )
                     {
                         $this->model->createRecordInformation($data['page'],$sortData[$data['page']]);
                     } 
@@ -162,9 +162,9 @@
                 }
                 }
 
-                var_dump($sortData);
-                var_dump('44');
-                exit();
+                // var_dump($sortData);
+                // var_dump('44');
+                // exit();
                 
                 $this->model->createRecords($sortData);
             }

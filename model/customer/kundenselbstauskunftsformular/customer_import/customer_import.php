@@ -46,8 +46,14 @@
 
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                $retVal['main_id']=$result['import_id'];
-                $retVal['saved_data']=$result['import_saved_data'];
+                // var_dump($result);
+                // exit();
+
+                if($result)
+                {
+                    $retVal['main_id']=$result['import_id'];
+                    $retVal['saved_data']=$result['import_saved_data'];
+                }
             }
             catch (Exception $e)
             {

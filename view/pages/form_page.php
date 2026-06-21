@@ -16,7 +16,7 @@ require './view/forms/customer_contact_information.php';
 require './view/forms/customer_host_configuration.php';
 require './view/forms/customer_client.php';
 require './view/forms/customer_erp_configuration.php';
-require './view/forms/customer_import.php';
+require './view/forms/customer_import_.php';
 require './view/own_templates/footer.php';
 
 

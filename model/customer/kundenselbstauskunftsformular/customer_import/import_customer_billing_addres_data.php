@@ -1,5 +1,5 @@
 <?php
-
+require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\customer_import\db_transactions.php');
 class Import_customer_billing_addres_data
 {
     private $import_customer_billing_addres_data_id,	
@@ -300,76 +300,14 @@ class Import_customer_billing_addres_data
             }
             
 
-            public static function createRecord($pdo,$import_customer_billing_addres_data)
-    {
-        try
-        {
-            // var_dump($import_customer_billing_addres_data);
-            // exit();
-            $con = $pdo->connectToDb();
-            $query ='INSERT INTO `import_customer_billing_addres_data`
-                                 () VALUE ()';
-
-             foreach ($import_customer_billing_addres_data as $key => $value) 
+            public static function saveEntity($pdo,$data)
             {
-                $var = '`'.$key.'`,';
-
-                // Die Positionen der schließenden Klammern werden ermittelt
-                $firstIns = strpos($query,')');
-
-                $query = substr($query,0,$firstIns).$var.substr($query,$firstIns);
-                $firstIns = strpos($query,')');
-                $secIns =  strpos($query,')',$firstIns+1);
-                $query = substr($query,0,$secIns).':'.$key.','.substr($query,$secIns);
+                saveEntityToDB($pdo, $data);
             }
-                $firstIns = strpos($query,')');
-                $query = substr($query,0,$firstIns-1).substr($query,$firstIns);
-                $firstIns = strpos($query,')');
-                $secIns =  strpos($query,')',$firstIns+1);
-                $query = substr($query,0,$secIns-1).substr($query,$secIns);
 
-           
-            $stmt = $con->prepare($query);
-            $stmt->execute($import_customer_billing_addres_data);
-            echo 'ImportCUstomerBillAdressData wurde erfolgreich eingefügt';
-        }
-        catch(Exception $e)
-        {
-            echo 'ImportCUstomerBillAdressData Fehler'.$e;
-        }
-        $pdo->closeConnection();
-    }
-
-             public static function saveEntity($pdo,$import_customer_billing_addres_data)
-    {
-        try
-        {
-            // var_dump($import_customer_billing_addres_data);
-            // exit();
-
-            $con = $pdo->connectToDb();
-            $query="UPDATE `import_customer_billing_addres_data` 
-                    SET  WHERE `import_customer_billing_addres_data`.`host_configuration_id` = :host_configuration_id";
-
-            foreach ($import_customer_billing_addres_data as $key => $value) 
+            public static function createRecord($pdo,$data)
             {
-               $setPos = strpos($query,"WHERE")-1;
-               $query = substr($query,0,$setPos).'`'.$key.'` = :'.$key.', '.substr($query,$setPos+1).' ';
+                createRecordToDB($pdo,$data);
             }
-            
-              $setPos = strpos($query,"WHERE");
-                $query = substr($query,0,$setPos-2).substr($query,$setPos-1);
-             
-        $stmt = $con->prepare($query);
-        $stmt->execute($import_customer_billing_addres_data);
 
-        echo 'HostConfigBackup wurden aktualisiert.';
-        
-        }
-        catch(Exception $e)
-        {
-            echo 'Fehler beim aktualisieren von der HostconfiBackup'.$e;
-        }
-        $pdo->closeConnection();
-    }
 }
