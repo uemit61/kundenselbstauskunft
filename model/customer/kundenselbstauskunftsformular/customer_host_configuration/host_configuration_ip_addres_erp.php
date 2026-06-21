@@ -1,7 +1,7 @@
 <?php
     class Host_configuration_ip_addres_erp
     {
-        private $host_configuration_ip_addre_erp_id,
+        private $host_configuration_ip_addres_erp_id,
                 $host_configuration_ip_addres_erp_ip,
                 $host_configuration_ip_addres_erp_subnetmask,
                 $host_configuration_ip_addres_erp_gateway,
@@ -10,7 +10,7 @@
 
         public function getHost_configuration_ip_addres_erp_id()
         {
-                return $this->host_configuration_ip_addre_erp_id;
+                return $this->host_configuration_ip_addres_erp_id;
         }
 
         

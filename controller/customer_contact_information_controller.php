@@ -9,36 +9,104 @@
         private $model;
         private $customer;
       
-
-        function __construct($model)
+        public function __construct($model)
         {
             $this->model = $model;
         }
 
-        function handleRequest($data,$customer)
+        public function handleRequest($data,$customer)
         {
-            // var_dump($data);
-            // exit();
-           
+            
+            var_dump($data);
+            exit();
+
+
             // Das Customer-Objekt wird übergeben.s
             $this->model->setCustomer($customer);
 
             // Die Informationen, PrimaryKey und SekundaryKey werden in die Model geladen
             $this->model->basic_info($data['page']);
+            
+           
 
             // Die Infoswerden von der Model geholt
-            $main_id= $this->model->getMain_id(); // Wenn existiert ist auch data saved!
-            $is_saved = $this->model->getSaved_data(); // redundant
+            if($data['page'] != 'customer_client')
+            {
+                $main_id= $this->model->getMain_id(); 
+                $is_saved = $this->model->getSaved_data();
+                //AttributsNamen werden angepasst
+                $this->saveToDb($data, $main_id, $is_saved);
+            }
+            else
+            {
+                $numberClients = count($data['json_form_data'])/6;
+                $infoNumClients = $this->model->getNumberClients() ;
 
-            var_dump($is_saved.''.$main_id);
-            
-            //AttributsNamen werden angepasst
+               
+                
+                $datas[]= array_chunk($data['json_form_data'],6,true);
+
+                //Wenn etwas gelöscht wurde 
+                if($infoNumClients>$numberClients)
+                {
+                    //Anzahl der gelöschten Datensätze
+                    $numbDelete= $infoNumClients-$numberClients;
+                    // Gelöschte Pätze freigeben
+                    for($i=0; $i<$numbDelete;$i++) 
+                    {
+                        $this->model->delete($infoNumClients-$i,'customer_client');
+                    }
+
+                    $infoNumClients = $numberClients;
+                }
+                
+                // exit();
+                // var_dump($data['json_form_data']);
+                // $tdata['json_form_data'] = $datas[0][1];
+
+                // $tdata['page'] = $data['page'];
+                // var_dump($tdata);
+                // exit();
+
+                for($i= 1; $i < $numberClients+1; $i++ )
+                {
+                    $tdata['json_form_data'] = $datas[0][$i-1];
+                    //Die Keynames werden angepasst.
+                    if($i>1)
+                    {
+                        foreach($tdata['json_form_data'] as $k=>$v)
+                        {
+                            $knew = substr($k,0,-1);
+                            $tdata['json_form_data'][ $knew ] = $tdata['json_form_data'][$k];
+                            unset($tdata['json_form_data'][$k]);
+                        }
+                    }
+                    $tdata['page'] = $data['page'];
+
+                    //Existiert ein Datensatz in der DB?
+                    if($infoNumClients>=$i)
+                    {
+                        $this->saveToDb($tdata,$i,true);
+                    }
+                    else
+                    {
+                        $this->saveToDb($tdata,$i,false);
+                    }
+                }  
+            }
+        }
+
+        private function saveToDb($data,$main_id,$is_saved):void
+        {
+
+            // var_dump($main_id);
+            // exit();
+
             $main_id_name= str_replace('customer_','',$data['page']);
-
-            // Die Fieldsets bekommen die Key(ID) übergeben um in die DB gespeichert werden zu können.
+           
             $sortData = [];
             $i = 0;
-            
+
             foreach ($data['json_form_data'] as $name => $arr)
             {
                 if($i==0 && $main_id_name != 'host_configuration')
@@ -47,6 +115,8 @@
                 }
                 else
                 {
+                    // var_dump($main_id);
+                    // exit();
                     $arr=$arr+[$main_id_name.'_id' => $main_id ];
                     if($is_saved==0)
                         $arr = [$name.'_id' =>''] + $arr;
@@ -54,30 +124,26 @@
                 $sortData =$sortData+[$name =>$arr];
                 $i++;
             }
-           
-           
+        
+            // var_dump($sortData);
+            // var_dump($is_saved);
+            // exit();
 
-            if($is_saved==null)
+            if($is_saved==null || $is_saved== false)
             {
-                // var_dump($data['page']);
+                // var_dump($sortData);
                 // exit();
-
                 
-                if($data['page'] != null)
+                if($data['page'] != null && $data['page']!='customer_client')
                 {
                     if($data['page'] != 'customer_host_configuration')
                     {
-                        // var_dump(61);
-                        // exit();
                         $this->model->createRecordInformation($data['page'],$sortData[$data['page']]);
                     } 
                     else
                     {
-                        // var_dump(61);
-                        // exit();
                         $this->model->createRecordInformation($data['page']);
                     }
-                    
                     $this->model->basic_info($data['page']);
                 }
                 
@@ -89,8 +155,9 @@
                 // var_dump($sortData);
                 // exit();
 
-                
-                foreach($sortData as $key => $subEntity)
+                if($data['page'] != 'customer_client')
+                {
+                     foreach($sortData as $key => $subEntity)
                 {
                     if($i != 0)
                     {
@@ -101,15 +168,21 @@
                     else
                         $i=3;
                 }
+                }
+               
                 // var_dump($sortData);
+                // var_dump('44');
                 // exit();
                 
                 $this->model->createRecords($sortData);
             }
             else
             {
+                //  var_dump($sortData);
+                // exit();
                 $this->model->saveEntities($sortData);
             }
-                
         }
+
+        
     }

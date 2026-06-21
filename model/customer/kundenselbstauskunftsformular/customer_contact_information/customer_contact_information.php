@@ -143,6 +143,8 @@ class Customer_contact_information
 
     public static function createRecord($pdo,$customer_contact_information)
     {
+        // var_dump($customer_contact_information);
+        // exit();
         try
         {
             // var_dump($customer_contact_information);
@@ -164,12 +166,16 @@ class Customer_contact_information
                                 :customer_id)';
             $stmt = $con->prepare($query);
             $stmt->execute($customer_contact_information);
+
+            echo 'Kontaktinformationen wurden gespeichert';
         }
         catch(Exception $e)
         {
             echo 'Kontaktinformationen wurden nicht gespeichert'.$e;
         }
         $pdo->closeConnection();
+
+       
     }
 
     public static function saveEntity($pdo,$customer_contact_information)

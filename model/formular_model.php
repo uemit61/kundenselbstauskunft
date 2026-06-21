@@ -19,6 +19,8 @@ class CIModel
     private $customer;
     private $saved_data;
     private $main_id;
+
+    private $numberClients;
     
     public function getMain_id()
     {
@@ -38,6 +40,20 @@ class CIModel
     public function getSaved_data()
     {
         return $this->saved_data;
+    }
+
+    
+    public function getNumberClients()
+    {
+        return $this->numberClients;
+    }
+
+   
+    public function setNumberClients($numberClients)
+    {
+        $this->numberClients = $numberClients;
+
+        return $this;
     }
 
     function __construct($view,$pdo,$data=0)
@@ -78,17 +94,19 @@ class CIModel
 
     public function createRecords($data)
     {
-        // var_dump(key($data);
+        // var_dump($data);
         // exit();
 
-        $i=0;
-        foreach($data as $entity_name => $entity)
-        {
-            if($i !=0 ||  key($data)  == 'host_configuration_virtualization')
-                $this->$entity_name->createRecord($this->pdo,$entity);
-            else
-                $i=3;
-        }
+            $i=0;
+            foreach($data as $entity_name => $entity)
+            {
+                if($i !=0 ||  key($data)  == 'host_configuration_virtualization' || key($data) == 'customer_client')
+                    $this->$entity_name->createRecord($this->pdo,$entity);
+                else
+                    $i=3;
+            }
+        
+
     }
 
     public function saveEntities($data)
@@ -101,11 +119,32 @@ class CIModel
 
     public function basic_info($entity)
     {
+        // var_dump($entity);
+        // exit();
+
         $info = $this->$entity->basic_info($this->pdo,$this->customer);
-        $this->main_id = $info['main_id'];
-        $this->saved_data = $info['saved_data'];
+
+        
+       
+        if($entity == 'customer_client')
+        {
+            $this->numberClients  = $info['numberClient'];
+        }
+        else
+        {
+            $this->main_id = $info['main_id'];
+            $this->saved_data = $info['saved_data'];
+        }
+      
         $this->pdo->closeConnection();
     }
+
+    public function delete($id, $entity)
+    {
+        $this->$entity->delete($this->pdo,$id);
+    }
+            
+
 
     function updateView()
     {
@@ -114,4 +153,6 @@ class CIModel
         session_write_close();
             $this->view->render($logo);
     }
+
+   
 }

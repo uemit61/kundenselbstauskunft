@@ -1,0 +1,168 @@
+<?php
+
+class Client_legal_information
+{
+    private $client_legal_information_id,	
+            $client_legal_information_ust_idnr,	
+            $client_legal_information_hr_number,
+            $client_legal_information_juristication,	
+            $client_id;
+
+    
+
+    /**
+     * Get the value of client_legal_information_id
+     */ 
+    public function getClient_legal_information_id()
+    {
+        return $this->client_legal_information_id;
+    }
+
+    /**
+     * Set the value of client_legal_information_id
+     *
+     * @return  self
+     */ 
+    public function setClient_legal_information_id($client_legal_information_id)
+    {
+        $this->client_legal_information_id = $client_legal_information_id;
+
+        return $this;
+    }
+
+            /**
+             * Get the value of client_legal_information_ust_idnr
+             */ 
+            public function getClient_legal_information_ust_idnr()
+            {
+                        return $this->client_legal_information_ust_idnr;
+            }
+
+            /**
+             * Set the value of client_legal_information_ust_idnr
+             *
+             * @return  self
+             */ 
+            public function setClient_legal_information_ust_idnr($client_legal_information_ust_idnr)
+            {
+                        $this->client_legal_information_ust_idnr = $client_legal_information_ust_idnr;
+
+                        return $this;
+            }
+
+            /**
+             * Get the value of client_legal_information_hr_number
+             */ 
+            public function getClient_legal_information_hr_number()
+            {
+                        return $this->client_legal_information_hr_number;
+            }
+
+            /**
+             * Set the value of client_legal_information_hr_number
+             *
+             * @return  self
+             */ 
+            public function setClient_legal_information_hr_number($client_legal_information_hr_number)
+            {
+                        $this->client_legal_information_hr_number = $client_legal_information_hr_number;
+
+                        return $this;
+            }
+
+            /**
+             * Get the value of client_legal_information_juristication
+             */ 
+            public function getClient_legal_information_juristication()
+            {
+                        return $this->client_legal_information_juristication;
+            }
+
+            /**
+             * Set the value of client_legal_information_juristication
+             *
+             * @return  self
+             */ 
+            public function setClient_legal_information_juristication($client_legal_information_juristication)
+            {
+                        $this->client_legal_information_juristication = $client_legal_information_juristication;
+
+                        return $this;
+            }
+
+            /**
+             * Get the value of client_id
+             */ 
+            public function getClient_id()
+            {
+                        return $this->client_id;
+            }
+
+            /**
+             * Set the value of client_id
+             *
+             * @return  self
+             */ 
+            public function setClient_id($client_id)
+            {
+                        $this->client_id = $client_id;
+
+                        return $this;
+            }
+
+            public static function saveEntity($pdo,$client_legal_information)
+            {
+            try
+            {
+                $con = $pdo->connectToDb();
+                $query="UPDATE  `client_legal_information` 
+                        SET     `client_legal_information_ust_idnr` = :client_legal_information_ust_idnr,
+                                `client_legal_information_hr_number` = :client_legal_information_hr_number, 
+                                `client_legal_information_juristication` = :client_legal_information_juristication
+                        WHERE   `client_legal_information`.`client_id` = :client_id";
+                $stmt = $con->prepare($query);
+                $stmt->execute($client_legal_information);
+
+                echo 'RechtInfo erfolgreich aktualisert.';
+            }
+        catch(Exception $e)
+        {
+            echo 'Fehler beim aktualisieren der Rechtinfo'.$e;
+        }
+        $pdo->closeConnection();
+    }
+
+    public static function createRecord($pdo,$client_legal_information)
+    {
+        // var_dump($client_main_addres);
+        // exit();
+        try
+        {
+            $con = $pdo->connectToDb();
+            $query='INSERT INTO  `client_legal_information` 
+                            (`client_legal_information_id`, 
+                            `client_legal_information_ust_idnr`, 
+                            `client_legal_information_hr_number`, 
+                            `client_legal_information_juristication`,
+                            `client_id`) 
+                    VALUES  (:client_legal_information_id, 
+                            :client_legal_information_ust_idnr, 
+                            :client_legal_information_hr_number, 
+                            :client_legal_information_juristication,
+                            :client_id)';
+
+            $stmt = $con->prepare($query);
+            $stmt->execute($client_legal_information);
+            echo 'Rechtinfo wurden erfolgreich eingefügt';
+            $pdo->closeConnection();
+        }
+        catch(Exception $e)
+        {
+            echo 'Fehler beim einfügen der Rechtinfo'.$e;
+        }
+    }
+
+    
+
+
+}
