@@ -1,5 +1,6 @@
 .idea/
 temp/session/
+.env
 
 # Windows / PowerShell
 Microsoft/
