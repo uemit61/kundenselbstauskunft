@@ -21,8 +21,6 @@
 
         public function handleRequest($data,$customer)
         {
-            var_dump($data);
-            // exit();
             $data['page'] = str_replace('form_','',$data['page']);
 
             // Das Customer-Objekt wird übergeben.s
