@@ -72,8 +72,10 @@ $(document).ready
             $.ajax
             (
             {
-                url: '/kundenselbstauskunft/model/customer/customer_json_load.php',
-                type: 'GET',
+                url : '.',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({'page':'load_json_cache'}),
                 dataType: 'json',
                 success: function(data)
                 {

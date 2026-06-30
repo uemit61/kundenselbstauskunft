@@ -59,13 +59,17 @@ ob_clean();
         case 'dash_page':
             break;
         case 'save_json_cache':
-            // var_dump($data['json_form_data']);
-            // exit();
             require_once 'C:/xampp/htdocs/Kundenselbstauskunft/model/customer/customer_json_cache.php';
-            $model = new Customer_json_cache(new Connection(true));
-            $model->save_json_to_db($data['json_form_data'],$customer);
+            $model = new Customer_json_cache(new Connection(true), $customer,$data['json_form_data']);
+            $model->save_json_to_db();
             die();
         break;
+        case 'load_json_cache':
+            require_once 'C:/xampp/htdocs/Kundenselbstauskunft/model/customer/customer_json_cache.php';
+            $model = new Customer_json_cache(new Connection(true), $customer,$data['json_form_data']);
+            $model->load_json_to_db();
+            die();
+
 
         case 'load':
             
@@ -86,13 +90,6 @@ ob_clean();
             die();
         break;
 
-        
-
-        // case 'load_json_cache':
-        //     require_once 'C:/xampp/htdocs/Kundenselbstauskunft/model/customer/customer_json_load.php';
-        //     $model = new Customer_json_cache(new Connection(true));
-        //     $model->get_json_from_db();
-        //     die();
-
+    
     }
 
