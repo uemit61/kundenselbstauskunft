@@ -16,6 +16,7 @@ $(document).ready(function()
     var form_ids = ['#form_customer_contact_information','#form_customer_host_configuration','#form_customer_client','#form_customer_erp_configuration','#form_customer_import'];
     let formId =  form_ids[currentStepIndex];
     let btnTxt = '';
+    
 
     function sanitizeInput(formId)
     {
@@ -127,7 +128,7 @@ $(document).ready(function()
         
         $.ajax
         ({
-            url: 'indexUtils.php',
+            //
             method: 'POST',
             contentType: 'application/json',
             data:  JSON.stringify({ json_form_data: formData, page: $(formId).attr('name')}),
@@ -169,6 +170,7 @@ $(document).ready(function()
         {
             var form_data ={};
             var saveInfo ={};
+           
             $.each
             (
                 //enumeration
@@ -183,15 +185,16 @@ $(document).ready(function()
                     }
                     else
                     {
-                       form_data[form_id]["loadInfo"]="yes";
+                      form_data[form_id]["loadInfo"]="yes";                                       
                     }
+
                 }
-                
             );
+            
+          
 
             
-            console.log(form_data);
-
+            
             $.ajax
             (
                 { 
