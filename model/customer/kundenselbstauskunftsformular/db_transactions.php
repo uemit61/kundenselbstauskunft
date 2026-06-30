@@ -13,40 +13,10 @@
 
         try
         {
-            
-            
-
             $con = $pdo->connectToDb();
-            $query ='INSERT INTO `'.$entity_name.'` () VALUE ()';
-
-           
-
-            foreach ($data as $key => $value) 
-            {
-                $var = '`'.$key.'`,';
-
-                // Die Positionen der schließenden Klammern werden ermittelt
-                $firstIns = strpos($query,')');
-                $query = substr($query,0,$firstIns).$var.substr($query,$firstIns);
-                $firstIns = strpos($query,')');
-                $secIns =  strpos($query,')',$firstIns+1);
-                $query = substr($query,0,$secIns).':'.$key.','.substr($query,$secIns);
-            }
-
-            $firstIns = strpos($query,')');
-            $query = substr($query,0,$firstIns-1).substr($query,$firstIns);
-            $firstIns = strpos($query,')');
-            $secIns =  strpos($query,')',$firstIns+1);
-            $query = substr($query,0,$secIns-1).substr($query,$secIns);
-
-            // if($entity_name =='client_main_addres')
-            // {
-            //     var_dump($data);
-            //     var_dump($query);
-            //     exit();
-            // }
-            
-            
+            $cols=implode(",",array_map(fn($key) => "`$key`",array_keys($data)));
+            $placeholder=implode(",",array_map(fn($key) => ":$key",array_keys($data)));
+            $query ="INSERT INTO `$entity_name` ($cols) VALUES ($placeholder)";
             $stmt = $con->prepare($query);
             $stmt->execute($data);
             echo $entity_name.' wurde erfolgreich eingefügt';
@@ -64,35 +34,28 @@
         {
             
             $con = $pdo->connectToDb();
+            $param=$data;
             
-
             if($entity_name == 'customer_client')
             {
                 // Wird am ende des Querys eingefügt
-                $query_end = '`client_id` ="'.reset($data).'"';
+                $query_end = '`client_id` = :client_id';
             }
             else
             {
-                $query_end = array_key_last($data)." = '".end($data)."'";
+                $key_id= array_key_last($data);
+                $query_end = "`$key_id` = :$key_id";
+                
             }
-
-            $query="UPDATE `$entity_name`
-                    SET  WHERE `$entity_name`.".$query_end;
-
-
-            // var_dump($query);
-            // exit();
-            foreach ($data as $key => $value) 
-            {
-                $setPos = strpos($query,"WHERE")-1;
-                $query = substr($query,0,$setPos).'`'.$key.'` = :'.$key.', '.substr($query,$setPos+1).' ';
-            }
-          
-            // Das letzte Komma entfernen
-            $query = str_replace(", WHERE", " WHERE", $query);
-           
-          
             
+            $setData =$data;
+            unset($setData[$key_id]);
+            $col =implode(",", array_map(fn($key) => "`$key` = :$key",array_keys($setData)));
+            
+            $query="UPDATE `$entity_name`
+                    SET $col  
+                    WHERE `$entity_name`.$query_end";
+
             $stmt = $con->prepare($query);
             $stmt->execute($data);
 
