@@ -111,76 +111,40 @@
             return $retVal;
         }
 
-        public static function createRecord($pdo,$customer_id)
+        public static function createRecord($pdo,$data,$entity_name)
         {
-            try
-            {
-                $con = $pdo->connectToDb();
-                $query ='INSERT INTO `customer_host_configuration` 
-                                    (`host_configuration_id`, 
-                                    `host_configuration_saved_data`, 
-                                    `customer_id`) 
-                            VALUES  ("",
-                                    1,
-                                    :customer_id)';
-                $stmt= $con->prepare($query);
-                $stmt->bindValue(':customer_id', $customer_id);
-                $stmt->execute();
-            }
-            catch (Exception $e)
-            {
-                echo 'Fehler Host_Configuration: ' .$e->getMessage();
-            }
-            $pdo->closeConnection();
+            createRecordToDB($pdo,$data, $entity_name);
         }
 
-         public static function saveEntity($pdo,$customer_host_configuration)
+        public static function saveEntity($pdo,$data,$entity_name)
         {
-            try
-            {
-                $con = $pdo->connectToDb();
-                $query ="UPDATE `customer_host_configuration` 
-                        SET `host_configuration_saved_data` = :host_configuration_saved_data 
-                        WHERE `customer_host_configuration`.`host_configuration_id` = :host_configuration_id
-                        AND `customer_id` = :customer_id;";
-                $stmt= $con->prepare($query);
-                $stmt->execute($customer_host_configuration);
-
-                echo 'Hostinformationen wurden aktualisiert.';
-            }
-            catch(Exception $e)
-            {
-                echo 'Hostinformationen konnten nicht aktualisiert werden.'.$e;
-            }
-
-            $pdo->closeConnection();
+            saveEntityToDB($pdo, $data, $entity_name);
         }
-
         public static function loadFromDB($pdo,$entity_name,$parentEnity_id)
         {
             loadFromDB($pdo,$entity_name,$parentEnity_id);
         }
 
 
-                /**
-                 * Get the value of host_configuration_saved_data
-                 */ 
-                public function getHost_configuration_saved_data()
-                {
-                                return $this->host_configuration_saved_data;
-                }
+        /**
+         * Get the value of host_configuration_saved_data
+         */ 
+        public function getHost_configuration_saved_data()
+        {
+                        return $this->host_configuration_saved_data;
+        }
 
-                /**
-                 * Set the value of host_configuration_saved_data
-                 *
-                 * @return  self
-                 */ 
-                public function setHost_configuration_saved_data($host_configuration_saved_data)
-                {
-                                $this->host_configuration_saved_data = $host_configuration_saved_data;
+        /**
+         * Set the value of host_configuration_saved_data
+         *
+         * @return  self
+         */ 
+        public function setHost_configuration_saved_data($host_configuration_saved_data)
+        {
+                        $this->host_configuration_saved_data = $host_configuration_saved_data;
 
-                                return $this;
-                }
+                        return $this;
+        }
 
         /**
          * Get the value of host_configuration_ip_addres_connect_external_device
