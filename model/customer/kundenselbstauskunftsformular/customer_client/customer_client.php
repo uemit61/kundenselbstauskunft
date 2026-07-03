@@ -97,6 +97,8 @@ class Customer_client
     {
         createRecordToDB($pdo,$data, $entity_name);
     }
+
+    
     public static function delete($pdo,$id)
     {
         try
@@ -199,7 +201,7 @@ class Customer_client
     /**
      * Get the value of cient_email
      */ 
-    public function getCient_email()
+    public function getClient_email()
     {
                 return $this->cient_email;
     }
@@ -209,9 +211,9 @@ class Customer_client
      *
      * @return  self
      */ 
-    public function setCient_email($cient_email)
+    public function setClient_email($client_email)
     {
-                $this->cient_email = $cient_email;
+                $this->client_email = $client_email;
 
                 return $this;
     }
