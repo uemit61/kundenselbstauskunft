@@ -7,11 +7,11 @@
 require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
 class Client_bank_details
 {
-    // private $client_bank_details_id,	
-    //         $client_bank_details_bankname,	
-    //         $client_bank_details_iban,	
-    //         $client_bank_details_bic,	
-    //         $client_id;
+    private $client_bank_details_id,	
+            $client_bank_details_bankname,	
+            $client_bank_details_iban,	
+            $client_bank_details_bic,	
+            $client_id;
 
     /**
      * Get the value of client_bank_details_id
