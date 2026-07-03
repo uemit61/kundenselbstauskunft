@@ -109,65 +109,19 @@
             return $contact_information_addres;
         }
 
-        public static function createRecord($pdo,$contact_information_addres)
+        public static function createRecord($pdo,$data,$entity_name)
         {
-           
-            try
-            {
-                $con = $pdo->connectToDb();
-                $query='INSERT INTO `contact_information_addres` 
-                                    (`contact_information_addres_id`, 
-                                    `contact_information_addres_street`, 
-                                    `contact_information_addres_house_number`, 
-                                    `contact_information_addres_postcode`, 
-                                    `contact_information_addres_city`, 
-                                    `contact_information_id`) 
-                            VALUES (:contact_information_addres_id, 
-                                    :contact_information_addres_street , 
-                                    :contact_information_addres_house_number, 
-                                    :contact_information_addres_postcode, 
-                                    :contact_information_addres_city, 
-                                    :contact_information_id)';
-
-                $stmt = $con->prepare($query);
-                $stmt->execute($contact_information_addres);
-
-                echo 'Kontaktadresse wurde gespeichert';
-                $pdo->closeConnection();
-            }
-            catch(Exception $e) 
-            {
-                echo 'Kontaktadresse konnte nicht gespeichert werden.'.$e;
-            }
-    }
-
-        public static function saveEntity($pdo, $contact_information_addres)
-        {
-            try
-            {
-                $con = $pdo->connectToDb();
-                $query="UPDATE  `contact_information_addres` 
-                        SET     `contact_information_addres_street` = :contact_information_addres_street, 
-                                `contact_information_addres_house_number` = :contact_information_addres_house_number,
-                                `contact_information_addres_postcode` = :contact_information_addres_postcode, 
-                                `contact_information_addres_city` = :contact_information_addres_city 
-                        WHERE   `contact_information_id` = :contact_information_id";
-
-                $stmt = $con->prepare($query);
-                $stmt->execute($contact_information_addres);
-
-                echo 'Kontaktadress erfolgreich aktualisiert.';
-                $pdo->closeConnection();
-            }
-            catch(Exception $e)
-            {
-                echo 'Kontaktadresse konte nicht aktualisiert werden.'.$e;
-            }
+            createRecordToDB($pdo,$data, $entity_name);
         }
 
-     public static function loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id)
-    {
-        return loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id);     
-    }
+        public static function saveEntity($pdo,$data,$entity_name)
+        {
+            saveEntityToDB($pdo, $data, $entity_name);
+        }
+
+        public static function loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id)
+        {
+            return loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id);     
+        }
 
     }
