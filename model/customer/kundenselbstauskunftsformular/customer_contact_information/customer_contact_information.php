@@ -9,13 +9,13 @@ require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstau
 
 class Customer_contact_information
 {
-    public  $contact_information_id,
+    private $contact_information_id,
             $contact_information_company_name,
             $contact_information_phone,
             $contact_information_email,
             $contact_information_saved_data;
 
-    public  $contact_information_contact_person,
+    private  $contact_information_contact_person,
             $contact_information_addres;
 
     public  $pdo,$customer, $customerId,$foreignKeyId, $primaeryKeyId, $primaeryKeyName, $foreignKeyName =null, $entityName = 'customer_contact_information', $entityList;
