@@ -14,7 +14,7 @@
                 $contact_information_id;
 
         
-        public function getContact_information_addres_id()e
+        public function getContact_information_addres_id()
         {
             return $this->contact_information_addres_id;
         }
