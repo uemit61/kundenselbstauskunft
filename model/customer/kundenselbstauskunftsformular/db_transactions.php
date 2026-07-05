@@ -5,12 +5,9 @@
  * @license     Diese Datei darf nicht ohne Zustimmung des Autors weitergegeben oder verändert werden.
  */
 
+    //create()
     function createRecordToDB($pdo,$data,$entity_name)
     {
-        // var_dump($data);
-        // var_dump($entity_name);
-        // exit();
-
         try
         {
             $con = $pdo->connectToDb();
@@ -28,46 +25,7 @@
         $pdo->closeConnection();
     }
 
-    function saveEntityToDB($pdo,$data,$entity_name)
-    {
-        try
-        {
-            
-            $con = $pdo->connectToDb();
-            $param=$data;
-            
-            if($entity_name == 'customer_client')
-            {
-                // Wird am ende des Querys eingefügt
-                $query_end = '`client_id` = :client_id';
-            }
-            else
-            {
-                $key_id= array_key_last($data);
-                $query_end = "`$key_id` = :$key_id";
-                
-            }
-            
-            $setData =$data;
-            unset($setData[$key_id]);
-            $col =implode(",", array_map(fn($key) => "`$key` = :$key",array_keys($setData)));
-            
-            $query="UPDATE `$entity_name`
-                    SET $col  
-                    WHERE `$entity_name`.$query_end";
-
-            $stmt = $con->prepare($query);
-            $stmt->execute($data);
-
-            echo $entity_name.' wurden aktualisiert.';
-        }
-        catch(Exception $e)
-        {
-            echo 'Fehler beim aktualisieren von der '.$entity_name.' '.$e;
-        }
-        $pdo->closeConnection();
-    }
-
+    // read()
     function loadFromDB($pdo,$entity_name,$foreignKeyName,$foreigenKeyId)
     {
 
@@ -100,3 +58,49 @@
 
         
     }
+
+    // update()
+    function saveEntityToDB($pdo,$data,$entity_name)
+    {
+        try
+        {
+            
+            $con = $pdo->connectToDb();
+            $param =$data;
+            
+            
+            
+            if($entity_name == 'customer_client')
+            {
+                // Wird am ende des Querys eingefügt
+                $query_end = '`client_id` = :client_id';
+                unset($param['client_id']);
+            }
+            else
+            {
+                $key_id= array_key_last($data);
+                $query_end = "`$key_id` = :$key_id";  
+                unset($param[$key_id]);
+            }
+    
+            $col =implode(",", array_map(fn($key) => "`$key` = :$key",array_keys($param)));
+            
+            $query="UPDATE `$entity_name`
+                    SET $col  
+                    WHERE `$entity_name`.$query_end";
+
+            $stmt = $con->prepare($query);
+            $stmt->execute($data);
+
+            echo $entity_name.' wurden aktualisiert.';
+        }
+        catch(Exception $e)
+        {
+            echo 'Fehler beim aktualisieren von der '.$entity_name.' '.$e;
+        }
+        $pdo->closeConnection();
+    }
+
+    
+
+    
