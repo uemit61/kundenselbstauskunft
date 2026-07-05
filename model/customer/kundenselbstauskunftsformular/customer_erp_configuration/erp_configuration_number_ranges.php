@@ -7,11 +7,11 @@
 require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
 class Erp_configuration_number_ranges
 {
-    // private $erp_configuration_number_ranges_id,	
-    //         $erp_configuration_number_ranges_customer_number,	
-    //         $erp_configuration_number_ranges_supplier_number,	
-    //         $erp_configuration_number_ranges_item_number,	
-    //         $erp_configuration_id;	
+    private $erp_configuration_number_ranges_id,	
+            $erp_configuration_number_ranges_customer_number,	
+            $erp_configuration_number_ranges_supplier_number,	
+            $erp_configuration_number_ranges_item_number,	
+            $erp_configuration_id;	
 
     
     public function setErpConfigurationNumberRangesId($erp_configuration_number_ranges_id)
@@ -67,4 +67,16 @@ class Erp_configuration_number_ranges
         return loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id);     
     }
 
+
+    public function getErp_configuration_number_ranges_supplier_number()
+    {
+        return $this->erp_configuration_number_ranges_supplier_number;
+    }
+
+    
+    public function setErp_configuration_number_ranges_supplier_number($erp_configuration_number_ranges_supplier_number)
+    {
+        $this->erp_configuration_number_ranges_supplier_number = $erp_configuration_number_ranges_supplier_number;
+        return $this;
+    }
 }
