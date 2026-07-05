@@ -14,7 +14,7 @@
                 $contact_information_id;
 
         
-        public function getContact_information_addres_id()
+        public function getContact_information_addres_id()e
         {
             return $this->contact_information_addres_id;
         }
@@ -85,28 +85,6 @@
         {
             $this->contact_information_id = $contact_information_id;
             return $this;
-        }
-
-        public static function loadEntity($pdo,$contact_information_addres_id,$arg=0)
-        {
-             try
-            {
-                $con = $pdo->connectToDb();
-                $query ="   SELECT  * 
-                            FROM    `contact_information_addres`
-                            WHERE   `contact_information_addres`.`contact_information_addres_id` =:contact_information_addres_id";
-                $stmt = $con->prepare($query);
-                $stmt->bindValue(':contact_information_addres_id',$contact_information_addres_id);
-                $stmt->setFetchMode(PDO::FETCH_CLASS, self::class);
-                $contact_information_addres = $stmt->fetch();
-               
-            }
-            catch(Exception $e)
-            {
-                echo 'Fehler beim laden der Adresse'.$e;
-            }
-            $pdo->closeConnection();
-            return $contact_information_addres;
         }
 
         public static function createRecord($pdo,$data,$entity_name)

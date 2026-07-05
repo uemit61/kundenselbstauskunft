@@ -15,7 +15,7 @@ class Customer_contact_information
             $contact_information_email,
             $contact_information_saved_data;
 
-    private  $contact_information_contact_person,
+    private $contact_information_contact_person,
             $contact_information_addres;
 
     public  $pdo,$customer, $customerId,$foreignKeyId, $primaeryKeyId, $primaeryKeyName, $foreignKeyName =null, $entityName = 'customer_contact_information', $entityList;
