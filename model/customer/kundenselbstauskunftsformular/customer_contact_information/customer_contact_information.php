@@ -108,7 +108,6 @@ class Customer_contact_information
     public function setContact_information_phone($contact_information_phone)
     {
         $this->contact_information_phone = $contact_information_phone;
-
         return $this;
     }
 
@@ -128,7 +127,6 @@ class Customer_contact_information
     public function setContact_information_email($contact_information_email)
     {
         $this->contact_information_email = $contact_information_email;
-
         return $this;
     }
 
@@ -154,6 +152,7 @@ class Customer_contact_information
 
       public function basic_info($pdo,$customer)
     {
+        $retVal=[];
         try
         {
             $con = $pdo->connectToDb();
@@ -183,15 +182,16 @@ class Customer_contact_information
         return $retVal;
     }
 
-    public static function saveEntity($pdo,$data)
-    {
-        saveEntityToDB($pdo, $data, 'customer_contact_information');
-    }
+   
 
     public static function createRecord($pdo,$data)
     {
-        var_dump('what?');
         createRecordToDB($pdo,$data, 'customer_contact_information');
+    }
+
+    public static function saveEntity($pdo,$data)
+    {
+        saveEntityToDB($pdo, $data, 'customer_contact_information');
     }
 
     public function loadFromDB()
