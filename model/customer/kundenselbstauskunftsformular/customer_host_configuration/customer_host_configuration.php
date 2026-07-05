@@ -6,25 +6,115 @@
  */
 
 
-    class Customer_host_configuration
+class Customer_host_configuration
+{
+    private $host_configuration_id,
+            $host_configuration_saved_data,
+            $customer_id, 
+            $host_configuration_ip_addres_connect_external_device,
+            $host_configuration_ip_addres_data_backup,
+            $host_configuration_ip_addres_erp,
+            $host_configuration_virtualization;
+        
+    public  $pdo, $customer,$foreignKeyId, $primaeryKeyId, $primaeryKeyName, $foreignKeyName =null, $entityName = 'customer_host_configuration',$formData, $entityList;
+
+    
+    public function getHost_configuration_id()
     {
-        private $host_configuration_id,
-                $host_configuration_saved_data,
-                $customer_id;
+        return $this->host_configuration_id;
+    }
 
-        private $host_configuration_ip_addres_connect_external_device,
-                $host_configuration_ip_addres_data_backup,
-                $host_configuration_ip_addres_erp,
-                $host_configuration_virtualization;
-            
-        public  $pdo, $customer,$foreignKeyId, $primaeryKeyId, $primaeryKeyName, $foreignKeyName =null, $entityName = 'customer_host_configuration';
+    public function setHost_configuration_id($host_configuration_id)
+    {
+        $this->host_configuration_id = $host_configuration_id;
+        return $this;
+    }
 
-    public $formData, $entityList;
+    public function getCustomer_id()
+    {
+        return $this->customer_id;
+    }
+
+    public function setCustomer_id($customer_id)
+    {
+        $this->customer_id = $customer_id;
+        return $this;
+    }
+
+    
+
+    public function getHost_configuration_saved_data()
+    {
+        return $this->host_configuration_saved_data;
+    }
 
         
+    public function setHost_configuration_saved_data($host_configuration_saved_data)
+    {
+        $this->host_configuration_saved_data = $host_configuration_saved_data;
+        return $this;
+    }
+
+    /**
+     * Get the value of host_configuration_ip_addres_connect_external_device
+     */ 
+    public function getHost_configuration_ip_addres_connect_external_device()
+    {
+            return $this->host_configuration_ip_addres_connect_external_device;
+    }
+
+    /**
+     * Set the value of host_configuration_ip_addres_connect_external_device
+     *
+     * @return  self
+     */ 
+    public function setHost_configuration_ip_addres_connect_external_device($host_configuration_ip_addres_connect_external_device)
+    {
+        $this->host_configuration_ip_addres_connect_external_device = $host_configuration_ip_addres_connect_external_device;
+        return $this;
+    }
+
+    public function getHost_configuration_ip_addres_data_backup()
+    {
+        return $this->host_configuration_ip_addres_data_backup;
+    }
+
+    
+    public function setHost_configuration_ip_addres_data_backup($host_configuration_ip_addres_data_backup)
+    {
+        $this->host_configuration_ip_addres_data_backup = $host_configuration_ip_addres_data_backup;
+        return $this;
+    }
+
+    
+    public function getHost_configuration_ip_addres_erp()
+    {
+        return $this->host_configuration_ip_addres_erp;
+    }
+
+    
+    public function setHost_configuration_ip_addres_erp($host_configuration_ip_addres_erp)
+    {
+        $this->host_configuration_ip_addres_erp = $host_configuration_ip_addres_erp;
+        return $this;
+    }
+
+    
+    public function getHost_configuration_virtualization()
+    {
+        return $this->host_configuration_virtualization;
+    }
+
+
+    public function setHost_configuration_virtualization($host_configuration_virtualization)
+    {
+        $this->host_configuration_virtualization = $host_configuration_virtualization;
+        return $this;
+    }
+    
     public function __construct($pdo=null,$customer=null, $primaeryKeyName = null,$foreignKeyName=null)
     {
- 
+
         $this->pdo = $pdo;
         $this->customer = $customer;
         $this->foreignKeyName = $foreignKeyName;
@@ -39,7 +129,7 @@
         }       
     }
 
-      public function loadFormData()
+    public function loadFormData()
     {
         $this->foreignKeyId = $this->basic_info($this->pdo, $this->customer)['main_id'];
         foreach($this->entityList as $entity)
@@ -54,175 +144,54 @@
         return $this->formData;
     }
 
-        public function getHost_configuration_id()
-        {
-            return $this->host_configuration_id;
-        }
 
-        public function setHost_configuration_id($host_configuration_id)
-        {
-            $this->host_configuration_id = $host_configuration_id;
-            return $this;
-        }
 
-        public function getCustomer_id()
-        {
-            return $this->customer_id;
-        }
+    public function basic_info($pdo,$customer)
+    {
+        $retVal = null;
 
-        public function setCustomer_id($customer_id)
+        try
         {
-            $this->customer_id = $customer_id;
-            return $this;
-        }
+            $con = $pdo->connectToDb();
+            $query='SELECT  `customer_host_configuration`.`host_configuration_id`,
+                            `customer_host_configuration`.`host_configuration_saved_data`
+                    FROM    `customer_host_configuration`
+                    WHERE   `customer_host_configuration`.`customer_id` = :customer_id';
 
-        public function basic_info($pdo,$customer)
-        {
-            $retVal = null;
+            $stmt = $con->prepare($query);
+            $stmt->bindValue(':customer_id', $customer->getCustomer_id());
+            $stmt->execute();
+            $pdo->closeConnection();
 
-            try
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if($result)
             {
-                $con = $pdo->connectToDb();
-                $query='SELECT  `customer_host_configuration`.`host_configuration_id`,
-                                `customer_host_configuration`.`host_configuration_saved_data`
-                        FROM    `customer_host_configuration`
-                        WHERE   `customer_host_configuration`.`customer_id` = :customer_id';
-
-                $stmt = $con->prepare($query);
-                $stmt->bindValue(':customer_id', $customer->getCustomer_id());
-                $stmt->execute();
-                $pdo->closeConnection();
-
-                $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                if($result)
-                {
-                    $retVal['main_id']=$result['host_configuration_id'];
-                    $retVal['saved_data']=$result['host_configuration_saved_data'];
-                }
-                
+                $retVal['main_id']=$result['host_configuration_id'];
+                $retVal['saved_data']=$result['host_configuration_saved_data'];
             }
-            catch (Exception $e)
-            {
-                echo 'Fehler host_configuration_id'.$e->getMessage();
-                $pdo->closeConnection();
-            }
-
-            return $retVal;
+            
         }
-
-        public static function createRecord($pdo,$data,$entity_name)
+        catch (Exception $e)
         {
-            createRecordToDB($pdo,$data, $entity_name);
+            echo 'Fehler host_configuration_id'.$e->getMessage();
+            $pdo->closeConnection();
         }
 
-        public static function saveEntity($pdo,$data,$entity_name)
-        {
-            saveEntityToDB($pdo, $data, $entity_name);
-        }
-        public static function loadFromDB($pdo,$entity_name,$parentEnity_id)
-        {
-            loadFromDB($pdo,$entity_name,$parentEnity_id);
-        }
-
-
-        /**
-         * Get the value of host_configuration_saved_data
-         */ 
-        public function getHost_configuration_saved_data()
-        {
-                        return $this->host_configuration_saved_data;
-        }
-
-        /**
-         * Set the value of host_configuration_saved_data
-         *
-         * @return  self
-         */ 
-        public function setHost_configuration_saved_data($host_configuration_saved_data)
-        {
-                        $this->host_configuration_saved_data = $host_configuration_saved_data;
-
-                        return $this;
-        }
-
-        /**
-         * Get the value of host_configuration_ip_addres_connect_external_device
-         */ 
-        public function getHost_configuration_ip_addres_connect_external_device()
-        {
-                return $this->host_configuration_ip_addres_connect_external_device;
-        }
-
-        /**
-         * Set the value of host_configuration_ip_addres_connect_external_device
-         *
-         * @return  self
-         */ 
-        public function setHost_configuration_ip_addres_connect_external_device($host_configuration_ip_addres_connect_external_device)
-        {
-                $this->host_configuration_ip_addres_connect_external_device = $host_configuration_ip_addres_connect_external_device;
-
-                return $this;
-        }
-
-                /**
-                 * Get the value of host_configuration_ip_addres_data_backup
-                 */ 
-                public function getHost_configuration_ip_addres_data_backup()
-                {
-                                return $this->host_configuration_ip_addres_data_backup;
-                }
-
-                /**
-                 * Set the value of host_configuration_ip_addres_data_backup
-                 *
-                 * @return  self
-                 */ 
-                public function setHost_configuration_ip_addres_data_backup($host_configuration_ip_addres_data_backup)
-                {
-                                $this->host_configuration_ip_addres_data_backup = $host_configuration_ip_addres_data_backup;
-
-                                return $this;
-                }
-
-                /**
-                 * Get the value of host_configuration_ip_addres_erp
-                 */ 
-                public function getHost_configuration_ip_addres_erp()
-                {
-                                return $this->host_configuration_ip_addres_erp;
-                }
-
-                /**
-                 * Set the value of host_configuration_ip_addres_erp
-                 *
-                 * @return  self
-                 */ 
-                public function setHost_configuration_ip_addres_erp($host_configuration_ip_addres_erp)
-                {
-                                $this->host_configuration_ip_addres_erp = $host_configuration_ip_addres_erp;
-
-                                return $this;
-                }
-
-                /**
-                 * Get the value of host_configuration_virtualization
-                 */ 
-                public function getHost_configuration_virtualization()
-                {
-                                return $this->host_configuration_virtualization;
-                }
-
-                /**
-                 * Set the value of host_configuration_virtualization
-                 *
-                 * @return  self
-                 */ 
-                public function setHost_configuration_virtualization($host_configuration_virtualization)
-                {
-                                $this->host_configuration_virtualization = $host_configuration_virtualization;
-
-                                return $this;
-                }
+        return $retVal;
     }
+
+    public static function createRecord($pdo,$data,$entity_name)
+    {
+        createRecordToDB($pdo,$data, $entity_name);
+    }
+
+    public static function saveEntity($pdo,$data,$entity_name)
+    {
+        saveEntityToDB($pdo, $data, $entity_name);
+    }
+    public static function loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id)
+    {
+        return loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id);     
+    }
+}

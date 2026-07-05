@@ -9,15 +9,16 @@ require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstau
 
 class Host_configuration_ip_addres_connect_external_device
 {
-    // private $host_configuration_ip_addres_connect_external_device_id,
-    //         $host_configuration_ip_addres_connect_external_device_sftp,	
-    //         $host_configuration_ip_addres_connect_external_device_ftp,	
-    //         $host_configuration_ip_addres_connect_external_device_smb,	
-    //         $host_configuration_ip_addres_connect_external_device_backup_ip,	
-    //         $host_configuration_ip_addres_connect_external_device_backup_share_name,	
-    //         $host_configuration_ip_addres_connect_external_device_backup_user,	
-    //         $host_configuration_ip_addres_connect_external_device_backup_password,	
-    //         $host_configuration_id;       
+    private $host_configuration_ip_addres_connect_external_device_id,
+            $host_configuration_ip_addres_connect_external_device_sftp,	
+            $host_configuration_ip_addres_connect_external_device_ftp,	
+            $host_configuration_ip_addres_connect_external_device_smb,	
+            $host_configuration_ip_addres_connect_external_device_backup_ip,	
+            $host_configuration_ip_addres_connect_external_device_backup_share_name,	
+            $host_configuration_ip_addres_connect_external_device_share_name,
+            $host_configuration_ip_addres_connect_external_device_backup_user,	
+            $host_configuration_ip_addres_connect_external_device_backup_password,	
+            $host_configuration_id;       
 
 
     public function gethost_configuration_ip_addres_connect_external_device_id()
@@ -79,12 +80,23 @@ class Host_configuration_ip_addres_connect_external_device
 
     public function gethost_configuration_ip_addres_connect_external_device_share_name()
     {
+        return $this->host_configuration_ip_addres_connect_external_device_share_name;
+    }
+
+    public function sethost_configuration_ip_addres_connect_external_device_share_name($share_name)
+    {
+        $this->host_configuration_ip_addres_connect_external_device_share_name = $share_name;
+        return $this;
+    }
+
+    public function gethost_configuration_ip_addres_connect_external_device_backup_share_name()
+    {
         return $this->host_configuration_ip_addres_connect_external_device_backup_share_name;
     }
 
-    public function sethost_configuration_ip_addres_connect_external_device_share_name($backup_share_name)
+    public function sethost_configuration_ip_addres_connect_external_device_backup_share_name($backup_share_name)
     {
-        $this->host_configuration_ip_addres_connect_external_device_share_name = $backup_share_name;
+        $this->host_configuration_ip_addres_connect_external_device_backup_share_name = $backup_share_name;
         return $this;
     }
 
