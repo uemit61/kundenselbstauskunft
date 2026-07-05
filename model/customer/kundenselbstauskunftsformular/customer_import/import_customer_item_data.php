@@ -7,13 +7,13 @@
 require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
 class import_customer_item_data
 {
-    // private $import_customer_item_data_id,
-    //         $import_customer_item_data_customer_number,	
-    //         $import_customer_item_data_item_number,	
-    //         $import_customer_item_data_price,	
-    //         $import_customer_item_data_from_Quantity,	
-    //         $import_customer_item_data_description,	
-    //         $import_id;
+    private $import_customer_item_data_id,
+            $import_customer_item_data_customer_number,	
+            $import_customer_item_data_item_number,	
+            $import_customer_item_data_price,	
+            $import_customer_item_data_from_Quantity,	
+            $import_customer_item_data_description,	
+            $import_id;
 
     /**
      * Get the value of import_customer_item_data_id

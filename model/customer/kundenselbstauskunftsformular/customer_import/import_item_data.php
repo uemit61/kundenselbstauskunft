@@ -7,23 +7,23 @@
 require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
 class Import_item_data
 {
-    // private $import_item_data_id,	
-    //         $import_item_data_status,	
-    //         $import_item_data_number,	
-    //         $import_item_data_description,	
-    //         $import_item_data_name,	
-    //         $import_item_data_text,	
-    //         $import_item_data_unit,	
-    //         $import_item_data_typ,	
-    //         $import_item_data_single_category_name,	
-    //         $import_item_data_weight,	
-    //         $import_item_data_number_of_selling_prices,	
-    //         $import_item_data_surcharge_number_of_additions_selling_prices,	
-    //         $import_item_data_purchase_price,	
-    //         $import_item_data_procurment_costs,	
-    //         $import_item_data_quality_managment,	
-    //         $import_item_data_number_of_additions,	
-    //         $import_id;
+    private $import_item_data_id,	
+            $import_item_data_status,	
+            $import_item_data_number,	
+            $import_item_data_description,	
+            $import_item_data_name,	
+            $import_item_data_text,	
+            $import_item_data_unit,	
+            $import_item_data_typ,	
+            $import_item_data_single_category_name,	
+            $import_item_data_weight,	
+            $import_item_data_number_of_selling_prices,	
+            $import_item_data_surcharge_number_of_additions_selling_prices,	
+            $import_item_data_purchase_price,	
+            $import_item_data_procurment_costs,	
+            $import_item_data_quality_managment,	
+            $import_item_data_number_of_additions,	
+            $import_id;
 
     
 

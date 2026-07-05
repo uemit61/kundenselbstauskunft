@@ -7,16 +7,16 @@
 require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
 class Import_supplier_contact_person_data
 {
-//    private  $import_supplier_contact_person_data_id,
-//             $import_supplier_contact_person_data_number,	
-//             $import_supplier_contact_person_data_salutation,	
-//             $import_supplier_contact_person_data_name,	
-//             $import_supplier_contact_person_data_surname,	
-//             $import_supplier_contact_person_data_email,	
-//             $import_supplier_contact_person_data_phone,	
-//             $import_supplier_contact_person_data_second_phone,	
-//             $import_supplier_contact_person_data_description,	
-//             $import_id;
+   private  $import_supplier_contact_person_data_id,
+            $import_supplier_contact_person_data_number,	
+            $import_supplier_contact_person_data_salutation,	
+            $import_supplier_contact_person_data_name,	
+            $import_supplier_contact_person_data_surname,	
+            $import_supplier_contact_person_data_email,	
+            $import_supplier_contact_person_data_phone,	
+            $import_supplier_contact_person_data_second_phone,	
+            $import_supplier_contact_person_data_description,	
+            $import_id;
 
    /**
     * Get the value of import_supplier_contact_person_data_id
