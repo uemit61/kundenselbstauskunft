@@ -47,6 +47,7 @@
                 return $logo;
         }
 
+        // Über die Dash Website-Logo ändern
         public function setLogo($logo)
         {
                // TODO UPDATE LOGO TO DATABASE
