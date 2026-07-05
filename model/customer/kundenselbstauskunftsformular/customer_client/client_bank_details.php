@@ -29,8 +29,7 @@ class Client_bank_details
     public function setClient_bank_details_id($client_bank_details_id)
     {
         $this->client_bank_details_id = $client_bank_details_id;
-
-return $this;
+        return $this;
     }
 
     /**
@@ -48,8 +47,7 @@ return $this;
      */ 
     public function setClient_bank_details_bankname($client_bank_details_bankname)
     {
-                $this->client_bank_details_bankname = $client_bank_details_bankname;
-
+        $this->client_bank_details_bankname = $client_bank_details_bankname;
         return $this;
     }
 
@@ -68,8 +66,7 @@ return $this;
      */ 
     public function setClient_bank_details_iban($client_bank_details_iban)
     {
-                $this->client_bank_details_iban = $client_bank_details_iban;
-
+        $this->client_bank_details_iban = $client_bank_details_iban;
         return $this;
     }
 
@@ -88,8 +85,7 @@ return $this;
      */ 
     public function setClient_bank_details_bic($client_bank_details_bic)
     {
-                $this->client_bank_details_bic = $client_bank_details_bic;
-
+        $this->client_bank_details_bic = $client_bank_details_bic;
         return $this;
     }
 
@@ -108,8 +104,7 @@ return $this;
      */ 
     public function setClient_id($client_id)
     {
-                $this->client_id = $client_id;
-
+        $this->client_id = $client_id;
         return $this;
     }
 

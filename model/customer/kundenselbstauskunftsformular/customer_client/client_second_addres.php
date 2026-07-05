@@ -25,7 +25,6 @@ class Client_second_addres
     public function setclient_second_addres_id($client_second_addres_id)
     {
         $this->client_second_addres_id = $client_second_addres_id;
-
         return $this;
     }
      
@@ -38,7 +37,6 @@ class Client_second_addres
     public function setclient_second_addres_street($client_second_addres_street)
     {
         $this->client_second_addres_street = $client_second_addres_street;
-
         return $this;
     }
 
@@ -52,7 +50,6 @@ class Client_second_addres
     public function setclient_second_addres_house_Number($client_second_addres_house_Number)
     {
         $this->client_second_addres_house_Number = $client_second_addres_house_Number;
-
         return $this;
     }
 
@@ -66,7 +63,6 @@ class Client_second_addres
     public function setclient_second_addres_postcode($client_second_addres_postcode)
     {
         $this->client_second_addres_postcode = $client_second_addres_postcode;
-
         return $this;
     }
 
@@ -80,7 +76,6 @@ class Client_second_addres
     public function setclient_second_addres_city($client_second_addres_city)
     {
         $this->client_second_addres_city = $client_second_addres_city;
-
         return $this;
     }
 
@@ -93,7 +88,6 @@ class Client_second_addres
     public function setClient_id($client_id)
     {
         $this->client_id = $client_id;
-
         return $this;
     }
     

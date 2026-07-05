@@ -9,29 +9,23 @@ require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstau
 class Customer_client
 {
 
-    // private $client_id,
-    //         $client_name,
-    //         $client_company_name,
-    //         $client_phone_number,
-    //         $client_email,
-    //         $client_saved_data,
-    //         $client_main_addres,
-    //         $customer_id;
-
     private $client_second_addres,
             $client_director,
             $client_bank_details,
-            $client_legal_information;
+            $client_legal_information,
+            $client_name,
+            $client_company_name,
+            $client_phone_number,
+            $client_email,
+            $client_saved_data,
+            $client_id;
 
-    public  $pdo,$customer, $customerId,$foreignKeyId,$primaeryKeyName, $foreignKeyName ='client_id', $entityName = 'customer_client', $entityList;
+    public  $pdo,$customer, $customerId,$foreignKeyId,$primaeryKeyName, $foreignKeyName ='client_id', $entityName = 'customer_client', $entityList, $formData;
 
-    public $formData;
-
-        public function __construct($pdo=null,$customer=null, $primaeryKeyName = null)
+    public function __construct($pdo=null,$customer=null, $primaeryKeyName = null)
     {
         $this->pdo = $pdo;
         $this->customer = $customer;
- 
         $this->primaeryKeyName = $primaeryKeyName;
 
         foreach(glob('C:/xampp/htdocs/Kundenselbstauskunft/model/customer/kundenselbstauskunftsformular/customer_client/*.php') as $path)
@@ -42,28 +36,27 @@ class Customer_client
         }       
     }
 
-         public function loadFormData($clientId)
-        {
-            
-            $this->foreignKeyId = $clientId;
-            $clientId = ($clientId == 1) ? '' : $clientId;
-            $cnameModi = $this->entityName.$clientId;
-            $this->formData[$cnameModi] = $this->loadFromDB();
+    public function loadFormData($clientId)
+    {
+        
+        $this->foreignKeyId = $clientId;
+        $clientId = ($clientId == 1) ? '' : $clientId;
+        $cnameModi = $this->entityName.$clientId;
+        $this->formData[$cnameModi] = $this->loadFromDB();
 
-            foreach($this->entityList as $entity)
-            {
-                if($entity !== 'customer_client')
-                {   
-                    $class = ucfirst($entity);
-                    $this->$entity =  new $class();
-                    
-                    $this->formData[$entity.$clientId] = $this->$entity->loadFromDB($this->pdo,$entity,$this->foreignKeyName,$this->foreignKeyId);
-                }
+        foreach($this->entityList as $entity)
+        {
+            if($entity !== 'customer_client')
+            {   
+                $class = ucfirst($entity);
+                $this->$entity =  new $class();
+                
+                $this->formData[$entity.$clientId] = $this->$entity->loadFromDB($this->pdo,$entity,$this->foreignKeyName,$this->foreignKeyId);
             }
-            var_dump($this->formData);
-            
-            return $this->formData;
         }
+        var_dump($this->formData);
+        return $this->formData;
+    }
 
     public function basic_info($pdo,$customer)
     {
@@ -144,7 +137,7 @@ class Customer_client
      */ 
     public function getClient_name()
     {
-                return $this->client_name;
+        return $this->client_name;
     }
 
     /**
@@ -154,9 +147,8 @@ class Customer_client
      */ 
     public function setClient_name($client_name)
     {
-                $this->client_name = $client_name;
-
-                return $this;
+        $this->client_name = $client_name;
+        return $this;
     }
 
     /**
@@ -164,7 +156,7 @@ class Customer_client
      */ 
     public function getClient_company_name()
     {
-                return $this->client_company_name;
+        return $this->client_company_name;
     }
 
     /**
@@ -183,7 +175,7 @@ class Customer_client
      */ 
     public function getClient_phone_number()
     {
-                return $this->client_phone_number;
+        return $this->client_phone_number;
     }
 
     /**
@@ -193,9 +185,8 @@ class Customer_client
      */ 
     public function setClient_phone_number($client_phone_number)
     {
-                $this->client_phone_number = $client_phone_number;
-
-                return $this;
+        $this->client_phone_number = $client_phone_number;
+        return $this;
     }
 
     /**
@@ -203,7 +194,7 @@ class Customer_client
      */ 
     public function getClient_email()
     {
-                return $this->cient_email;
+        return $this->client_email;
     }
 
     /**
@@ -213,9 +204,8 @@ class Customer_client
      */ 
     public function setClient_email($client_email)
     {
-                $this->client_email = $client_email;
-
-                return $this;
+        $this->client_email = $client_email;
+        return $this;
     }
 
     /**
@@ -223,7 +213,7 @@ class Customer_client
      */ 
     public function getClient_saved_data()
     {
-                return $this->client_saved_data;
+        return $this->client_saved_data;
     }
 
     /**
@@ -233,9 +223,8 @@ class Customer_client
      */ 
     public function setClient_saved_data($client_saved_data)
     {
-                $this->client_saved_data = $client_saved_data;
-
-                return $this;
+        $this->client_saved_data = $client_saved_data;
+        return $this;
     }
 
     public function loadFromDB()

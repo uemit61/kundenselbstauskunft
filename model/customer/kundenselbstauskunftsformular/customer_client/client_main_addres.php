@@ -8,12 +8,12 @@ require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstau
 class Client_main_addres
 {
     
-    private $client_main_addres_id;
-    private $client_main_addres_street;
-    private $client_main_addres_house_Number;
-    private $client_main_addres_postcode;
-    private $client_main_addres_city;
-    private $client_id;
+    private $client_main_addres_id,
+            $client_main_addres_street,
+            $client_main_addres_house_Number,
+            $client_main_addres_postcode,
+            $client_main_addres_city,
+            $client_id;
 
       public function getClient_main_addres_id()
     {
@@ -24,7 +24,6 @@ class Client_main_addres
     public function setClient_main_addres_id($client_main_addres_id)
     {
         $this->client_main_addres_id = $client_main_addres_id;
-
         return $this;
     }
      
@@ -37,7 +36,6 @@ class Client_main_addres
     public function setClient_main_addres_street($client_main_addres_street)
     {
         $this->client_main_addres_street = $client_main_addres_street;
-
         return $this;
     }
 
@@ -51,7 +49,6 @@ class Client_main_addres
     public function setClient_main_addres_house_Number($client_main_addres_house_Number)
     {
         $this->client_main_addres_house_Number = $client_main_addres_house_Number;
-
         return $this;
     }
 
@@ -65,7 +62,6 @@ class Client_main_addres
     public function setClient_main_addres_postcode($client_main_addres_postcode)
     {
         $this->client_main_addres_postcode = $client_main_addres_postcode;
-
         return $this;
     }
 
@@ -79,7 +75,6 @@ class Client_main_addres
     public function setClient_main_addres_city($client_main_addres_city)
     {
         $this->client_main_addres_city = $client_main_addres_city;
-
         return $this;
     }
 
@@ -92,7 +87,6 @@ class Client_main_addres
     public function setClient_id($client_id)
     {
         $this->client_id = $client_id;
-
         return $this;
     }
     

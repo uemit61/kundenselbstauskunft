@@ -29,89 +29,84 @@ class Client_director
     public function setClient_director_id($client_director_id)
     {
         $this->client_director_id = $client_director_id;
-
         return $this;
     }
 
-            /**
-             * Get the value of client_director_gender
-             */ 
-            public function getClient_director_gender()
-            {
-                        return $this->client_director_gender;
-            }
+    /**
+     * Get the value of client_director_gender
+     */ 
+    public function getClient_director_gender()
+    {
+        return $this->client_director_gender;
+    }
 
-            /**
-             * Set the value of client_director_gender
-             *
-             * @return  self
-             */ 
-            public function setClient_director_gender($client_director_gender)
-            {
-                        $this->client_director_gender = $client_director_gender;
+    /**
+     * Set the value of client_director_gender
+     *
+     * @return  self
+     */ 
+    public function setClient_director_gender($client_director_gender)
+    {
+        $this->client_director_gender = $client_director_gender;
+        return $this;
+}
 
-                        return $this;
-            }
+    /**
+     * Get the value of client_director_name
+     */ 
+    public function getClient_director_name()
+    {
+        return $this->client_director_name;
+    }
 
-            /**
-             * Get the value of client_director_name
-             */ 
-            public function getClient_director_name()
-            {
-                        return $this->client_director_name;
-            }
+    /**
+     * Set the value of client_director_name
+     *
+     * @return  self
+     */ 
+    public function setClient_director_name($client_director_name)
+    {
+        $this->client_director_name = $client_director_name;
+        return $this;
+    }
 
-            /**
-             * Set the value of client_director_name
-             *
-             * @return  self
-             */ 
-            public function setClient_director_name($client_director_name)
-            {
-                        $this->client_director_name = $client_director_name;
+    /**
+     * Get the value of client_director_surname
+     */ 
+    public function getClient_director_surname()
+    {
+        return $this->client_director_surname;
+    }
 
-                        return $this;
-            }
+    /**
+     * Set the value of client_director_surname
+     *
+     * @return  self
+     */ 
+    public function setClient_director_surname($client_director_surname)
+    {
+        $this->client_director_surname = $client_director_surname;
+        return $this;
+    }
 
-            /**
-             * Get the value of client_director_surname
-             */ 
-            public function getClient_director_surname()
-            {
-                        return $this->client_director_surname;
-            }
+    /**
+     * Get the value of client_id
+     */ 
+    public function getClient_id()
+    {
+        return $this->client_id;
+    }
 
-            /**
-             * Set the value of client_director_surname
-             *
-             * @return  self
-             */ 
-            public function setClient_director_surname($client_director_surname)
-            {
-                        $this->client_director_surname = $client_director_surname;
-
-                        return $this;
-            }
-
-            /**
-             * Get the value of client_id
-             */ 
-            public function getClient_id()
-            {
-                        return $this->client_id;
-            }
-
-            /**
-             * Set the value of client_id
-             *
-             * @return  self
-             */ 
-            public function setClient_id($client_id)
-            {
-                        $this->client_id = $client_id;
-
-                        return $this;
-            }
+    /**
+     * Set the value of client_id
+     *
+     * @return  self
+     */ 
+    public function setClient_id($client_id)
+    {
+        $this->client_id = $client_id;
+        return $this;
+    }
    public static function saveEntity($pdo,$data,$entity_name)
     {
         saveEntityToDB($pdo, $data, $entity_name);
