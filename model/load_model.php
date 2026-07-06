@@ -48,7 +48,7 @@ class LoadModel
             $numberClient =$entity->basic_info($this->pdo,$this->customer)['numberClient'];
             $loadedForm=[];
 
-            for ($i; $i < $numberClient ; $i++) 
+            for ($i=0; $i < $numberClient ; $i++) 
             { 
                 $loadedForm = array_merge($loadedForm,$entity->loadFormData($i+1));
             }
