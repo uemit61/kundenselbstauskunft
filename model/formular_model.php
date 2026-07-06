@@ -53,12 +53,13 @@ class CIModel
         return $this;
     }
 
-    function __construct($view,$pdo,$data=0)
+    function __construct($view,$pdo,$data=null)
     {
         $this->view=$view;
         $this->pdo=$pdo;
-        if($data !=0)
+        if($data !==null)
         {
+
             $data['page'] = str_replace('form_','',$data['page']);
             foreach
             (glob('C:/xampp/htdocs/Kundenselbstauskunft/model/customer/kundenselbstauskunftsformular/'.$data['page'].'/*.php') as $filename)
