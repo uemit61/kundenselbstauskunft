@@ -5,9 +5,10 @@
  * @license     Diese Datei darf nicht ohne Zustimmung des Autors weitergegeben oder verändert werden.
  */
 require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
-class Import_customer_contact_person_data
+require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\dbModel.php');
+class Import_customer_contact_person_data extends DbModel
 {
-    private $import_customer_contact_person_data_id,	
+    protected $import_customer_contact_person_data_id,	
             $import_customer_contact_person_data_number,	
             $import_customer_contact_person_data_salutation,	
             $import_customer_contact_person_data_name,	
@@ -235,13 +236,5 @@ class Import_customer_contact_person_data
         saveEntityToDB($pdo, $data, $entity_name);
     }
 
-    public static function createRecord($pdo,$data,$entity_name)
-    {
-        createRecordToDB($pdo,$data, $entity_name);
-    }
-      public static function loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id)
-    {
-        return loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id);     
-    }
 
 }

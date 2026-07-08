@@ -5,9 +5,10 @@
  * @license     Diese Datei darf nicht ohne Zustimmung des Autors weitergegeben oder verändert werden.
  */
 require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
-class import_customer_item_data
+require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\dbModel.php');
+class import_customer_item_data extends DbModel
 {
-    private $import_customer_item_data_id,
+    protected $import_customer_item_data_id,
             $import_customer_item_data_customer_number,	
             $import_customer_item_data_item_number,	
             $import_customer_item_data_price,	
@@ -155,21 +156,5 @@ class import_customer_item_data
                 return $this;
     }
 
-    
-
-        public static function saveEntity($pdo,$data,$entity_name)
-    {
-        saveEntityToDB($pdo, $data, $entity_name);
-    }
-
-    public static function createRecord($pdo,$data,$entity_name)
-    {
-        createRecordToDB($pdo,$data, $entity_name);
-    }
-
-    public static function loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id)
-    {
-        return loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id);     
-    }
 
 }

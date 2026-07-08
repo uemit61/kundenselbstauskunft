@@ -5,28 +5,24 @@
  * @license     Diese Datei darf nicht ohne Zustimmung des Autors weitergegeben oder verändert werden.
  */
 require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
-class Import_customer_billing_addres_data
+require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\dbModel.php');
+class Import_customer_billing_addres_data extends DbModel
 {
-    private $import_customer_billing_addres_data_id,	
-            $import_customer_billing_addres_data_number,	
-            $import_customer_billing_addres_data_company,	
-            $import_customer_billing_addres_data_name,
-            $import_customer_billing_addres_data_surname,	
-            $import_customer_billing_addres_data_street,	
-            $import_customer_billing_addres_data_house_Number,	
-            $import_customer_billing_addres_data_postcode,	
-            $import_customer_billing_addres_data_city,	
-            $import_customer_billing_addres_data_country,	
-            $import_customer_billing_addres_data_additional_addres,	
-            $import_customer_billing_addres_data_email,	
-            $import_customer_billing_addres_data_phone,	
-            $import_id;
+    protected   $import_customer_billing_addres_data_id,	
+                $import_customer_billing_addres_data_number,	
+                $import_customer_billing_addres_data_company,	
+                $import_customer_billing_addres_data_name,
+                $import_customer_billing_addres_data_surname,	
+                $import_customer_billing_addres_data_street,	
+                $import_customer_billing_addres_data_house_Number,	
+                $import_customer_billing_addres_data_postcode,	
+                $import_customer_billing_addres_data_city,	
+                $import_customer_billing_addres_data_country,	
+                $import_customer_billing_addres_data_additional_addres,	
+                $import_customer_billing_addres_data_email,	
+                $import_customer_billing_addres_data_phone,	
+                $import_id;
 
-    
-
-    /**
-     * Get the value of import_customer_billing_addres_data_id
-     */ 
     public function getImport_customer_billing_addres_data_id()
     {
         return $this->import_customer_billing_addres_data_id;
@@ -304,18 +300,5 @@ class Import_customer_billing_addres_data
             }
             
 
-    public static function saveEntity($pdo,$data,$entity_name)
-    {
-        saveEntityToDB($pdo, $data, $entity_name);
-    }
-
-    public static function createRecord($pdo,$data,$entity_name)
-    {
-        createRecordToDB($pdo,$data, $entity_name);
-    }
-
-     public static function loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id)
-    {
-        return loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id);     
-    }
+    
 }

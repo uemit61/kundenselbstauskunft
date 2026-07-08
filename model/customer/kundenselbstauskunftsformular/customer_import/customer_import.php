@@ -4,9 +4,12 @@
  * @copyright   Copyright (c) 2026 Ümit Yildirim. Alle Rechte vorbehalten.
  * @license     Diese Datei darf nicht ohne Zustimmung des Autors weitergegeben oder verändert werden.
  */
-class customer_import
+
+require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
+require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\dbModel.php');
+class customer_import extends DbModel
 {
-    private $import_id,
+    protected $import_id,
             $import_saved_data,
             $customer_id,
             $import_accessories_item_data,
@@ -244,18 +247,11 @@ class customer_import
         return $retVal;
     }
 
-    public static function createRecord($pdo,$data)
+    public static function createParentRow($pdo, $customer_id)
     {
-        createRecordToDB($pdo,$data, 'customer_contact_information');
-    }
-
-    public static function saveEntity($pdo,$data)
-    {
-        saveEntityToDB($pdo, $data, 'customer_contact_information');
-    }
-
-    public function loadFromDB()
-    {
-        return loadFromDB($this->pdo,$this->entityName,$this->foreignKeyName,$this->customer->getCustomer_id());
+        static::createRecord($pdo, [
+            'import_saved_data' => 1,
+            'customer_id'                   => $customer_id,
+        ], 'customer_import');
     }
 } 
