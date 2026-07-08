@@ -4,12 +4,13 @@
  * @copyright   Copyright (c) 2026 Ümit Yildirim. Alle Rechte vorbehalten.
  * @license     Diese Datei darf nicht ohne Zustimmung des Autors weitergegeben oder verändert werden.
  */
-require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
 
-class Customer_client
+require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\dbModel.php');
+
+class Customer_client extends DbModel
 {
 
-    private $client_second_addres,
+    protected $client_second_addres,
             $client_director,
             $client_bank_details,
             $client_legal_information,
@@ -20,13 +21,13 @@ class Customer_client
             $client_saved_data,
             $client_id;
 
-    public  $pdo,$customer, $customerId,$foreignKeyId,$primaeryKeyName, $foreignKeyName ='client_id', $entityName = 'customer_client', $entityList, $formData;
+    public  $pdo,$customer, $customerId,$foreignKeyId,$primaryKey, $foreignKeyName ='client_id', $entityName = 'customer_client', $entityList, $formData;
 
-    public function __construct($pdo=null,$customer=null, $primaeryKeyName = null)
+    public function __construct($pdo=null,$customer=null, $primaryKey = null)
     {
         $this->pdo = $pdo;
         $this->customer = $customer;
-        $this->primaeryKeyName = $primaeryKeyName;
+        $this->primaryKey = $primaryKey;
 
         foreach(glob('C:/xampp/htdocs/Kundenselbstauskunft/model/customer/kundenselbstauskunftsformular/customer_client/*.php') as $path)
         {
@@ -42,7 +43,7 @@ class Customer_client
         $this->foreignKeyId = $clientId;
         $clientId = ($clientId == 1) ? '' : $clientId;
         $cnameModi = $this->entityName.$clientId;
-        $this->formData[$cnameModi] = $this->loadFromDB();
+        $this->formData[$cnameModi] = $this->loadOwn();
 
         foreach($this->entityList as $entity)
         {
@@ -60,6 +61,7 @@ class Customer_client
 
     public function basic_info($pdo,$customer)
     {
+        $retVal=[];
         try
         {
             $con = $pdo->connectToDb();
@@ -69,26 +71,16 @@ class Customer_client
             $stmt = $con->prepare($query);
             $stmt->bindValue(':customer_id', $customer->getCustomer_id());
             $stmt->execute();
-            $pdo->closeConnection();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             var_dump($result);
+            $retVal = $result;
         }
         catch (Exception $e)
         {
             echo 'Fehler clients_id'.$e->getMessage();
         }
         $pdo->closeConnection();
-        return $result;
-    }
-
-    public static function saveEntity($pdo,$data,$entity_name)
-    {
-        saveEntityToDB($pdo, $data, $entity_name);
-    }
-
-    public static function createRecord($pdo,$data,$entity_name)
-    {
-        createRecordToDB($pdo,$data, $entity_name);
+        return $retVal;
     }
 
     
@@ -227,9 +219,9 @@ class Customer_client
         return $this;
     }
 
-    public function loadFromDB()
+    public function loadOwn()     // oder load() — Hauptsache anders als die statische
     {
-        return loadFromDB($this->pdo, $this->entityName,$this->foreignKeyName,$this->foreignKeyId);
+        return  static::loadFromDB($this->pdo,$this->entityName,$this->foreignKeyName,$this->foreignKeyId);
     }
 }
     

@@ -5,10 +5,11 @@
  * @license     Diese Datei darf nicht ohne Zustimmung des Autors weitergegeben oder verändert werden.
  */
 require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
-class Client_main_addres
+require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\dbModel.php');
+class Client_main_addres extends DbModel
 {
     
-    private $client_main_addres_id,
+    protected $client_main_addres_id,
             $client_main_addres_street,
             $client_main_addres_house_Number,
             $client_main_addres_postcode,
@@ -83,25 +84,10 @@ class Client_main_addres
         return $this->client_id;
     }
 
-     
     public function setClient_id($client_id)
     {
         $this->client_id = $client_id;
         return $this;
     }
     
-    public static function saveEntity($pdo,$data,$entity_name)
-    {
-        saveEntityToDB($pdo, $data, $entity_name);
-    }
-
-    public static function createRecord($pdo,$data,$entity_name)
-    {
-        createRecordToDB($pdo,$data, $entity_name);
-    }
-
-    public static function loadFromDB($pdo,$entity_name,$foreignKeyName,$foreigenKeyId)
-    {
-        return loadFromDB($pdo,$entity_name,$foreignKeyName,$foreigenKeyId);     
-    }
 }
