@@ -6,10 +6,10 @@
  */
 
 require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
-
-class Host_configuration_ip_addres_data_backup
+require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\dbModel.php');
+class Host_configuration_ip_addres_data_backup extends DbModel
 {
-    private $host_configuration_ip_addres_data_backup_id,
+    protected $host_configuration_ip_addres_data_backup_id,
             $host_configuration_ip_addres_data_backup_sftp,	
             $host_configuration_ip_addres_data_backup_ftp,	
             $host_configuration_ip_addres_data_backup_smb,	
@@ -119,18 +119,5 @@ class Host_configuration_ip_addres_data_backup
         return $this;
     }
 
-    public static function saveEntity($pdo,$data,$entity_name)
-    {
-        saveEntityToDB($pdo, $data, $entity_name);
-    }
-
-    public static function createRecord($pdo,$data,$entity_name)
-    {
-        createRecordToDB($pdo,$data, $entity_name);
-    }
-
-   public static function loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id)
-    {
-        return loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id);     
-    }
+ 
 }

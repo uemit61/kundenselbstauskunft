@@ -6,19 +6,19 @@
  */
 
 require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
-
-class Host_configuration_ip_addres_connect_external_device
+require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\dbModel.php');
+class Host_configuration_ip_addres_connect_external_device extends DbModel
 {
-    private $host_configuration_ip_addres_connect_external_device_id,
-            $host_configuration_ip_addres_connect_external_device_sftp,	
-            $host_configuration_ip_addres_connect_external_device_ftp,	
-            $host_configuration_ip_addres_connect_external_device_smb,	
-            $host_configuration_ip_addres_connect_external_device_backup_ip,	
-            $host_configuration_ip_addres_connect_external_device_backup_share_name,	
-            $host_configuration_ip_addres_connect_external_device_share_name,
-            $host_configuration_ip_addres_connect_external_device_backup_user,	
-            $host_configuration_ip_addres_connect_external_device_backup_password,	
-            $host_configuration_id;       
+    protected   $host_configuration_ip_addres_connect_external_device_id,
+                $host_configuration_ip_addres_connect_external_device_sftp,	
+                $host_configuration_ip_addres_connect_external_device_ftp,	
+                $host_configuration_ip_addres_connect_external_device_smb,	
+                $host_configuration_ip_addres_connect_external_device_backup_ip,	
+                $host_configuration_ip_addres_connect_external_device_backup_share_name,	
+                $host_configuration_ip_addres_connect_external_device_share_name,
+                $host_configuration_ip_addres_connect_external_device_backup_user,	
+                $host_configuration_ip_addres_connect_external_device_backup_password,	
+                $host_configuration_id;       
 
 
     public function gethost_configuration_ip_addres_connect_external_device_id()
@@ -138,18 +138,5 @@ class Host_configuration_ip_addres_connect_external_device
         return $this;
     }
 
-    public static function saveEntity($pdo,$data,$entity_name)
-    {
-        saveEntityToDB($pdo, $data, $entity_name);
-    }
-
-    public static function createRecord($pdo,$data,$entity_name)
-    {
-        createRecordToDB($pdo,$data, $entity_name);
-    }
-
-     public static function loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id)
-    {
-        return loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id);     
-    }
+    
 }

@@ -4,19 +4,20 @@
  * @copyright   Copyright (c) 2026 Ümit Yildirim. Alle Rechte vorbehalten.
  * @license     Diese Datei darf nicht ohne Zustimmung des Autors weitergegeben oder verändert werden.
  */
+require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
+require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\dbModel.php');
 
-
-class Customer_host_configuration
+class Customer_host_configuration extends DbModel
 {
-    private $host_configuration_id,
-            $host_configuration_saved_data,
-            $customer_id, 
-            $host_configuration_ip_addres_connect_external_device,
-            $host_configuration_ip_addres_data_backup,
-            $host_configuration_ip_addres_erp,
-            $host_configuration_virtualization;
+    protected   $host_configuration_id,
+                $host_configuration_saved_data,
+                $customer_id, 
+                $host_configuration_ip_addres_connect_external_device,
+                $host_configuration_ip_addres_data_backup,
+                $host_configuration_ip_addres_erp,
+                $host_configuration_virtualization;
         
-    public  $pdo, $customer,$foreignKeyId, $primaeryKeyId, $primaeryKeyName, $foreignKeyName =null, $entityName = 'customer_host_configuration',$formData, $entityList;
+    private  $pdo, $customer,$foreignKeyId, $primaeryKeyId, $primaeryKeyName, $foreignKeyName =null, $entityName = 'customer_host_configuration',$formData, $entityList;
 
     
     public function getHost_configuration_id()
@@ -41,8 +42,6 @@ class Customer_host_configuration
         return $this;
     }
 
-    
-
     public function getHost_configuration_saved_data()
     {
         return $this->host_configuration_saved_data;
@@ -55,19 +54,11 @@ class Customer_host_configuration
         return $this;
     }
 
-    /**
-     * Get the value of host_configuration_ip_addres_connect_external_device
-     */ 
     public function getHost_configuration_ip_addres_connect_external_device()
     {
             return $this->host_configuration_ip_addres_connect_external_device;
     }
 
-    /**
-     * Set the value of host_configuration_ip_addres_connect_external_device
-     *
-     * @return  self
-     */ 
     public function setHost_configuration_ip_addres_connect_external_device($host_configuration_ip_addres_connect_external_device)
     {
         $this->host_configuration_ip_addres_connect_external_device = $host_configuration_ip_addres_connect_external_device;
@@ -99,7 +90,6 @@ class Customer_host_configuration
         return $this;
     }
 
-    
     public function getHost_configuration_virtualization()
     {
         return $this->host_configuration_virtualization;
@@ -181,17 +171,15 @@ class Customer_host_configuration
         return $retVal;
     }
 
-    public static function createRecord($pdo,$data,$entity_name)
+    // Sonderfall host_configuration: legt die "leere" Eltern-Zeile an,
+    // bevor der Kunde das Formular ausfüllt. Baut das Daten-Array selbst
+    // und delegiert dann an die geerbte generische createRecord —
+    // kein Override möglich (Signatur $pdo,$customer_id ≠ $pdo,$data,$e).
+    public static function createParentRow($pdo, $customer_id)
     {
-        createRecordToDB($pdo,$data, $entity_name);
-    }
-
-    public static function saveEntity($pdo,$data,$entity_name)
-    {
-        saveEntityToDB($pdo, $data, $entity_name);
-    }
-    public static function loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id)
-    {
-        return loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id);     
+        static::createRecord($pdo, [
+            'host_configuration_saved_data' => 1,
+            'customer_id'                   => $customer_id,
+        ], 'customer_host_configuration');
     }
 }
