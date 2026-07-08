@@ -5,24 +5,25 @@
  * @license     Diese Datei darf nicht ohne Zustimmung des Autors weitergegeben oder verändert werden.
  */
 require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
-class Customer_erp_configuration
+require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\dbModel.php');
+class Customer_erp_configuration extends DbModel
 {
-    private $erp_configuration_id,
-            $erp_configuration_number_of_user,
-            $customer_id,
-            $erp_configuration_service_order,
-            $erp_configuration_order_conformation,
-            $erp_configuration_order,
-            $erp_configuration_offer,
-            $erp_configuration_number_ranges,
-            $erp_configuration_item_types,
-            $erp_configuration_invoice,
-            $erp_configuration_incoming_invoice,
-            $erp_configuration_incoming_delivery_note,
-            $erp_configuration_delivery_note,
-            $erp_configuration_cancellation_invoice;
+    protected   $erp_configuration_id,
+                $erp_configuration_number_of_user,
+                $customer_id,
+                $erp_configuration_service_order,
+                $erp_configuration_order_conformation,
+                $erp_configuration_order,
+                $erp_configuration_offer,
+                $erp_configuration_number_ranges,
+                $erp_configuration_item_types,
+                $erp_configuration_invoice,
+                $erp_configuration_incoming_invoice,
+                $erp_configuration_incoming_delivery_note,
+                $erp_configuration_delivery_note,
+                $erp_configuration_cancellation_invoice;
 
-    public  $pdo,$customer, $customerId,$foreignKeyId, $primaeryKeyId, $primaeryKeyName, $foreignKeyName =null, $entityName = 'customer_erp_configuration', $entityList,$formData;
+    private  $pdo,$customer, $customerId,$foreignKeyId, $primaeryKeyId, $primaeryKeyName, $foreignKeyName =null, $entityName = 'customer_erp_configuration', $entityList,$formData;
 
     public function setErp_configuration_id($erp_configuration_id)
     {
@@ -281,7 +282,7 @@ class Customer_erp_configuration
     public function loadFormData()
     {
         $this->foreignKeyId = $this->basic_info($this->pdo, $this->customer)['main_id'];
-        $this->formData[$this->entityName] = $this->loadFromDB();
+        $this->formData[$this->entityName] = $this->loadOwn();
 
         foreach($this->entityList as $entity)
         {
@@ -327,17 +328,8 @@ class Customer_erp_configuration
         return $retVal;
     }
 
-    public static function saveEntity($pdo,$data,$entity_name)
+    public function loadOwn()
     {
-        saveEntityToDB($pdo, $data, $entity_name);
-    }
-
-    public static function createRecord($pdo,$data,$entity_name)
-    {
-        createRecordToDB($pdo,$data, $entity_name);
-    }
-    public function loadFromDB()
-    {
-        return loadFromDB($this->pdo,$this->entityName,$this->foreignKeyName,$this->customer->getCustomer_id());
+        return static::loadFromDB($this->pdo,$this->entityName,$this->foreignKeyName,$this->foreignKeyId);
     }
 }

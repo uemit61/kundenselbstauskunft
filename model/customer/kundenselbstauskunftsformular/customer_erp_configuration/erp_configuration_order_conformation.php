@@ -5,9 +5,10 @@
  * @license     Diese Datei darf nicht ohne Zustimmung des Autors weitergegeben oder verändert werden.
  */
 require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
-class Erp_configuration_order_conformation
+require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\dbModel.php');
+class Erp_configuration_order_conformation extends DbModel
 {
-    private $erp_configuration_order_conformation_id,
+    protected $erp_configuration_order_conformation_id,
             $erp_configuration_order_conformation_month,	
             $erp_configuration_order_conformation_year,	
             $erp_configuration_order_conformation_first,	
@@ -63,19 +64,6 @@ class Erp_configuration_order_conformation
         return $this->erp_configuration_id;
     }
 
-    public static function saveEntity($pdo,$data,$entity_name)
-    {
-        saveEntityToDB($pdo, $data, $entity_name);
-    }
-
-    public static function createRecord($pdo,$data,$entity_name)
-    {
-        createRecordToDB($pdo,$data, $entity_name);
-    }
     
-    public static function loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id)
-    {
-        return loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id);     
-    }
 
 }
