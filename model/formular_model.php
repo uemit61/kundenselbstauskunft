@@ -59,7 +59,6 @@ class CIModel
         $this->pdo=$pdo;
         if($data !==null)
         {
-
             $data['page'] = str_replace('form_','',$data['page']);
             foreach
             (glob('C:/xampp/htdocs/Kundenselbstauskunft/model/customer/kundenselbstauskunftsformular/'.$data['page'].'/*.php') as $filename)
@@ -68,7 +67,7 @@ class CIModel
                 $subEntity = pathinfo($filename, PATHINFO_FILENAME);
                 
                 $class_name = ucfirst($subEntity);
-                if($class_name !='Db_transactions')
+                if($class_name !='Db_transactions' )
                     $this->$subEntity = new $class_name();
             }
         }
@@ -98,7 +97,7 @@ class CIModel
         
         if($entity == 'customer_host_configuration' || $entity == 'customer_import')
         {
-            $this->$entity->createRecord($this->pdo,$this->getCustomer()->getCustomer_id());
+            $this->$entity->createParentRow($this->pdo,$this->getCustomer()->getCustomer_id());
         }
         else
         {  
