@@ -16,7 +16,7 @@
         private $pdo = null;
         private $customer = null;
 
-        function __construct($token = null,$view,$pdo=null)
+        function __construct($token,$view,$pdo=null)
         {
             $this->token = $token;
             $this->pdo = $pdo;
