@@ -6,23 +6,76 @@
  */
 
 require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
+require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\dbModel.php');
 
-class Customer_contact_information
+class Customer_contact_information extends DbModel
 {
-    private $contact_information_id,
-            $contact_information_company_name,
-            $contact_information_phone,
-            $contact_information_email,
-            $contact_information_saved_data;
+    protected   $contact_information_id,
+                $contact_information_company_name,
+                $contact_information_phone,
+                $contact_information_email,
+                $contact_information_saved_data,
+                $contact_information_contact_person,
+                $contact_information_addres;
 
-    private $contact_information_contact_person,
-            $contact_information_addres;
+    private  $pdo,$customer, $customerId,$foreignKeyId, $primaeryKeyId, $primaeryKeyName, $foreignKeyName =null, $entityName = 'customer_contact_information', $entityList,$formData;
 
-    public  $pdo,$customer, $customerId,$foreignKeyId, $primaeryKeyId, $primaeryKeyName, $foreignKeyName =null, $entityName = 'customer_contact_information', $entityList;
+    public function getContact_information_id()
+    {
+        return $this->contact_information_id;
+    }
 
-    public $formData;
-  
-    public function __construct($pdo=null,$customer=null, $primaeryKeyName = null,$foreignKeyName=null)
+    public function setContact_information_id($contact_information_id)
+    {
+        $this->contact_information_id = $contact_information_id;
+        return $this;
+    }
+
+    public function getContact_information_company_name()
+    {
+        return $this->contact_information_company_name;
+    }
+ 
+    public function setContact_information_company_name($contact_information_company_name)
+    {
+        $this->contact_information_company_name = $contact_information_company_name;
+        return $this;
+    }
+ 
+    public function getContact_information_phone()
+    {
+        return $this->contact_information_phone;
+    }
+ 
+    public function setContact_information_phone($contact_information_phone)
+    {
+        $this->contact_information_phone = $contact_information_phone;
+        return $this;
+    }
+ 
+    public function getContact_information_email()
+    {
+        return $this->contact_information_email;
+    }
+
+    public function setContact_information_email($contact_information_email)
+    {
+        $this->contact_information_email = $contact_information_email;
+        return $this;
+    }
+
+    public function getContact_information_saved_data()
+    {
+        return $this->contact_information_saved_data;
+    }
+
+    public function setContact_information_saved_data($contact_information_saved_data)
+    {
+        $this->contact_information_saved_data = $contact_information_saved_data;
+        return $this;
+    }
+
+     public function __construct($pdo=null,$customer=null, $primaeryKeyName = null,$foreignKeyName=null)
     {
         $this->pdo = $pdo;
         $this->customer = $customer;
@@ -40,7 +93,7 @@ class Customer_contact_information
     public function loadFormData()
     {
         $this->foreignKeyId = $this->basic_info($this->pdo, $this->customer)['main_id'];
-        $this->formData[$this->entityName] = $this->loadFromDB();
+        $this->formData[$this->entityName] = $this->loadOwn();
 
         foreach($this->entityList as $entity)
         {
@@ -52,102 +105,6 @@ class Customer_contact_information
             }
         }
         return $this->formData;
-    }
-    /**
-     * Get the value of contact_information_id
-    */ 
-    public function getContact_information_id()
-    {
-        return $this->contact_information_id;
-    }
-
-    /**
-     * Set the value of contact_information_id
-     *
-     * @return  self
-     */ 
-    public function setContact_information_id($contact_information_id)
-    {
-        $this->contact_information_id = $contact_information_id;
-        return $this;
-    }
-
-    /**
-     * Get the value of contact_information_company_name
-     */ 
-    public function getContact_information_company_name()
-    {
-        return $this->contact_information_company_name;
-    }
-
-    /**
-     * Set the value of contact_information_company_name
-     *
-     * @return  self
-     */ 
-    public function setContact_information_company_name($contact_information_company_name)
-    {
-        $this->contact_information_company_name = $contact_information_company_name;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of contact_information_phone
-     */ 
-    public function getContact_information_phone()
-    {
-        return $this->contact_information_phone;
-    }
-
-    /**
-     * Set the value of contact_information_phone
-     *
-     * @return  self
-     */ 
-    public function setContact_information_phone($contact_information_phone)
-    {
-        $this->contact_information_phone = $contact_information_phone;
-        return $this;
-    }
-
-    /**
-     * Get the value of contact_information_email
-     */ 
-    public function getContact_information_email()
-    {
-        return $this->contact_information_email;
-    }
-
-    /**
-     * Set the value of contact_information_email
-     *
-     * @return  self
-     */ 
-    public function setContact_information_email($contact_information_email)
-    {
-        $this->contact_information_email = $contact_information_email;
-        return $this;
-    }
-
-    /**
-     * Get the value of contact_information_saved_data
-     */ 
-    public function getContact_information_saved_data()
-    {
-        return $this->contact_information_saved_data;
-    }
-
-    /**
-     * Set the value of contact_information_saved_data
-     *
-     * @return  self
-     */ 
-    public function setContact_information_saved_data($contact_information_saved_data)
-    {
-        $this->contact_information_saved_data = $contact_information_saved_data;
-
-        return $this;
     }
 
       public function basic_info($pdo,$customer)
@@ -182,20 +139,9 @@ class Customer_contact_information
         return $retVal;
     }
 
-   
-
-    public static function createRecord($pdo,$data)
+    public function loadOwn()     // oder load() — Hauptsache anders als die statische
     {
-        createRecordToDB($pdo,$data, 'customer_contact_information');
-    }
-
-    public static function saveEntity($pdo,$data)
-    {
-        saveEntityToDB($pdo, $data, 'customer_contact_information');
-    }
-
-    public function loadFromDB()
-    {
-        return loadFromDB($this->pdo,$this->entityName,$this->foreignKeyName,$this->customer->getCustomer_id());
+        return  static::loadFromDB($this->pdo, $this->entityName, $this->foreignKeyName,
+                $this->customer->getCustomer_id());
     }
 }
