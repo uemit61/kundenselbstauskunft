@@ -68,5 +68,9 @@ class Erp_configuration_order_conformation
         createRecordToDB($pdo,$data, $entity_name);
     }
     
+     public static function loadFromDB($pdo,$entity_name,$parentEnity_id)
+    {
+        loadFromDB($pdo,$entity_name,$parentEnity_id);
+    }
 
 }

@@ -90,4 +90,9 @@ class erp_configuration_item_types
 
                         return $this;
             }
+
+    public static function loadFromDB($pdo,$entity_name,$parentEnity_id)
+    {
+        loadFromDB($pdo,$entity_name,$parentEnity_id);
+    }
 }

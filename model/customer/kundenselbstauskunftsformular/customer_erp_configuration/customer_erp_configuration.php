@@ -5,8 +5,19 @@ class Customer_erp_configuration
     private $erp_configuration_id,
             $erp_configuration_number_of_user,
             $customer_id;
-    
-    
+        
+    private $erp_configuration_service_order,
+            $erp_configuration_order_conformation,
+            $erp_configuration_order,
+            $erp_configuration_offer,
+            $erp_configuration_number_ranges,
+            $erp_configuration_item_types,
+            $erp_configuration_invoice,
+            $erp_configuration_incoming_invoice,
+            $erp_configuration_incoming_delivery_note,
+            $erp_configuration_delivery_note,
+            $erp_configuration_cancellation_invoice;
+
     public function setErp_configuration_id($erp_configuration_id)
     {
         $this->erp_configuration_id = $erp_configuration_id;
@@ -80,4 +91,229 @@ class Customer_erp_configuration
 
     
 
+
+    /**
+     * Get the value of erp_configuration_service_order
+     */ 
+    public function getErp_configuration_service_order()
+    {
+        return $this->erp_configuration_service_order;
+    }
+
+    /**
+     * Set the value of erp_configuration_service_order
+     *
+     * @return  self
+     */ 
+    public function setErp_configuration_service_order($erp_configuration_service_order)
+    {
+        $this->erp_configuration_service_order = $erp_configuration_service_order;
+
+        return $this;
+    }
+
+            /**
+             * Get the value of erp_configuration_order_conformation
+             */ 
+            public function getErp_configuration_order_conformation()
+            {
+                        return $this->erp_configuration_order_conformation;
+            }
+
+            /**
+             * Set the value of erp_configuration_order_conformation
+             *
+             * @return  self
+             */ 
+            public function setErp_configuration_order_conformation($erp_configuration_order_conformation)
+            {
+                        $this->erp_configuration_order_conformation = $erp_configuration_order_conformation;
+
+                        return $this;
+            }
+
+            /**
+             * Get the value of erp_configuration_order
+             */ 
+            public function getErp_configuration_order()
+            {
+                        return $this->erp_configuration_order;
+            }
+
+            /**
+             * Set the value of erp_configuration_order
+             *
+             * @return  self
+             */ 
+            public function setErp_configuration_order($erp_configuration_order)
+            {
+                        $this->erp_configuration_order = $erp_configuration_order;
+
+                        return $this;
+            }
+
+            /**
+             * Get the value of erp_configuration_offer
+             */ 
+            public function getErp_configuration_offer()
+            {
+                        return $this->erp_configuration_offer;
+            }
+
+            /**
+             * Set the value of erp_configuration_offer
+             *
+             * @return  self
+             */ 
+            public function setErp_configuration_offer($erp_configuration_offer)
+            {
+                        $this->erp_configuration_offer = $erp_configuration_offer;
+
+                        return $this;
+            }
+
+            /**
+             * Get the value of erp_configuration_number_ranges
+             */ 
+            public function getErp_configuration_number_ranges()
+            {
+                        return $this->erp_configuration_number_ranges;
+            }
+
+            /**
+             * Set the value of erp_configuration_number_ranges
+             *
+             * @return  self
+             */ 
+            public function setErp_configuration_number_ranges($erp_configuration_number_ranges)
+            {
+                        $this->erp_configuration_number_ranges = $erp_configuration_number_ranges;
+
+                        return $this;
+            }
+
+            /**
+             * Get the value of erp_configuration_item_types
+             */ 
+            public function getErp_configuration_item_types()
+            {
+                        return $this->erp_configuration_item_types;
+            }
+
+            /**
+             * Set the value of erp_configuration_item_types
+             *
+             * @return  self
+             */ 
+            public function setErp_configuration_item_types($erp_configuration_item_types)
+            {
+                        $this->erp_configuration_item_types = $erp_configuration_item_types;
+
+                        return $this;
+            }
+
+            /**
+             * Get the value of erp_configuration_invoice
+             */ 
+            public function getErp_configuration_invoice()
+            {
+                        return $this->erp_configuration_invoice;
+            }
+
+            /**
+             * Set the value of erp_configuration_invoice
+             *
+             * @return  self
+             */ 
+            public function setErp_configuration_invoice($erp_configuration_invoice)
+            {
+                        $this->erp_configuration_invoice = $erp_configuration_invoice;
+
+                        return $this;
+            }
+
+            /**
+             * Get the value of erp_configuration_incoming_invoice
+             */ 
+            public function getErp_configuration_incoming_invoice()
+            {
+                        return $this->erp_configuration_incoming_invoice;
+            }
+
+            /**
+             * Set the value of erp_configuration_incoming_invoice
+             *
+             * @return  self
+             */ 
+            public function setErp_configuration_incoming_invoice($erp_configuration_incoming_invoice)
+            {
+                        $this->erp_configuration_incoming_invoice = $erp_configuration_incoming_invoice;
+
+                        return $this;
+            }
+
+            /**
+             * Get the value of erp_configuration_incoming_delivery_note
+             */ 
+            public function getErp_configuration_incoming_delivery_note()
+            {
+                        return $this->erp_configuration_incoming_delivery_note;
+            }
+
+            /**
+             * Set the value of erp_configuration_incoming_delivery_note
+             *
+             * @return  self
+             */ 
+            public function setErp_configuration_incoming_delivery_note($erp_configuration_incoming_delivery_note)
+            {
+                        $this->erp_configuration_incoming_delivery_note = $erp_configuration_incoming_delivery_note;
+
+                        return $this;
+            }
+
+            /**
+             * Get the value of erp_configuration_delivery_note
+             */ 
+            public function getErp_configuration_delivery_note()
+            {
+                        return $this->erp_configuration_delivery_note;
+            }
+
+            /**
+             * Set the value of erp_configuration_delivery_note
+             *
+             * @return  self
+             */ 
+            public function setErp_configuration_delivery_note($erp_configuration_delivery_note)
+            {
+                        $this->erp_configuration_delivery_note = $erp_configuration_delivery_note;
+
+                        return $this;
+            }
+
+            /**
+             * Get the value of erp_configuration_cancellation_invoice
+             */ 
+            public function getErp_configuration_cancellation_invoice()
+            {
+                        return $this->erp_configuration_cancellation_invoice;
+            }
+
+            /**
+             * Set the value of erp_configuration_cancellation_invoice
+             *
+             * @return  self
+             */ 
+            public function setErp_configuration_cancellation_invoice($erp_configuration_cancellation_invoice)
+            {
+                        $this->erp_configuration_cancellation_invoice = $erp_configuration_cancellation_invoice;
+
+                        return $this;
+            }
+
+    public static function loadFromDB($pdo,$entity_name,$parentEnity_id)
+    {
+        loadFromDB($pdo,$entity_name,$parentEnity_id);
+    }
 }
