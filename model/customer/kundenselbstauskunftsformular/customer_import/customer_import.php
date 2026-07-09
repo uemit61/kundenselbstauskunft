@@ -4,6 +4,20 @@
         private $import_id,
                 $import_saved_data,
                 $customer_id;
+        
+        private $import_accessories_item_data,
+                $import_customer_billing_addres_data,
+                $import_customer_contact_person_data,
+                $import_customer_data,
+                $import_customer_item_data,
+                $import_item_data,
+                $import_supplier_billing_addres_data,
+                $import_supplier_contact_person_data,
+                $import_supplier_data,
+                $import_supplier_item_data;
+                
+
+
 
         public function getimport_id()
         {
@@ -79,8 +93,7 @@
                 $stmt= $con->prepare($query);
                 $stmt->bindValue(':customer_id', $customer_id);
                 $stmt->execute();
-
-                echo 'ImportInfo ok ';
+                echo 'ImportInfo Ok';
             }
             catch (Exception $e)
             {
@@ -111,6 +124,10 @@
             $pdo->closeConnection();
         }
 
+    public static function loadFromDB($pdo,$entity_name,$parentEnity_id)
+    {
+        loadFromDB($pdo,$entity_name,$parentEnity_id);
+    }
 
                 /**
                  * Get the value of import_saved_data
@@ -131,4 +148,204 @@
 
                                 return $this;
                 }
-    }
+
+        /**
+         * Get the value of import_accessories_item_data
+         */ 
+        public function getImport_accessories_item_data()
+        {
+                return $this->import_accessories_item_data;
+        }
+
+        /**
+         * Set the value of import_accessories_item_data
+         *
+         * @return  self
+         */ 
+        public function setImport_accessories_item_data($import_accessories_item_data)
+        {
+                $this->import_accessories_item_data = $import_accessories_item_data;
+
+                return $this;
+        }
+
+                /**
+                 * Get the value of import_customer_billing_addres_data
+                 */ 
+                public function getImport_customer_billing_addres_data()
+                {
+                                return $this->import_customer_billing_addres_data;
+                }
+
+                /**
+                 * Set the value of import_customer_billing_addres_data
+                 *
+                 * @return  self
+                 */ 
+                public function setImport_customer_billing_addres_data($import_customer_billing_addres_data)
+                {
+                                $this->import_customer_billing_addres_data = $import_customer_billing_addres_data;
+
+                                return $this;
+                }
+
+                /**
+                 * Get the value of import_customer_contact_person_data
+                 */ 
+                public function getImport_customer_contact_person_data()
+                {
+                                return $this->import_customer_contact_person_data;
+                }
+
+                /**
+                 * Set the value of import_customer_contact_person_data
+                 *
+                 * @return  self
+                 */ 
+                public function setImport_customer_contact_person_data($import_customer_contact_person_data)
+                {
+                                $this->import_customer_contact_person_data = $import_customer_contact_person_data;
+
+                                return $this;
+                }
+
+                /**
+                 * Get the value of import_customer_data
+                 */ 
+                public function getImport_customer_data()
+                {
+                                return $this->import_customer_data;
+                }
+
+                /**
+                 * Set the value of import_customer_data
+                 *
+                 * @return  self
+                 */ 
+                public function setImport_customer_data($import_customer_data)
+                {
+                                $this->import_customer_data = $import_customer_data;
+
+                                return $this;
+                }
+
+                /**
+                 * Get the value of import_customer_item_data
+                 */ 
+                public function getImport_customer_item_data()
+                {
+                                return $this->import_customer_item_data;
+                }
+
+                /**
+                 * Set the value of import_customer_item_data
+                 *
+                 * @return  self
+                 */ 
+                public function setImport_customer_item_data($import_customer_item_data)
+                {
+                                $this->import_customer_item_data = $import_customer_item_data;
+
+                                return $this;
+                }
+
+                /**
+                 * Get the value of import_item_data
+                 */ 
+                public function getImport_item_data()
+                {
+                                return $this->import_item_data;
+                }
+
+                /**
+                 * Set the value of import_item_data
+                 *
+                 * @return  self
+                 */ 
+                public function setImport_item_data($import_item_data)
+                {
+                                $this->import_item_data = $import_item_data;
+
+                                return $this;
+                }
+
+                /**
+                 * Get the value of import_supplier_billing_addres_data
+                 */ 
+                public function getImport_supplier_billing_addres_data()
+                {
+                                return $this->import_supplier_billing_addres_data;
+                }
+
+                /**
+                 * Set the value of import_supplier_billing_addres_data
+                 *
+                 * @return  self
+                 */ 
+                public function setImport_supplier_billing_addres_data($import_supplier_billing_addres_data)
+                {
+                                $this->import_supplier_billing_addres_data = $import_supplier_billing_addres_data;
+
+                                return $this;
+                }
+
+                /**
+                 * Get the value of import_supplier_contact_person_data
+                 */ 
+                public function getImport_supplier_contact_person_data()
+                {
+                                return $this->import_supplier_contact_person_data;
+                }
+
+                /**
+                 * Set the value of import_supplier_contact_person_data
+                 *
+                 * @return  self
+                 */ 
+                public function setImport_supplier_contact_person_data($import_supplier_contact_person_data)
+                {
+                                $this->import_supplier_contact_person_data = $import_supplier_contact_person_data;
+
+                                return $this;
+                }
+
+                /**
+                 * Get the value of import_supplier_data
+                 */ 
+                public function getImport_supplier_data()
+                {
+                                return $this->import_supplier_data;
+                }
+
+                /**
+                 * Set the value of import_supplier_data
+                 *
+                 * @return  self
+                 */ 
+                public function setImport_supplier_data($import_supplier_data)
+                {
+                                $this->import_supplier_data = $import_supplier_data;
+
+                                return $this;
+                }
+
+                /**
+                 * Get the value of import_supplier_item_data
+                 */ 
+                public function getImport_supplier_item_data()
+                {
+                                return $this->import_supplier_item_data;
+                }
+
+                /**
+                 * Set the value of import_supplier_item_data
+                 *
+                 * @return  self
+                 */ 
+                public function setImport_supplier_item_data($import_supplier_item_data)
+                {
+                                $this->import_supplier_item_data = $import_supplier_item_data;
+
+                                return $this;
+                }
+    } 

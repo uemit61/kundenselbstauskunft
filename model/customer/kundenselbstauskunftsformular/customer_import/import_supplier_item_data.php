@@ -190,9 +190,8 @@ class Import_supplier_item_data
              */ 
             public function setImport_supplier_item_data_item_number($import_supplier_item_data_item_number)
             {
-                        $this->import_supplier_item_data_item_number = $import_supplier_item_data_item_number;
-
-                        return $this;
+                $this->import_supplier_item_data_item_number = $import_supplier_item_data_item_number;
+                return $this;
             }
 
             /**
@@ -200,7 +199,7 @@ class Import_supplier_item_data
              */ 
             public function getImport_supplier_item_data_procurement_cost()
             {
-                        return $this->import_supplier_item_data_procurement_cost;
+                return $this->import_supplier_item_data_procurement_cost;
             }
 
             /**
@@ -210,9 +209,8 @@ class Import_supplier_item_data
              */ 
             public function setImport_supplier_item_data_procurement_cost($import_supplier_item_data_procurement_cost)
             {
-                        $this->import_supplier_item_data_procurement_cost = $import_supplier_item_data_procurement_cost;
-
-                        return $this;
+                $this->import_supplier_item_data_procurement_cost = $import_supplier_item_data_procurement_cost;
+                return $this;
             }
 
             /**
@@ -220,7 +218,7 @@ class Import_supplier_item_data
              */ 
             public function getImport_id()
             {
-                        return $this->import_id;
+                return $this->import_id;
             }
 
             /**
@@ -234,7 +232,7 @@ class Import_supplier_item_data
                 return $this;
             }
 
-           public static function saveEntity($pdo,$data,$entity_name)
+    public static function saveEntity($pdo,$data,$entity_name)
     {
         saveEntityToDB($pdo, $data, $entity_name);
     }
@@ -242,6 +240,11 @@ class Import_supplier_item_data
     public static function createRecord($pdo,$data,$entity_name)
     {
         createRecordToDB($pdo,$data, $entity_name);
+    }
+
+    public static function loadFromDB($pdo,$entity_name,$parentEnity_id)
+    {
+        loadFromDB($pdo,$entity_name,$parentEnity_id);
     }
 
 }
