@@ -62,10 +62,10 @@ class CIModel
         $this->pdo=$pdo;
         if($data !=0)
         {
+            $data['page'] = str_replace('form_','',$data['page']);
             foreach
             (glob('C:/xampp/htdocs/Kundenselbstauskunft/model/customer/kundenselbstauskunftsformular/'.$data['page'].'/*.php') as $filename)
             {
-              
                 require_once $filename;
                 $subEntity = pathinfo($filename, PATHINFO_FILENAME);
                 
@@ -78,7 +78,7 @@ class CIModel
 
     public function basic_info($entity)
     {
-        // var_dump($entity);
+        var_dump($entity);
         // exit();
 
         $info = $this->$entity->basic_info($this->pdo,$this->customer);
@@ -89,6 +89,12 @@ class CIModel
         }
         else
         {
+            if($entity == 'client_main_addres')
+            {
+                var_dump($info['main_id']);
+            exit();
+            }
+            
             $this->main_id = $info['main_id'] ?? '';
             $this->saved_data = $info['saved_data'] ?? '0';
         }
@@ -97,6 +103,7 @@ class CIModel
     }
     public function createRecordInformation($entity,$data = null)
     {
+        
         if($entity == 'customer_host_configuration' || $entity == 'customer_import')
         {
             $this->$entity->createRecord($this->pdo,$this->getCustomer()->getCustomer_id());
@@ -112,6 +119,7 @@ class CIModel
 
     public function createRecords($data)
     {
+        
         $i=0;
         foreach($data as $entity_name => $entity)
         {
@@ -124,6 +132,7 @@ class CIModel
 
     public function saveEntities($data)
     {
+      
         foreach($data as $entity_name => $entity)
         {
             $this->$entity_name->saveEntity($this->pdo,$entity,$entity_name);

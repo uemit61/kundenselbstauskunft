@@ -21,9 +21,11 @@
     {
         header('Location: index.php');
     }
+
+
     
     // Daten werden geholt per AJAX-POST_REQUEST 
-    $data = getData();
+    $data = getData() ?? '';
 
     // Token wird aus der URL geholt
     $token =getToken();
@@ -32,6 +34,7 @@
 
     $customer = getCustomer();
     
+   
 
     switch ($page)
     {
@@ -59,16 +62,16 @@
         default:
             require_once 'C:/xampp/htdocs/Kundenselbstauskunft/model/formular_model.php';
             require_once 'C:/xampp/htdocs/Kundenselbstauskunft/view/pages/form_page.php';
-            require_once 'C:/xampp/htdocs/Kundenselbstauskunft/controller/customer_contact_information_controller.php';           
+            require_once 'C:/xampp/htdocs/Kundenselbstauskunft/controller/form_page_controller.php';           
             $controller = new CIController(new CIModel(new Form_Page(),new Connection(true),$data));
             $controller->handleRequest($data,$customer);
             die();
         break;
 
         case 'save_json_cache':
-            require 'C:/xampp/htdocs/Kundenselbstauskunft/model/cache_model.php';
-            $model = new Cache_Model(new Connection(true));
-            $model->save_json_to_db($data['json_form_data']);
+            require 'C:/xampp/htdocs/Kundenselbstauskunft/model/customer/customer_json_cache.php';
+            $model = new Customer_json_cache(new Connection(true));
+            $model->save_json_to_db($data['json_form_data'],$customer);
             die();
         break;
 

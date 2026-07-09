@@ -47,7 +47,7 @@ class Form_Page
                         $field_count=-1;
                         $tooltip=false;
                         $inputName ='';?>
-                        <form id=<?= $form_infos['form_id'] ?> name=<?= $form_infos['form_id'] ?> method="post" class="step d-flex flex-column  needs-validation gap-3 d-none "  data-label=<?=$form_infos['form_label'] ?> novalidate>
+                        <form id=<?= 'form_'.$form_infos['form_id'] ?> name=<?= 'form_'.$form_infos['form_id'] ?> method="post" class="step d-flex flex-column  needs-validation gap-3 d-none "  data-label=<?=$form_infos['form_label'] ?> novalidate>
                             <h3 class="text-center p-3"><?=$form_infos['form_label'] ?></h3>
 <?php
                             if($step[0][0]['field_name'] == 'Mandanteninformation'):
