@@ -1,9 +1,19 @@
 <?php
+
+
     class customer_host_configuration
     {
         private $host_configuration_id,
                 $host_configuration_saved_data,
                 $customer_id;
+
+        private $host_configuration_ip_addres_connect_external_device,
+                $host_configuration_ip_addres_data_backup,
+                $host_configuration_ip_addres_erp,
+                $host_configuration_virtualization;
+
+        
+
 
         public function getHost_configuration_id()
         {
@@ -107,6 +117,11 @@
             $pdo->closeConnection();
         }
 
+         public static function loadFromDB($pdo,$entity_name,$parentEnity_id)
+    {
+        loadFromDB($pdo,$entity_name,$parentEnity_id);
+    }
+
 
                 /**
                  * Get the value of host_configuration_saved_data
@@ -124,6 +139,86 @@
                 public function setHost_configuration_saved_data($host_configuration_saved_data)
                 {
                                 $this->host_configuration_saved_data = $host_configuration_saved_data;
+
+                                return $this;
+                }
+
+        /**
+         * Get the value of host_configuration_ip_addres_connect_external_device
+         */ 
+        public function getHost_configuration_ip_addres_connect_external_device()
+        {
+                return $this->host_configuration_ip_addres_connect_external_device;
+        }
+
+        /**
+         * Set the value of host_configuration_ip_addres_connect_external_device
+         *
+         * @return  self
+         */ 
+        public function setHost_configuration_ip_addres_connect_external_device($host_configuration_ip_addres_connect_external_device)
+        {
+                $this->host_configuration_ip_addres_connect_external_device = $host_configuration_ip_addres_connect_external_device;
+
+                return $this;
+        }
+
+                /**
+                 * Get the value of host_configuration_ip_addres_data_backup
+                 */ 
+                public function getHost_configuration_ip_addres_data_backup()
+                {
+                                return $this->host_configuration_ip_addres_data_backup;
+                }
+
+                /**
+                 * Set the value of host_configuration_ip_addres_data_backup
+                 *
+                 * @return  self
+                 */ 
+                public function setHost_configuration_ip_addres_data_backup($host_configuration_ip_addres_data_backup)
+                {
+                                $this->host_configuration_ip_addres_data_backup = $host_configuration_ip_addres_data_backup;
+
+                                return $this;
+                }
+
+                /**
+                 * Get the value of host_configuration_ip_addres_erp
+                 */ 
+                public function getHost_configuration_ip_addres_erp()
+                {
+                                return $this->host_configuration_ip_addres_erp;
+                }
+
+                /**
+                 * Set the value of host_configuration_ip_addres_erp
+                 *
+                 * @return  self
+                 */ 
+                public function setHost_configuration_ip_addres_erp($host_configuration_ip_addres_erp)
+                {
+                                $this->host_configuration_ip_addres_erp = $host_configuration_ip_addres_erp;
+
+                                return $this;
+                }
+
+                /**
+                 * Get the value of host_configuration_virtualization
+                 */ 
+                public function getHost_configuration_virtualization()
+                {
+                                return $this->host_configuration_virtualization;
+                }
+
+                /**
+                 * Set the value of host_configuration_virtualization
+                 *
+                 * @return  self
+                 */ 
+                public function setHost_configuration_virtualization($host_configuration_virtualization)
+                {
+                                $this->host_configuration_virtualization = $host_configuration_virtualization;
 
                                 return $this;
                 }

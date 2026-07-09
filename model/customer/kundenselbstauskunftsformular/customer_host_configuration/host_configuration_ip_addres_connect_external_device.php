@@ -130,4 +130,9 @@ class Host_configuration_ip_addres_connect_external_device
     {
         createRecordToDB($pdo,$data, $entity_name);
     }
+
+    public static function loadFromDB($pdo,$entity_name,$parentEnity_id)
+    {
+        loadFromDB($pdo,$entity_name,$parentEnity_id);
+    }
 }
