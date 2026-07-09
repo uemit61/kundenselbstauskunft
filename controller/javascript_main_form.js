@@ -28,14 +28,19 @@ $(document).ready(function()
         {
             var fieldsetId= $(this).attr('id');
 
-            var fieldsetData = $(this).serializeArray().reduce
+            var fieldsetData = $(this).serializeArray().reduce          
             (
                 function(acc, field) 
                 {
-                    if($(`input[name="${field.name}']`).is(':checkbox'))
+
+                    // Es werden nur angeklickte Checkboxen gespeichert, daher wird hier eine Behandlung vorgenommen
+                   
+                    const checkbox = $(`input[type="checkbox"][name="${field.name}"]`);
+                    if (checkbox.length) 
                     {
-                        acc[field.name] = $(`input[name="${field.name}"]`).prop('checked') ? DOMPurify.sanitize(field.value.trim()) : 'off';
+                        acc[field.name] = checkbox.prop('checked') ? "on" : "off";
                     }
+
                     else
                     {
                         acc[field.name] = DOMPurify.sanitize(field.value.trim()) ?? '';
@@ -61,6 +66,7 @@ $(document).ready(function()
         formId =  form_ids[currentStepIndex];
         btnTxt =  $(form_ids[currentStepIndex]).data('label') + ' speichern';
         $('#btn').text(btnTxt);
+        $('#ltn').data('formId', formId);
 
         if(!($(form_ids[currentStepIndex]).find('.loadData').hasClass('d-none')))
         {
@@ -157,35 +163,7 @@ $(document).ready(function()
         
     };
 
-    function load_data_from_db()
-    {
-        $.ajax
-        (
-            {
-                url: 'indexUtils.php',
-                method: 'POST',
-                contentType: 'application/json',
-                data:  JSON.stringify({page:'load' , load: $(formId).attr('name')}),
-
-                success: function (data,response)
-                {
-                    console.log(response);
-                    console.log(data);
-                    
-                },
-                error: function (error)
-                {
-
-                },
-                complete: function ()
-                {
-
-                },
-            }
-        )
-        
-
-    }
+   
 
     // Alle 3 Sekunden wird zwischengespeichert
     setInterval
@@ -197,7 +175,8 @@ $(document).ready(function()
             $.each
             (
                 //enumeration
-                form_ids,  // alle Seiten(Formular) werden durchlaufen
+                form_ids,  
+                // alle Seiten(Formular) werden durchlaufen
                 function(i,form_id)
                 {
                     form_data[form_id] =sanitizeInput(form_id);
@@ -261,7 +240,7 @@ $(document).ready(function()
     window.step_back = step_back;
     window.step_forward = step_forward;
     window.save_FromPage_to_Db = save_FromPage_to_Db;
-    window.load_data_from_db = load_data_from_db;
+    
     
     
 });

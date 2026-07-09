@@ -149,7 +149,7 @@ class Form_Page
                                                                         if($val[1][0] != 'select'):
                                                                             if($val[1][0] == 'checkbox'):
 ?>                                                                          
-                                                                                <input type='hidden' name=<?=$id ?> value='off'>
+                                                                                <input type='hidden' name=<?=$id ?> value="off" >
 <?php                                                                       endif; 
 ?>
 
@@ -164,7 +164,7 @@ class Form_Page
 ?> 
                                                                                 class="<?=$formClass. 'rounded-5' ?>"          
                                                                                 id=<?=$id ?> name=<?=$id ?> 
-                                                                                placeholder=<?=$val[2] ?> 
+                                                                                placeholder=<?=$val[2] ?>
                                                                                 requierd
                                                                             >
                                                                                                   
@@ -248,7 +248,7 @@ class Form_Page
         <div class="d-flex justify-content-between buttons">
             <button onclick="step_back()" class="btn btn-outline-secondary rounded-5 d-none" id="prevBtn">Zurück</button>
             <button onclick="save_FromPage_to_Db()" class="btn btn-success rounded-5" id="btn">Kontaktdaten speichern</button>
-            <button onclick="load_data_from_db()" class=" btn btn-success rounded-5 d-none" id="ltn">Daten laden</button>
+            <button onclick="load_data_from_db()" class=" btn btn-success rounded-5 d-none" id="ltn" data-formId="#form_customer_contact_information">Gespeicherte Daten laden</button>
             <button onclick="step_forward()" class="btn btn-primary rounded-5" id="nextBtn">Weiter</button>
         </div>
     </div>

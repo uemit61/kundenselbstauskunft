@@ -16,8 +16,16 @@ $(document).ready
     function()
     {
      
-        
+        $('#ltn').data('formId', '#form_customer_contact_information');
         var login_failed = $('#login_failed').data('login-failed');
+
+        
+        $('input[type="checkbox"], select').on('change', function() 
+        {
+            $(this).closest('form').find('.loadData').removeClass('d-none');
+            $('#ltn').removeClass('d-none');
+        });
+
         if (login_failed == '1')
         {
             $('#passwordFeedback').text('Falche Pazword').show();
@@ -54,7 +62,7 @@ $(document).ready
             $('#form_customer_client').find(client_main).toggleClass('d-none');
         }
 
-         function isChecked(value)
+    function isChecked(value)
     {
         return value === 'on';
     }
@@ -63,6 +71,7 @@ $(document).ready
     {
         insertCache();
     }
+
 
     function insertCache()
     {
@@ -74,7 +83,7 @@ $(document).ready
                 dataType: 'json',
                 success: function(data)
                 {
-                    console.log(data);
+                    console.log(data['#form_customer_host_configuration']);
                     // var form_data = JSON.parse(data);
                     // console.log(form_data);
 
@@ -89,6 +98,8 @@ $(document).ready
                                     $(formId).find('.loadData').removeClass('d-none');
                                 }   
 
+                                // insertDataToForm(data[formId],formId);
+                               
                                 Object.keys(data[formId]).forEach
                                 (
                                     function(inputId)
@@ -165,6 +176,42 @@ $(document).ready
         );
     }
    
+    function load_data_from_db()
+    {
+        let formId = $('#ltn').data('formId');
+        
+        $.ajax
+        (
+            {
+                url: 'indexUtils.php',
+                method: 'POST',
+                contentType: 'application/json',
+                data:  JSON.stringify({page:'load' , load: $(formId).attr('name')}),
+
+                success: function (data)
+                {
+
+                    console.log(data);
+                    insertDataToForm(data,formId);
+                    $(formId).find('.loadData').addClass('d-none');
+                    $('.buttons').find('#ltn').addClass('d-none');
+                    console.log('Die gespeicherten Daten wurden geladen.');
+                    
+                },
+                error: function (error)
+                {
+                    
+                },
+                complete: function ()
+                {
+
+                },
+            }
+        )
+        
+
+    }
+
     function addClient(element) 
     {
         console.log('hinzufügen wird ausgeführt');
@@ -197,6 +244,64 @@ $(document).ready
         $('#form_customer_client').find('.clientPlus').eq(1).find('.client_total').data('total',total);
         $('#form_customer_client').find('.clientPlus').find('.client_total').data('total',total);
         
+    }
+
+    function insertDataToForm(formData,formId)
+    {
+        Object.keys(formData).forEach
+        (
+            function(inputId)
+            {
+                console.log(inputId);
+                const numberClient = parseInt(inputId[inputId.length-1]) ?? '0' ;
+                console.log(numberClient+' '+inputId.includes('customer_client'));
+
+                
+                if(numberClient >1 && inputId.includes('customer_client'))
+                {
+                    console.log('Füge Mandant hinzu.');
+                    let $icon = $('#form_customer_client').find('.client_total');
+                    console.log($icon);
+                    addClient($icon);
+
+                }
+
+                //Fieldset
+                const $input = $(`${formId} #${inputId}`); // Das $-Zeichen ist nur Konvention, kein Muss. Es wird oft verwendet, um zu zeigen, dass eine Variable ein jQuery-Objekt enthält
+                const value = formData[inputId];
+
+                console.log('input',$input) 
+                console.log('Input gefunden:', $input.length > 0);
+                console.log('Wert aus data:', value);
+
+                Object.keys(value).forEach
+                (
+                    function(input_form)
+                    {
+                        console.log(input_form);
+                        
+                        const $inputForm = $(`${formId} #${inputId} [name='${input_form}']`);
+
+                        console.log('Input-form gefunden:',$inputForm.length>0);
+                        console.log($inputForm);
+                        
+                        if ($inputForm.attr('type') === 'checkbox') 
+                        {
+                            $inputForm.prop('checked', isChecked(value[input_form]));
+                        }
+
+                        else if($input.prop('tagName') ==='SELECT')
+                        {
+                            $inputForm.val(value[input_form]).change();
+                        }
+                        else
+                        {
+                            $inputForm.val(value[input_form]);
+                        }
+                    }
+                )
+            }
+        )
     }
     
         // $('.bi-plus').on
@@ -300,8 +405,6 @@ $(document).ready
         // Nicht eingefügt Buchstaben oder Wörter werden als negativ Feedback angezeigt.
         
 
-     
-
         $('input').on
         (
             // 
@@ -316,6 +419,7 @@ $(document).ready
 
                 let delInput = event.originalEvent.inputType;
 
+             
                 if(delInput  ==="deleteContentBackward" || delInput  ==="deleteByCut")
                 {
                     $(inputForm).closest('form').find('.loadData').removeClass('d-none');
@@ -581,5 +685,6 @@ $(document).ready
         window.openClose = openClose;
         window.deleteClient = deleteClient;
         window.password_input_validation = password_input_validation;
+        window.load_data_from_db = load_data_from_db;
     }
 );
