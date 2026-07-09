@@ -27,10 +27,9 @@ class Customer_client
                 foreach
                 (glob('C:/xampp/htdocs/Kundenselbstauskunft/model/customer/kundenselbstauskunftsformular/'.$folder.'/*.php') as $filename)
                 {
-                    
                     require_once $filename;
                     $subEntity = pathinfo($filename, PATHINFO_FILENAME);
-                    
+
                     if($subEntity !== 'customer_client')
                     {
                         $class_name = ucfirst($subEntity);
@@ -38,12 +37,26 @@ class Customer_client
                         {
                             $this->$subEntity = new $class_name();
                         }
-                            
                     }
-                   
                 }
             }
         }
+
+        public function loadFormData()
+    {
+        $this->foreignKeyId = $this->basic_info($this->pdo, $this->customer)['main_id'];
+        $this->formData[$this->entityName] = $this->loadFromDB();
+
+        foreach($this->entityList as $entity)
+        {
+            if($entity !== 'customer_client')
+            {   
+                
+                $this->formData[$entity] = $this->$entity->loadFromDB($this->pdo,$entity,$this->foreignKeyName,$this->foreignKeyId);
+            }
+        }
+        return $this->formData;
+    }
 
     public function basic_info($pdo,$customer)
     {
@@ -120,113 +133,109 @@ class Customer_client
         return $this;
     }
 
-            /**
-             * Get the value of client_name
-             */ 
-            public function getClient_name()
-            {
-                        return $this->client_name;
-            }
-
-            /**
-             * Set the value of client_name
-             *
-             * @return  self
-             */ 
-            public function setClient_name($client_name)
-            {
-                        $this->client_name = $client_name;
-
-                        return $this;
-            }
-
-            /**
-             * Get the value of client_company_name
-             */ 
-            public function getClient_company_name()
-            {
-                        return $this->client_company_name;
-            }
-
-            /**
-             * Set the value of client_company_name
-             *
-             * @return  self
-             */ 
-            public function setClient_company_name($client_company_name)
-            {
-                        $this->client_company_name = $client_company_name;
-
-                        return $this;
-            }
-
-            /**
-             * Get the value of client_phone_number
-             */ 
-            public function getClient_phone_number()
-            {
-                        return $this->client_phone_number;
-            }
-
-            /**
-             * Set the value of client_phone_number
-             *
-             * @return  self
-             */ 
-            public function setClient_phone_number($client_phone_number)
-            {
-                        $this->client_phone_number = $client_phone_number;
-
-                        return $this;
-            }
-
-            /**
-             * Get the value of cient_email
-             */ 
-            public function getCient_email()
-            {
-                        return $this->cient_email;
-            }
-
-            /**
-             * Set the value of cient_email
-             *
-             * @return  self
-             */ 
-            public function setCient_email($cient_email)
-            {
-                        $this->cient_email = $cient_email;
-
-                        return $this;
-            }
-
-            /**
-             * Get the value of client_saved_data
-             */ 
-            public function getClient_saved_data()
-            {
-                        return $this->client_saved_data;
-            }
-
-            /**
-             * Set the value of client_saved_data
-             *
-             * @return  self
-             */ 
-            public function setClient_saved_data($client_saved_data)
-            {
-                        $this->client_saved_data = $client_saved_data;
-
-                        return $this;
-            }
-
-    public static function loadFromDB($pdo,$entity_name,$parentEnity_id)
+    /**
+     * Get the value of client_name
+     */ 
+    public function getClient_name()
     {
-        // Laden der Primärtabelle
-        loadFromDB($pdo,$entity_name,$parentEnity_id);
+                return $this->client_name;
+    }
 
-        // to_do laden der Subtabellen
+    /**
+     * Set the value of client_name
+     *
+     * @return  self
+     */ 
+    public function setClient_name($client_name)
+    {
+                $this->client_name = $client_name;
 
+                return $this;
+    }
+
+    /**
+     * Get the value of client_company_name
+     */ 
+    public function getClient_company_name()
+    {
+                return $this->client_company_name;
+    }
+
+    /**
+     * Set the value of client_company_name
+     *
+     * @return  self
+     */ 
+    public function setClient_company_name($client_company_name)
+    {
+                $this->client_company_name = $client_company_name;
+
+                return $this;
+    }
+
+    /**
+     * Get the value of client_phone_number
+     */ 
+    public function getClient_phone_number()
+    {
+                return $this->client_phone_number;
+    }
+
+    /**
+     * Set the value of client_phone_number
+     *
+     * @return  self
+     */ 
+    public function setClient_phone_number($client_phone_number)
+    {
+                $this->client_phone_number = $client_phone_number;
+
+                return $this;
+    }
+
+    /**
+     * Get the value of cient_email
+     */ 
+    public function getCient_email()
+    {
+                return $this->cient_email;
+    }
+
+    /**
+     * Set the value of cient_email
+     *
+     * @return  self
+     */ 
+    public function setCient_email($cient_email)
+    {
+                $this->cient_email = $cient_email;
+
+                return $this;
+    }
+
+    /**
+     * Get the value of client_saved_data
+     */ 
+    public function getClient_saved_data()
+    {
+                return $this->client_saved_data;
+    }
+
+    /**
+     * Set the value of client_saved_data
+     *
+     * @return  self
+     */ 
+    public function setClient_saved_data($client_saved_data)
+    {
+                $this->client_saved_data = $client_saved_data;
+
+                return $this;
+    }
+
+    public static function loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id)
+    {
+        return loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id);     
     }
 }
     
