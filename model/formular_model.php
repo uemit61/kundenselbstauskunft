@@ -76,7 +76,7 @@ class CIModel
         }
     }
 
-     public function basic_info($entity)
+    public function basic_info($entity)
     {
         // var_dump($entity);
         // exit();
@@ -97,58 +97,38 @@ class CIModel
     }
     public function createRecordInformation($entity,$data = null)
     {
-        // var_dump($entity);
-        // exit();
-
-
         if($entity == 'customer_host_configuration' || $entity == 'customer_import')
         {
-            // var_dump($entity);
-            // exit();
-
-            
-            
             $this->$entity->createRecord($this->pdo,$this->getCustomer()->getCustomer_id());
         }
         else
-        {
-            
-            if($entity == 'import_customer_data')
-            {
-                var_dump('caldum kapiyi');
-                exit();
-            }
-                 
-            $this->$entity->createRecord($this->pdo,$data);
+        {  
+            if($entity != 'contact_information')
+                $this->$entity->createRecord($this->pdo,$data,$entity);
+            else
+                $this->$entity->createRecord($this->pdo,$data,'customer_contact_information');
         }
     }
 
     public function createRecords($data)
     {
-        // var_dump($data);
-        // exit();
-    
-            $i=0;
-            foreach($data as $entity_name => $entity)
-            {
-                if($i !=0 ||  key($data)  == 'host_configuration_virtualization' || key($data) == 'customer_client' || key($data) == 'import_customer_data')
-                    $this->$entity_name->createRecord($this->pdo,$entity);
-                else
-                    $i=3;
-            }
-        
-
+        $i=0;
+        foreach($data as $entity_name => $entity)
+        {
+            if($i !=0 ||  key($data)  == 'host_configuration_virtualization' || key($data) == 'customer_client' || key($data) == 'import_customer_data')
+                $this->$entity_name->createRecord($this->pdo,$entity,$entity_name);
+            else
+                $i=3;
+        }
     }
 
     public function saveEntities($data)
     {
         foreach($data as $entity_name => $entity)
         {
-            $this->$entity_name->saveEntity($this->pdo,$entity);
+            $this->$entity_name->saveEntity($this->pdo,$entity,$entity_name);
         }
     }
-
-   
 
     public function delete($id, $entity)
     {
@@ -162,6 +142,4 @@ class CIModel
         session_write_close();
             $this->view->render($logo);
     }
-
-   
 }
