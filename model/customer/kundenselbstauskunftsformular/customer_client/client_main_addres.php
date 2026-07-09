@@ -91,7 +91,7 @@ class Client_main_addres
         return $this;
     }
     
-      public static function saveEntity($pdo,$data,$entity_name)
+    public static function saveEntity($pdo,$data,$entity_name)
     {
         saveEntityToDB($pdo, $data, $entity_name);
     }
@@ -99,5 +99,10 @@ class Client_main_addres
     public static function createRecord($pdo,$data,$entity_name)
     {
         createRecordToDB($pdo,$data, $entity_name);
+    }
+
+    public static function loadFromDB($pdo,$entity_name,$parentEnity_id)
+    {
+        loadFromDB($pdo,$entity_name,$parentEnity_id);
     }
 }

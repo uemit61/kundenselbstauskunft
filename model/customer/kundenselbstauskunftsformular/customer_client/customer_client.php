@@ -2,90 +2,55 @@
 require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
 class Customer_client
 {
+
+    private $client_id,
+            $client_name,
+            $client_company_name,
+            $client_phone_number,
+            $cient_email,
+            $client_saved_data,
+            $client_main_addres,
+            $customer_id;
+
+    private $client_second_addres,
+            $client_director,
+            $client_bank_details,
+            $client_legal_information;
+
     public function basic_info($pdo,$customer)
     {
         try
         {
             $con = $pdo->connectToDb();
-            $query='SELECT  count(*) AS "numberClient"
+            $query='SELECT count(*) AS "numberClient"
                     FROM    `customer_client`';
-                    
+
             $stmt = $con->prepare($query);
             $stmt->execute();
             $pdo->closeConnection();
 
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            $retVal['numberClient']=$result['numberClient'];
+            
+
+            var_dump($result);
         }
         catch (Exception $e)
         {
             echo 'Fehler clients_id'.$e->getMessage();
         }
-
         $pdo->closeConnection();
-
-        return $retVal;
+        return $result;
     }
 
-    public static function createRecord($pdo,$customer_client)
+    public static function saveEntity($pdo,$data,$entity_name)
     {
-        try
-        {
-            $con = $pdo->connectToDb();
-            $query='INSERT INTO `customer_client` 
-                                (`client_id`, 
-                                `client_name`, 
-                                `client_company_name`, 
-                                `client_phone_number`, 
-                                `client_email`, 
-                                `client_saved_data`, 
-                                `customer_id`) 
-                    VALUES 
-                                (:client_id,
-                                 :client_name,
-                                 :client_company_name,
-                                 :client_phone_number,
-                                 :client_email,
-                                 :client_saved_data, :customer_id)';
-            $stmt = $con->prepare($query);
-            $stmt->execute($customer_client);
-        }
-        catch(Exception $e)
-        {
-            echo 'Client wurde nicht gespeichert wurden nicht gespeichert'.$e;
-        }
-        $pdo->closeConnection();
+        saveEntityToDB($pdo, $data, $entity_name);
     }
 
-    public static function saveEntity($pdo,$customer_client)
+    public static function createRecord($pdo,$data,$entity_name)
     {
-        try
-        {
-            // var_dump($customer_client);
-            // exit();
-            $con = $pdo->connectToDb();
-
-            $query ='UPDATE `customer_client` 
-                        SET `client_name` =  :client_name, 
-                            `client_company_name` = :client_company_name, 
-                            `client_phone_number` = :client_phone_number, 
-                            `client_email` = :client_email, 
-                            `client_saved_data` = :client_saved_data
-                    WHERE  `customer_client`.`client_id` = :client_id AND `customer_client`.`customer_id` = :customer_id';
-
-            $stmt = $con->prepare($query);
-            $stmt->execute($customer_client);
-
-            echo 'Clientinfo  wurden aktualisiert.';
-            
-        }
-        catch(Exception $e)
-        {
-            echo 'ClientInfo konnten nicht aktualisiert werden.'.$e;
-        }
-            $pdo->closeConnection();
+        createRecordToDB($pdo,$data, $entity_name);
     }
-
     public static function delete($pdo,$id)
     {
         try
@@ -106,5 +71,130 @@ class Customer_client
         }
     }
 
+
+    /**
+     * Get the value of client_id
+     */ 
+    public function getClient_id()
+    {
+        return $this->client_id;
+    }
+
+    /**
+     * Set the value of client_id
+     *
+     * @return  self
+     */ 
+    public function setClient_id($client_id)
+    {
+        $this->client_id = $client_id;
+
+        return $this;
+    }
+
+            /**
+             * Get the value of client_name
+             */ 
+            public function getClient_name()
+            {
+                        return $this->client_name;
+            }
+
+            /**
+             * Set the value of client_name
+             *
+             * @return  self
+             */ 
+            public function setClient_name($client_name)
+            {
+                        $this->client_name = $client_name;
+
+                        return $this;
+            }
+
+            /**
+             * Get the value of client_company_name
+             */ 
+            public function getClient_company_name()
+            {
+                        return $this->client_company_name;
+            }
+
+            /**
+             * Set the value of client_company_name
+             *
+             * @return  self
+             */ 
+            public function setClient_company_name($client_company_name)
+            {
+                        $this->client_company_name = $client_company_name;
+
+                        return $this;
+            }
+
+            /**
+             * Get the value of client_phone_number
+             */ 
+            public function getClient_phone_number()
+            {
+                        return $this->client_phone_number;
+            }
+
+            /**
+             * Set the value of client_phone_number
+             *
+             * @return  self
+             */ 
+            public function setClient_phone_number($client_phone_number)
+            {
+                        $this->client_phone_number = $client_phone_number;
+
+                        return $this;
+            }
+
+            /**
+             * Get the value of cient_email
+             */ 
+            public function getCient_email()
+            {
+                        return $this->cient_email;
+            }
+
+            /**
+             * Set the value of cient_email
+             *
+             * @return  self
+             */ 
+            public function setCient_email($cient_email)
+            {
+                        $this->cient_email = $cient_email;
+
+                        return $this;
+            }
+
+            /**
+             * Get the value of client_saved_data
+             */ 
+            public function getClient_saved_data()
+            {
+                        return $this->client_saved_data;
+            }
+
+            /**
+             * Set the value of client_saved_data
+             *
+             * @return  self
+             */ 
+            public function setClient_saved_data($client_saved_data)
+            {
+                        $this->client_saved_data = $client_saved_data;
+
+                        return $this;
+            }
+
+    public static function loadFromDB($pdo,$entity_name,$parentEnity_id)
+    {
+        loadFromDB($pdo,$entity_name,$parentEnity_id);
+    }
 }
     
