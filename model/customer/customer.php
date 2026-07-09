@@ -2,14 +2,15 @@
 
 require_once 'C:/xampp/htdocs/Kundenselbstauskunft/model/customer/sub_entity_interface.php';
 
-class Customer implements SEInterface
+class Customer
 {
     private $customer_id,
             $customer_login_name,
             $customer_password,
             $customer_infos_imported,
-            $customer_admin,
-            $customer_contact_information,
+            $customer_admin;
+
+    private $customer_contact_information,
             $customer_host_configuration,
             $customer_import,
             $customer_client,
@@ -191,4 +192,124 @@ class Customer implements SEInterface
             echo "Error: ".$e->getMessage();
         }
     }
+
+    /**
+     * Get the value of customer_contact_information
+     */ 
+    public function getCustomer_contact_information()
+    {
+        return $this->customer_contact_information;
+    }
+
+    /**
+     * Set the value of customer_contact_information
+     *
+     * @return  self
+     */ 
+    public function setCustomer_contact_information($customer_contact_information)
+    {
+        $this->customer_contact_information = $customer_contact_information;
+
+        return $this;
+    }
+
+            /**
+             * Get the value of customer_host_configuration
+             */ 
+            public function getCustomer_host_configuration()
+            {
+                        return $this->customer_host_configuration;
+            }
+
+            /**
+             * Set the value of customer_host_configuration
+             *
+             * @return  self
+             */ 
+            public function setCustomer_host_configuration($customer_host_configuration)
+            {
+                        $this->customer_host_configuration = $customer_host_configuration;
+
+                        return $this;
+            }
+
+            /**
+             * Get the value of customer_import
+             */ 
+            public function getCustomer_import()
+            {
+                        return $this->customer_import;
+            }
+
+            /**
+             * Set the value of customer_import
+             *
+             * @return  self
+             */ 
+            public function setCustomer_import($customer_import)
+            {
+                        $this->customer_import = $customer_import;
+
+                        return $this;
+            }
+
+            /**
+             * Get the value of customer_client
+             */ 
+            public function getCustomer_client()
+            {
+                        return $this->customer_client;
+            }
+
+            /**
+             * Set the value of customer_client
+             *
+             * @return  self
+             */ 
+            public function setCustomer_client($customer_client)
+            {
+                        $this->customer_client = $customer_client;
+
+                        return $this;
+            }
+
+            /**
+             * Get the value of customer_erp_configuration
+             */ 
+            public function getCustomer_erp_configuration()
+            {
+                        return $this->customer_erp_configuration;
+            }
+
+            /**
+             * Set the value of customer_erp_configuration
+             *
+             * @return  self
+             */ 
+            public function setCustomer_erp_configuration($customer_erp_configuration)
+            {
+                        $this->customer_erp_configuration = $customer_erp_configuration;
+
+                        return $this;
+            }
+
+            /**
+             * Get the value of customer_token
+             */ 
+            public function getCustomer_token()
+            {
+                        return $this->customer_token;
+            }
+
+            /**
+             * Set the value of customer_token
+             *
+             * @return  self
+             */ 
+            public function setCustomer_token($customer_token)
+            {
+                        $this->customer_token = $customer_token;
+
+                        return $this;
+            }
 }
