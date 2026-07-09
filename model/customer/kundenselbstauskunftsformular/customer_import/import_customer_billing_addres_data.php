@@ -1,5 +1,5 @@
 <?php
-require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\customer_import\db_transactions.php');
+require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
 class Import_customer_billing_addres_data
 {
     private $import_customer_billing_addres_data_id,	
@@ -284,7 +284,7 @@ class Import_customer_billing_addres_data
              */ 
             public function getImport_id()
             {
-                        return $this->import_id;
+                return $this->import_id;
             }
 
             /**
@@ -294,20 +294,18 @@ class Import_customer_billing_addres_data
              */ 
             public function setImport_id($import_id)
             {
-                        $this->import_id = $import_id;
-
-                        return $this;
+                $this->import_id = $import_id;
+                return $this;
             }
             
 
-            public static function saveEntity($pdo,$data)
-            {
-                saveEntityToDB($pdo, $data);
-            }
+    public static function saveEntity($pdo,$data,$entity_name)
+    {
+        saveEntityToDB($pdo, $data, $entity_name);
+    }
 
-            public static function createRecord($pdo,$data)
-            {
-                createRecordToDB($pdo,$data);
-            }
-
+    public static function createRecord($pdo,$data,$entity_name)
+    {
+        createRecordToDB($pdo,$data, $entity_name);
+    }
 }
