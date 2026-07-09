@@ -17,16 +17,13 @@ class Customer_contact_information
 
     public $formData;
   
-    public function __construct($pdo=null,$customer=null, $primaeryKeyName = null,$foreignKeyName=null,$parentEnityId=null)
+    public function __construct($pdo=null,$customer=null, $primaeryKeyName = null,$foreignKeyName=null)
     {
-
-        
         $this->pdo = $pdo;
         $this->customer = $customer;
         $this->foreignKeyName = $foreignKeyName;
         $this->primaeryKeyName = $primaeryKeyName;
-        $this->parentEnityId = $parentEnityId;
-        
+
         foreach(glob('C:/xampp/htdocs/Kundenselbstauskunft/model/customer/kundenselbstauskunftsformular/customer_contact_information/*.php') as $path)
         {
             require_once $path;
