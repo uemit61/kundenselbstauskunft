@@ -47,6 +47,5 @@ function getCustomer()
     session_start();
         $user = $_SESSION['customer'] ?? '';
     session_write_close();
-
     return $user;
 }

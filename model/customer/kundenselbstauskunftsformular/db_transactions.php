@@ -100,7 +100,7 @@
         $pdo->closeConnection();
     }
 
-    function loadFromDB($pdo,$entity_name,$foreignKey,$parentEnityId)
+    function loadFromDB($pdo,$entity_name,$foreignKeyName,$foreigenKeyId)
     {
 
         try
@@ -110,11 +110,11 @@
           
             $query="SELECT  *
                     FROM    `$entity_name`
-                    WHERE   `$foreignKey` = :id";
+                    WHERE   `$foreignKeyName` = :id";
 
             $class_name = ucfirst($entity_name);
             $stmt = $con->prepare($query);
-            $stmt->bindValue(':id',$parentEnityId);
+            $stmt->bindValue(':id',$foreigenKeyId);
             $stmt->execute();
             $stmt->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, $class_name);
             $result = $stmt->fetch();
@@ -122,7 +122,7 @@
             // var_dump($result);
             
            
-            return json_encode($result);
+            return $result;
         }
         catch(Exception $e)
         {
