@@ -46,8 +46,12 @@
 
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                $retVal['main_id']=$result['host_configuration_id'];
-                $retVal['saved_data']=$result['host_configuration_saved_data'];
+                if($result)
+                {
+                    $retVal['main_id']=$result['host_configuration_id'];
+                    $retVal['saved_data']=$result['host_configuration_saved_data'];
+                }
+                
             }
             catch (Exception $e)
             {

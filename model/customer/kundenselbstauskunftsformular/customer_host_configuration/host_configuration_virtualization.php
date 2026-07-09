@@ -1,4 +1,6 @@
 <?php
+
+require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
     class Host_configuration_virtualization
     {
         private $virtualization_id,
@@ -55,59 +57,13 @@
             return $this;
         }
 
-        public static function createRecord($pdo,$host_configuration_virtualization)
+        public static function saveEntity($pdo,$data,$entity_name)
         {
-            try
-            {
-                // var_dump($host_configuration_virtualization);
-                // exit();
-                $con = $pdo->connectToDb();
-                $query = 'INSERT INTO `host_configuration_virtualization` 
-                                    (`host_configuration_virtualization_id`, 
-                                    `host_configuration_virtualization_`, 
-                                    `host_configuration_virtualization_product`, 
-                                    `host_configuration_virtualization_version`, 
-                                    `host_configuration_id`) 
-                        VALUES (:host_configuration_virtualization_id,
-                                :host_configuration_virtualization_, 
-                                :host_configuration_virtualization_product, 
-                                :host_configuration_virtualization_version,
-                                :host_configuration_id)';
-
-                $stmt = $con->prepare($query);
-                $stmt->execute($host_configuration_virtualization);
-                echo 'HostVirtualisierung wurde erfolgreich eingefügt';
-            }
-            catch(Exception $e)
-            {
-                echo 'HostVirtualisierung Fehler'.$e;
-            }
-            $pdo->closeConnection();
+            saveEntityToDB($pdo, $data, $entity_name);
         }
 
-        public static function saveEntity($pdo,$host_configuration_virtualization)
+        public static function createRecord($pdo,$data,$entity_name)
         {
-            try
-            {
-                // var_dump($host_configuration_virtualization);
-                // exit();
-                $con = $pdo->connectToDb();
-                $query="UPDATE `host_configuration_virtualization` 
-                        SET `host_configuration_virtualization_` = :host_configuration_virtualization_, 
-                            `host_configuration_virtualization_product` = :host_configuration_virtualization_product, 
-                            `host_configuration_virtualization_version` = :host_configuration_virtualization_version
-                        WHERE `host_configuration_virtualization`.`host_configuration_id` = :host_configuration_id";
-            $stmt = $con->prepare($query);
-            $stmt->execute($host_configuration_virtualization);
-
-            echo 'HostConfigVirtu wurden aktualisiert.';
-            
-            }
-            catch(Exception $e)
-            {
-                echo 'Fehler beim aktualisieren von der HostconfigVirtu'.$e;
-            }
-            $pdo->closeConnection();
+            createRecordToDB($pdo,$data, $entity_name);
         }
-
     }

@@ -1,4 +1,6 @@
 <?php
+
+require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
     class Host_configuration_ip_addres_erp
     {
         private $host_configuration_ip_addres_erp_id,
@@ -91,62 +93,14 @@
                 return $this;
         }
 
-        public static function createRecord($pdo,$host_configuration_ip_addres_erp)
+        public static function saveEntity($pdo,$data,$entity_name)
         {
-                try
-            {
-                // var_dump($host_configuration_ip_addres_erp);
-                // exit();
-                $con = $pdo->connectToDb();
-                $query = 'INSERT INTO `host_configuration_ip_addres_erp` 
-                                        (`host_configuration_ip_addres_erp_id`, 
-                                        `host_configuration_ip_addres_erp_ip`, 
-                                        `host_configuration_ip_addres_erp_subnetmask`, 
-                                        `host_configuration_ip_addres_erp_gateway`, 
-                                        `host_configuration_ip_addres_erp_dns`, 
-                                        `host_configuration_id`) 
-                        VALUES (:host_configuration_ip_addres_erp_id,
-                                :host_configuration_ip_addres_erp_ip, 
-                                :host_configuration_ip_addres_erp_subnetmask, 
-                                :host_configuration_ip_addres_erp_gateway,
-                                :host_configuration_ip_addres_erp_dns,
-                                :host_configuration_id)';
-
-                $stmt = $con->prepare($query);
-                $stmt->execute($host_configuration_ip_addres_erp);
-                echo 'HostConfIpErp wurde erfolgreich eingefügt';
-            }
-            catch(Exception $e)
-            {
-                echo 'HostConfIpErp Fehler'.$e;
-            }
-            $pdo->closeConnection();
+            saveEntityToDB($pdo, $data, $entity_name);
         }
 
-         public static function saveEntity($pdo,$host_configuration_ip_addres_erp)
+        public static function createRecord($pdo,$data,$entity_name)
         {
-            try
-            {
-                // var_dump($host_configuration_ip_addres_erp);
-                // exit();
-                $con = $pdo->connectToDb();
-                $query="UPDATE `host_configuration_ip_addres_erp` 
-                        SET     `host_configuration_ip_addres_erp_ip` = :host_configuration_ip_addres_erp_ip,
-                                `host_configuration_ip_addres_erp_subnetmask` = :host_configuration_ip_addres_erp_subnetmask,
-                                `host_configuration_ip_addres_erp_gateway` = :host_configuration_ip_addres_erp_gateway, 
-                                `host_configuration_ip_addres_erp_dns` = :host_configuration_ip_addres_erp_dns
-                        WHERE `host_configuration_ip_addres_erp`.`host_configuration_id` = :host_configuration_id";
-            $stmt = $con->prepare($query);
-            $stmt->execute($host_configuration_ip_addres_erp);
-
-            echo 'HostConfigERP wurden aktualisiert.';
-            
-            }
-            catch(Exception $e)
-            {
-                echo 'Fehler beim aktualisieren von der HostconfigERP'.$e;
-            }
-            $pdo->closeConnection();
+            createRecordToDB($pdo,$data, $entity_name);
         }
                 
     }

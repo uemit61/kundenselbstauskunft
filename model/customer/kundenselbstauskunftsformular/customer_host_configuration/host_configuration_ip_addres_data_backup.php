@@ -1,4 +1,6 @@
-H<?php
+<?php
+
+require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
 
 class Host_configuration_ip_addres_data_backup
 {
@@ -130,70 +132,13 @@ class Host_configuration_ip_addres_data_backup
     }
 
 
-    public static function createRecord($pdo,$host_configuration_ip_addres_data_backup)
+    public static function saveEntity($pdo,$data,$entity_name)
     {
-        try
-        {
-            // var_dump($host_configuration_ip_addres_data_backup);
-            // exit();
-            $con = $pdo->connectToDb();
-            $query = 'INSERT INTO `host_configuration_ip_addres_data_backup` 
-                                    (`host_configuration_ip_addres_data_backup_id`, 
-                                    `host_configuration_ip_addres_data_backup_sftp`, 
-                                    `host_configuration_ip_addres_data_backup_ftp`, 
-                                    `host_configuration_ip_addres_data_backup_smb`, 
-                                    `host_configuration_ip_addres_data_backup_ip`, 
-                                    `host_configuration_ip_addres_data_backup_share_name`, 
-                                    `host_configuration_ip_addres_data_backup_user`, 
-                                    `host_configuration_ip_addres_data_backup_password`, 
-                                    `host_configuration_id`)
-                    VALUES (:host_configuration_ip_addres_data_backup_id,
-                            :host_configuration_ip_addres_data_backup_sftp, 
-                            :host_configuration_ip_addres_data_backup_ftp, 
-                            :host_configuration_ip_addres_data_backup_smb,
-                            :host_configuration_ip_addres_data_backup_ip,
-                            :host_configuration_ip_addres_data_backup_share_name,
-                            :host_configuration_ip_addres_data_backup_user,
-                            :host_configuration_ip_addres_data_backup_password,
-                            :host_configuration_id)';
-
-            $stmt = $con->prepare($query);
-            $stmt->execute($host_configuration_ip_addres_data_backup);
-            echo 'HostConfBackup wurde erfolgreich eingefügt';
-        }
-        catch(Exception $e)
-        {
-            echo 'HostConfIpBackup Fehler'.$e;
-        }
-        $pdo->closeConnection();
+        saveEntityToDB($pdo, $data, $entity_name);
     }
 
-    public static function saveEntity($pdo,$host_configuration_ip_addres_data_backup)
+    public static function createRecord($pdo,$data,$entity_name)
     {
-        try
-        {
-            // var_dump($host_configuration_ip_addres_data_backup);
-            // exit();
-            $con = $pdo->connectToDb();
-            $query="UPDATE `host_configuration_ip_addres_data_backup` 
-                    SET     `host_configuration_ip_addres_data_backup_sftp`= :host_configuration_ip_addres_data_backup_sftp,
-                            `host_configuration_ip_addres_data_backup_ftp` = :host_configuration_ip_addres_data_backup_ftp,
-                            `host_configuration_ip_addres_data_backup_smb` = :host_configuration_ip_addres_data_backup_smb,
-                            `host_configuration_ip_addres_data_backup_ip` = :host_configuration_ip_addres_data_backup_ip,
-                            `host_configuration_ip_addres_data_backup_share_name` = :host_configuration_ip_addres_data_backup_share_name,
-                            `host_configuration_ip_addres_data_backup_user` = :host_configuration_ip_addres_data_backup_user,
-                            `host_configuration_ip_addres_data_backup_password` = :host_configuration_ip_addres_data_backup_password
-                    WHERE   `host_configuration_ip_addres_data_backup`.`host_configuration_id` = :host_configuration_id";
-        $stmt = $con->prepare($query);
-        $stmt->execute($host_configuration_ip_addres_data_backup);
-
-        echo 'HostConfigBackup wurden aktualisiert.';
-        
-        }
-        catch(Exception $e)
-        {
-            echo 'Fehler beim aktualisieren von der HostconfiBackup'.$e;
-        }
-        $pdo->closeConnection();
+        createRecordToDB($pdo,$data, $entity_name);
     }
 }

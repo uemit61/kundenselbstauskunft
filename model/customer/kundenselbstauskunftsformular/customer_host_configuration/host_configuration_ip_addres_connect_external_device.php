@@ -1,5 +1,7 @@
 <?php
 
+require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
+
 class Host_configuration_ip_addres_connect_external_device
 {
     private $host_configuration_ip_addres_connect_external_device_id,
@@ -110,7 +112,7 @@ class Host_configuration_ip_addres_connect_external_device
 
     public function getHost_configuration_id()
     {
-                return $this->host_configuration_id;
+        return $this->host_configuration_id;
     }
 
     public function setHost_configuration_id($host_configuration_id)
@@ -119,70 +121,13 @@ class Host_configuration_ip_addres_connect_external_device
         return $this;
     }
 
-    public static function createRecord($pdo,$host_configuration_ip_addres_connect_external_device)
+    public static function saveEntity($pdo,$data,$entity_name)
     {
-        try
-        {
-            // var_dump($host_configuration_ip_addres_connect_external_device);
-            // exit();
-            $con = $pdo->connectToDb();
-            $query = 'INSERT INTO `host_configuration_ip_addres_connect_external_device` 
-                                    (`host_configuration_ip_addres_connect_external_device_id`, 
-                                    `host_configuration_ip_addres_connect_external_device_sftp`, 
-                                    `host_configuration_ip_addres_connect_external_device_ftp`, 
-                                    `host_configuration_ip_addres_connect_external_device_smb`, 
-                                    `host_configuration_ip_addres_connect_external_device_ip`, 
-                                    `host_configuration_ip_addres_connect_external_device_share_name`, 
-                                    `host_configuration_ip_addres_connect_external_device_user`, 
-                                    `host_configuration_ip_addres_connect_external_device_password`, 
-                                    `host_configuration_id`)
-                    VALUES (:host_configuration_ip_addres_connect_external_device_id,
-                            :host_configuration_ip_addres_connect_external_device_sftp, 
-                            :host_configuration_ip_addres_connect_external_device_ftp, 
-                            :host_configuration_ip_addres_connect_external_device_smb,
-                            :host_configuration_ip_addres_connect_external_device_ip,
-                            :host_configuration_ip_addres_connect_external_device_share_name,
-                            :host_configuration_ip_addres_connect_external_device_user,
-                            :host_configuration_ip_addres_connect_external_device_password,
-                            :host_configuration_id)';
-
-            $stmt = $con->prepare($query);
-            $stmt->execute($host_configuration_ip_addres_connect_external_device);
-            echo 'HostConfEX wurde erfolgreich eingefügt';
-        }
-        catch(Exception $e)
-        {
-            echo 'HostConfIpEX Fehler'.$e;
-        }
-        $pdo->closeConnection();
+        saveEntityToDB($pdo, $data, $entity_name);
     }
 
-    public static function saveEntity($pdo,$host_configuration_ip_addres_connect_external_device)
+    public static function createRecord($pdo,$data,$entity_name)
     {
-        try
-        {
-            // var_dump($host_configuration_ip_addres_connect_external_device);
-            // exit();
-            $con = $pdo->connectToDb();
-            $query="UPDATE `host_configuration_ip_addres_connect_external_device` 
-                    SET     `host_configuration_ip_addres_connect_external_device_sftp`= :host_configuration_ip_addres_connect_external_device_sftp,
-                            `host_configuration_ip_addres_connect_external_device_ftp` = :host_configuration_ip_addres_connect_external_device_ftp,
-                            `host_configuration_ip_addres_connect_external_device_smb` = :host_configuration_ip_addres_connect_external_device_smb,
-                            `host_configuration_ip_addres_connect_external_device_ip` = :host_configuration_ip_addres_connect_external_device_ip,
-                            `host_configuration_ip_addres_connect_external_device_share_name` = :host_configuration_ip_addres_connect_external_device_share_name,
-                            `host_configuration_ip_addres_connect_external_device_user` = :host_configuration_ip_addres_connect_external_device_user,
-                            `host_configuration_ip_addres_connect_external_device_password` = :host_configuration_ip_addres_connect_external_device_password
-                    WHERE   `host_configuration_ip_addres_connect_external_device`.`host_configuration_id` = :host_configuration_id";
-        $stmt = $con->prepare($query);
-        $stmt->execute($host_configuration_ip_addres_connect_external_device);
-
-        echo 'HostConfigEX wurden aktualisiert.';
-        
-        }
-        catch(Exception $e)
-        {
-            echo 'Fehler beim aktualisieren von der HostconfiBackup'.$e;
-        }
-        $pdo->closeConnection();
+        createRecordToDB($pdo,$data, $entity_name);
     }
 }
