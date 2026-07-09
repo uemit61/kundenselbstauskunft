@@ -1,5 +1,5 @@
 <?php
-
+require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
 class Client_second_addres
 {
     
@@ -91,60 +91,13 @@ class Client_second_addres
         return $this;
     }
     
-     public static function saveEntity($pdo,$client_second_addres)
+   public static function saveEntity($pdo,$data,$entity_name)
     {
-        try
-        {
-                $con = $pdo->connectToDb();
-                $query="UPDATE  `client_second_addres` 
-                        SET     `client_second_addres_street` = :client_second_addres_street,
-                                `client_second_addres_house_Number` = :client_second_addres_house_Number, 
-                                `client_second_addres_postcode` = :client_second_addres_postcode,
-                                `client_second_addres_city` = :client_second_addres_city
-                        WHERE   `client_id` = :client_id";
-        $stmt = $con->prepare($query);
-        $stmt->execute($client_second_addres);
+        saveEntityToDB($pdo, $data, $entity_name);
+    }   
 
-        echo 'Mandanten-ZweitAdresse erfolgreich aktualisert.';
-
-        
-        }
-        catch(Exception $e)
-        {
-            echo 'Fehler beim aktualisieren von der Mandanten-ZweitAdresse'.$e;
-        }
-        $pdo->closeConnection();
-    }
-
-    public static function createRecord($pdo,$client_second_addres)
+    public static function createRecord($pdo,$data,$entity_name)
     {
-        // var_dump($client_second_addres);
-        // exit();
-        try
-        {
-            $con = $pdo->connectToDb();
-            $query='INSERT INTO  `client_second_addres` 
-                            (`client_second_addres_id`, 
-                            `client_second_addres_street`, 
-                            `client_second_addres_house_Number`, 
-                            `client_second_addres_postcode`,
-                            `client_second_addres_city`,
-                            `client_id`) 
-                    VALUES  (:client_second_addres_id, 
-                            :client_second_addres_street, 
-                            :client_second_addres_house_Number, 
-                            :client_second_addres_postcode,
-                            :client_second_addres_city,
-                            :client_id)';
-
-            $stmt = $con->prepare($query);
-            $stmt->execute($client_second_addres);
-            echo 'Mandanten-ZweitAdresse  wurde erfolgreich eingefügt';
-            $pdo->closeConnection();
-        }
-        catch(Exception $e)
-        {
-            echo 'Fehler beim einfügen der Mandanten-ZweitAdresse'.$e;
-        }
+        createRecordToDB($pdo,$data, $entity_name);
     }
 }

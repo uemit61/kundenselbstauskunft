@@ -1,5 +1,5 @@
 <?php
-
+require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
 class Client_director
 {
     private $client_director_id,
@@ -107,57 +107,14 @@ class Client_director
 
                         return $this;
             }
-
-             public static function saveEntity($pdo,$client_director)
-            {
-            try
-            {
-                $con = $pdo->connectToDb();
-                $query="UPDATE  `client_director` 
-                        SET     `client_director_gender` = :client_director_gender,
-                                `client_director_name` = :client_director_name, 
-                                `client_director_surname` = :client_director_surname
-                        WHERE   `client_id` = :client_id";
-                $stmt = $con->prepare($query);
-                $stmt->execute($client_director);
-
-                echo 'Direktor erfolgreich aktualisert.';
-            }
-        catch(Exception $e)
-        {
-            echo 'Fehler beim aktualisieren der Direktor'.$e;
-        }
-        $pdo->closeConnection();
+   public static function saveEntity($pdo,$data,$entity_name)
+    {
+        saveEntityToDB($pdo, $data, $entity_name);
     }
 
-    public static function createRecord($pdo,$client_director)
+    public static function createRecord($pdo,$data,$entity_name)
     {
-        // var_dump($client_main_addres);
-        // exit();
-        try
-        {
-            $con = $pdo->connectToDb();
-            $query='INSERT INTO  `client_director` 
-                            (`client_director_id`, 
-                            `client_director_gender`, 
-                            `client_director_name`, 
-                            `client_director_surname`,
-                            `client_id`) 
-                    VALUES  (:client_director_id, 
-                            :client_director_gender, 
-                            :client_director_name, 
-                            :client_director_surname,
-                            :client_id)';
-
-            $stmt = $con->prepare($query);
-            $stmt->execute($client_director);
-            echo 'Direktor wurden erfolgreich eingefügt';
-            $pdo->closeConnection();
-        }
-        catch(Exception $e)
-        {
-            echo 'Fehler beim einfügen der Direktor'.$e;
-        }
+        createRecordToDB($pdo,$data, $entity_name);
     }
 
         

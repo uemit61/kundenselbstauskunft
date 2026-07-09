@@ -1,5 +1,5 @@
 <?php
-
+require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
 class Client_main_addres
 {
     
@@ -91,60 +91,13 @@ class Client_main_addres
         return $this;
     }
     
-     public static function saveEntity($pdo,$client_main_addres)
+      public static function saveEntity($pdo,$data,$entity_name)
     {
-        try
-        {
-            // var_dump($client_main_addres);
-            // exit();
-            $con = $pdo->connectToDb();
-            $query="UPDATE  `client_main_addres` 
-                    SET     `client_main_addres_street` = :client_main_addres_street,
-                            `client_main_addres_house_Number` = :client_main_addres_house_Number, 
-                            `client_main_addres_postcode` = :client_main_addres_postcode,
-                            `client_main_addres_city` = :client_main_addres_city
-                    WHERE   `client_id` = :client_id";
-            $stmt = $con->prepare($query);
-            $stmt->execute($client_main_addres);
-
-            echo 'Mandanten-HauptAdresse erfolgreich aktualisert.';
-        }
-        catch(Exception $e)
-        {
-            echo 'Fehler beim aktualisieren von der Mandanten-HauptAdresse'.$e;
-        }
-        $pdo->closeConnection();
+        saveEntityToDB($pdo, $data, $entity_name);
     }
 
-    public static function createRecord($pdo,$client_main_addres)
+    public static function createRecord($pdo,$data,$entity_name)
     {
-        // var_dump($client_main_addres);
-        // exit();
-        try
-        {
-            $con = $pdo->connectToDb();
-            $query='INSERT INTO  `client_main_addres` 
-                            (`client_main_addres_id`, 
-                            `client_main_addres_street`, 
-                            `client_main_addres_house_Number`, 
-                            `client_main_addres_postcode`,
-                            `client_main_addres_city`,
-                            `client_id`) 
-                    VALUES  (:client_main_addres_id, 
-                            :client_main_addres_street, 
-                            :client_main_addres_house_Number, 
-                            :client_main_addres_postcode,
-                            :client_main_addres_city,
-                            :client_id)';
-
-            $stmt = $con->prepare($query);
-            $stmt->execute($client_main_addres);
-            echo 'Mandanten-HauptAdresse  wurde erfolgreich eingefügt';
-            $pdo->closeConnection();
-        }
-        catch(Exception $e)
-        {
-            echo 'Fehler beim einfügen der Mandanten-HauptAdresse'.$e;
-        }
+        createRecordToDB($pdo,$data, $entity_name);
     }
 }

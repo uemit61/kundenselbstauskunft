@@ -1,5 +1,5 @@
 <?php
-
+require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
 class Client_legal_information
 {
     private $client_legal_information_id,	
@@ -110,56 +110,14 @@ class Client_legal_information
                         return $this;
             }
 
-            public static function saveEntity($pdo,$client_legal_information)
-            {
-            try
-            {
-                $con = $pdo->connectToDb();
-                $query="UPDATE  `client_legal_information` 
-                        SET     `client_legal_information_ust_idnr` = :client_legal_information_ust_idnr,
-                                `client_legal_information_hr_number` = :client_legal_information_hr_number, 
-                                `client_legal_information_juristication` = :client_legal_information_juristication
-                        WHERE   `client_legal_information`.`client_id` = :client_id";
-                $stmt = $con->prepare($query);
-                $stmt->execute($client_legal_information);
-
-                echo 'RechtInfo erfolgreich aktualisert.';
-            }
-        catch(Exception $e)
-        {
-            echo 'Fehler beim aktualisieren der Rechtinfo'.$e;
-        }
-        $pdo->closeConnection();
+      public static function saveEntity($pdo,$data,$entity_name)
+    {
+        saveEntityToDB($pdo, $data, $entity_name);
     }
 
-    public static function createRecord($pdo,$client_legal_information)
+    public static function createRecord($pdo,$data,$entity_name)
     {
-        // var_dump($client_main_addres);
-        // exit();
-        try
-        {
-            $con = $pdo->connectToDb();
-            $query='INSERT INTO  `client_legal_information` 
-                            (`client_legal_information_id`, 
-                            `client_legal_information_ust_idnr`, 
-                            `client_legal_information_hr_number`, 
-                            `client_legal_information_juristication`,
-                            `client_id`) 
-                    VALUES  (:client_legal_information_id, 
-                            :client_legal_information_ust_idnr, 
-                            :client_legal_information_hr_number, 
-                            :client_legal_information_juristication,
-                            :client_id)';
-
-            $stmt = $con->prepare($query);
-            $stmt->execute($client_legal_information);
-            echo 'Rechtinfo wurden erfolgreich eingefügt';
-            $pdo->closeConnection();
-        }
-        catch(Exception $e)
-        {
-            echo 'Fehler beim einfügen der Rechtinfo'.$e;
-        }
+        createRecordToDB($pdo,$data, $entity_name);
     }
 
     
