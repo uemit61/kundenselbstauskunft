@@ -4,11 +4,14 @@ require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstau
 
 class Customer_contact_information
 {
-    private $contact_information_id;
-    private $contact_information_company_name;
-    private $contact_information_phone;
-    private $contact_information_email;
-    private $contact_information_saved_data;
+    private $contact_information_id,
+            $contact_information_company_name,
+            $contact_information_phone,
+            $contact_information_email,
+            $contact_information_saved_data;
+
+    private $contact_information_contact_person,
+            $contact_information_addres;
 
 
     
@@ -29,7 +32,6 @@ class Customer_contact_information
     public function setContact_information_id($contact_information_id)
     {
         $this->contact_information_id = $contact_information_id;
-
         return $this;
     }
 
@@ -153,5 +155,10 @@ class Customer_contact_information
     {
         var_dump('what?');
         createRecordToDB($pdo,$data, 'customer_contact_information');
+    }
+
+    public static function loadFromDB($pdo,$entity_name,$parentEnity_id)
+    {
+        loadFromDB($pdo,$entity_name,$parentEnity_id);
     }
 }
