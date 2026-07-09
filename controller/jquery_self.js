@@ -12,6 +12,7 @@
 
 $(document).ready
 (
+    
     function()
     {
      
@@ -50,7 +51,7 @@ $(document).ready
             console.log(e);
             $(e).toggleClass('bi-chevron-down bi-chevron-right');
             client_main = '.client_main'+$(e).data('no');
-            $('#customer_client').find(client_main).toggleClass('d-none');
+            $('#form_customer_client').find(client_main).toggleClass('d-none');
         }
 
         $('.bi-plus').on
@@ -59,7 +60,7 @@ $(document).ready
             function() 
             {
                 var total = $(this).data('total')+1;
-                $('#customer_client').find('.client_total_text').text('Anzahl der Mandanten: '+total);
+                $('#form_customer_client').find('.client_total_text').text('Anzahl der Mandanten: '+total);
                 var client_body = $($('#client_body1')[0].outerHTML);
                 console.log(client_body);
                 $(client_body).attr('id', 'client_body'+total);
@@ -73,7 +74,7 @@ $(document).ready
 
                 changeIdNames(client_body,total);
 
-                $('#customer_client').append(client_body);
+                $('#form_customer_client').append(client_body);
                 $(this).data('total', total);
                 console.log(client_body);
             }
@@ -83,15 +84,15 @@ $(document).ready
         {
             
             var client_body =$(element).closest('.body-group');
-            $('#customer_client').find(client_body).remove();
+            $('#form_customer_client').find(client_body).remove();
 
 
-            var total = $('#customer_client').find($('.client_total')).data('total');
+            var total = $('#form_customer_client').find($('.client_total')).data('total');
             if(total != 1)
             {
                 total = total-1;
-                $('#customer_client').find('.client_total_text').text('Anzahl der Mandanten: '+total);
-                $('#customer_client').find('.client_total').data('total', total);
+                $('#form_customer_client').find('.client_total_text').text('Anzahl der Mandanten: '+total);
+                $('#form_customer_client').find('.client_total').data('total', total);
                 updateIdNo()
             }
         }

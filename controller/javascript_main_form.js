@@ -14,47 +14,53 @@ $(document).ready(function()
 {
  
     console.log('Login erfolgreich.');
-    $('#customer_contact_information').removeClass('d-none');
+    $('#form_customer_contact_information').removeClass('d-none');
     
 
     // $.ajax
     // (
     //     {
-    //         url: '/kundenselbstauskunft/temp/session/mySession',
-    //         type: 'GET',
-    //         contentType: 'application/text',
-    //         dataType: 'text',
-    //         success: function(data)
-    //         { 
-    //             var form_data = JSON.parse(data);
-    //                 Object.keys(form_data).forEach
-    //                 (
-    //                     function(formId)   
-    //                     {
-    //                         Object.keys(form_data[formId]).forEach
-    //                         (
-    //                             function(inputId)
-    //                             {
-    //                                 if($(formId).find('#' + inputId).attr('type') === 'checkbox')
-    //                                 {
-    //                                     $(formId).find('#' + inputId).prop('checked',!!form_data[formId][inputId]);
-    //                                 }
-    //                                 else if($(formId).find('#' + inputId).prop('tagName').toLowerCase()==='select')
-    //                                 {
-    //                                     $(formId).find('#' + inputId).val(form_data[formId][inputId]).change();
-    //                                 }
-    //                                 else
-    //                                 {
-    //                                     $(formId).find('#' + inputId).val(form_data[formId][inputId]);
-    //                                 }
-    //                             }
-    //                         )
-    //                     }
-    //                 )
-    //         },
-    //         error: function(error)
+    //         url: 'http://localhost/kundenselbstauskunft/model/customer/customer_json_load.php',
+            
+    //         dataType: 'json',
+    //         success: function(data,response)
     //         {
-    //             console.log(error);
+    //             // console.log(data);
+    //             var form_data = JSON.parse(data);
+    //             console.log(data);
+                
+
+    //             //     Object.keys(form_data).forEach
+    //             //     (
+                        
+    //             //         function(formId)   
+    //             //         {
+    //             //             console.log(formId);
+    //             //             Object.keys(form_data[formId]).forEach
+    //             //             (
+    //             //                 function(inputId)
+    //             //                 {
+    //             //                     if($(formId).find('#' + inputId).attr('type') === 'checkbox')
+    //             //                     {
+    //             //                         $(formId).find('#' + inputId).prop('checked',!!form_data[formId][inputId]);
+    //             //                     }
+    //             //                     else if($(formId).find('#' + inputId).prop('tagName').toLowerCase()==='select')
+    //             //                     {
+    //             //                         $(formId).find('#' + inputId).val(form_data[formId][inputId]).change();
+    //             //                     }
+    //             //                     else
+    //             //                     {
+    //             //                         $(formId).find('#' + inputId).val(form_data[formId][inputId]);
+    //             //                     }
+    //             //                 }
+    //             //             )
+    //             //         }
+    //             //     )
+    //         },
+    //         error: function(xhr,status,error)
+    //         {
+    //             console.log(error+status);
+    //             console.log("Antwort vom Server:", xhr.responseText); 
     //         } ,
     //         complete: function()
     //         {
@@ -64,7 +70,7 @@ $(document).ready(function()
     // );
 
     let currentStepIndex = 0;
-    var form_ids = ['#customer_contact_information','#customer_host_configuration','#customer_client','#customer_erp_configuration','#customer_import'];
+    var form_ids = ['#form_customer_contact_information','#form_customer_host_configuration','#form_customer_client','#form_customer_erp_configuration','#form_customer_import'];
     let formId =  form_ids[currentStepIndex];
     let btnTxt = '';
     
@@ -224,7 +230,7 @@ $(document).ready(function()
 
     }
 
-    // // Alle 3 Sekunden wird zwischengespeichert
+    // Alle 3 Sekunden wird zwischengespeichert
     // setInterval
     // (
     //     function()
@@ -238,7 +244,11 @@ $(document).ready(function()
     //             {
     //                 form_data[form_id] =sanitizeInput(form_id);
     //             }
+                
     //         );
+
+    //         // console.log(form_data);
+
     //         $.ajax
     //         (
     //             { 
@@ -251,9 +261,7 @@ $(document).ready(function()
     //                     var line = response.split('\n');
     //                     console.log
     //                     (
-    //                         'Daten erfolgreich gesendet.\n'+   
-    //                         line[11]+'\n'+
-    //                         line[12]
+    //                        response
     //                     );
     //                 },
     //                 error: function (xhr, status, error) 
