@@ -75,7 +75,6 @@ require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstau
         public function setHost_configuration_ip_addres_erp_dns($host_configuration_ip_addres_erp_dns)
         {
                 $this->host_configuration_ip_addres_erp_dns = $host_configuration_ip_addres_erp_dns;
-
                 return $this;
         }
 
@@ -89,7 +88,6 @@ require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstau
         public function setHost_configuration_id($host_configuration_id)
         {
                 $this->host_configuration_id = $host_configuration_id;
-
                 return $this;
         }
 
@@ -103,9 +101,11 @@ require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstau
             createRecordToDB($pdo,$data, $entity_name);
         }
 
-        public static function loadFromDB($pdo,$entity_name,$parentEnity_id)
-        {
-                loadFromDB($pdo,$entity_name,$parentEnity_id);
-        }
-                
+      public static function loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id)
+    {
+        return loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id);     
+    }
+
+              
+              
     }

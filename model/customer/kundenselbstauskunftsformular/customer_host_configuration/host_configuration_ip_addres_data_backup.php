@@ -72,7 +72,7 @@ class Host_configuration_ip_addres_data_backup
 
     public function setHost_configuration_ip_addres_data_backup_ip($backup_ip)
     {
-                $this->backup_ip = $backup_ip;
+                $this->host_configuration_ip_addres_data_backup_backup_ip = $backup_ip;
 
                 return $this;
     }
@@ -142,8 +142,8 @@ class Host_configuration_ip_addres_data_backup
         createRecordToDB($pdo,$data, $entity_name);
     }
 
-    public static function loadFromDB($pdo,$entity_name,$parentEnity_id)
+   public static function loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id)
     {
-        loadFromDB($pdo,$entity_name,$parentEnity_id);
+        return loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id);     
     }
 }

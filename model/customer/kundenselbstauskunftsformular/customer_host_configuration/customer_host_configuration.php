@@ -1,7 +1,7 @@
 <?php
 
 
-    class customer_host_configuration
+    class Customer_host_configuration
     {
         private $host_configuration_id,
                 $host_configuration_saved_data,
@@ -11,9 +11,43 @@
                 $host_configuration_ip_addres_data_backup,
                 $host_configuration_ip_addres_erp,
                 $host_configuration_virtualization;
+            
+        public  $pdo, $customer,$foreignKeyId, $primaeryKeyId, $primaeryKeyName, $foreignKeyName =null, $entityName = 'customer_host_configuration';
+
+    public $formData, $entityList;
 
         
+    public function __construct($pdo=null,$customer=null, $primaeryKeyName = null,$foreignKeyName=null,$parentEnityId=null)
+    {
+ 
+        $this->pdo = $pdo;
+        $this->customer = $customer;
+        $this->foreignKeyName = $foreignKeyName;
+        $this->primaeryKeyName = $primaeryKeyName;
+        $this->parentEnityId = $parentEnityId;
+        
+        foreach(glob('C:/xampp/htdocs/Kundenselbstauskunft/model/customer/kundenselbstauskunftsformular/customer_host_configuration/*.php') as $path)
+        {
+            require_once $path;
+            $filename = pathinfo($path, PATHINFO_FILENAME);
+            $this->entityList[] =$filename;
+        }       
+    }
 
+      public function loadFormData()
+    {
+        $this->foreignKeyId = $this->basic_info($this->pdo, $this->customer)['main_id'];
+        foreach($this->entityList as $entity)
+        {
+            if($entity !== 'customer_host_configuration')
+            {   
+                $class = ucfirst($entity);
+                $this->$entity =  new $class();
+                $this->formData[$entity] = $this->$entity->loadFromDB($this->pdo,$entity,$this->foreignKeyName,$this->foreignKeyId);
+            }
+        }
+        return $this->formData;
+    }
 
         public function getHost_configuration_id()
         {
@@ -118,9 +152,9 @@
         }
 
          public static function loadFromDB($pdo,$entity_name,$parentEnity_id)
-    {
-        loadFromDB($pdo,$entity_name,$parentEnity_id);
-    }
+        {
+            loadFromDB($pdo,$entity_name,$parentEnity_id);
+        }
 
 
                 /**
