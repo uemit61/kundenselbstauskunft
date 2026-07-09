@@ -2,13 +2,19 @@
 
     function createRecordToDB($pdo,$data,$entity_name)
     {
+        // var_dump($data);
+        // var_dump($entity_name);
+        // exit();
+
         try
         {
-            // var_dump(key($data));
+            
             
 
             $con = $pdo->connectToDb();
             $query ='INSERT INTO `'.$entity_name.'` () VALUE ()';
+
+           
 
             foreach ($data as $key => $value) 
             {
@@ -16,7 +22,6 @@
 
                 // Die Positionen der schließenden Klammern werden ermittelt
                 $firstIns = strpos($query,')');
-
                 $query = substr($query,0,$firstIns).$var.substr($query,$firstIns);
                 $firstIns = strpos($query,')');
                 $secIns =  strpos($query,')',$firstIns+1);
@@ -29,7 +34,13 @@
             $secIns =  strpos($query,')',$firstIns+1);
             $query = substr($query,0,$secIns-1).substr($query,$secIns);
 
-            // var_dump($query);
+            // if($entity_name =='client_main_addres')
+            // {
+            //     var_dump($data);
+            //     var_dump($query);
+            //     exit();
+            // }
+            
             
             $stmt = $con->prepare($query);
             $stmt->execute($data);
@@ -46,23 +57,36 @@
     {
         try
         {
+            
             $con = $pdo->connectToDb();
-            $query="UPDATE `$entity_name`
-                    SET  WHERE `$entity_name`.".array_key_last($data);
+            
 
+            if($entity_name == 'customer_client')
+            {
+                // Wird am ende des Querys eingefügt
+                $query_end = '`client_id` ="'.reset($data).'"';
+            }
+            else
+            {
+                $query_end = array_key_last($data)." = '".end($data)."'";
+            }
+
+            $query="UPDATE `$entity_name`
+                    SET  WHERE `$entity_name`.".$query_end;
+
+
+            // var_dump($query);
+            // exit();
             foreach ($data as $key => $value) 
             {
-                if($key !='entity_name_id')
-                {
-                    $setPos = strpos($query,"WHERE")-1;
-                    $query = substr($query,0,$setPos).'`'.$key.'` = :'.$key.', '.substr($query,$setPos+1).' ';
-                }
+                $setPos = strpos($query,"WHERE")-1;
+                $query = substr($query,0,$setPos).'`'.$key.'` = :'.$key.', '.substr($query,$setPos+1).' ';
             }
-            
-            $setPos = strpos($query,"WHERE");
-            $query = substr($query,0,$setPos-2).substr($query,$setPos-1);
-             
-            // var_dump($query);
+          
+            // Das letzte Komma entfernen
+            $query = str_replace(", WHERE", " WHERE", $query);
+           
+          
             
             $stmt = $con->prepare($query);
             $stmt->execute($data);
@@ -75,3 +99,26 @@
         }
         $pdo->closeConnection();
     }
+
+    // function loadFromDB($pdo,$entity_name,$parentEnity_id)
+    // {
+    //     try
+    //     {
+    //         // var_dump($entity_name);
+    //         // exit();
+    //         $con = $pdo->connectToDb();
+    //         $query="SELECT  *
+    //                 FROM    `$entity_name`
+    //                 WHERE   `$parentEnity_id` = :$parentEnity_id";
+
+    //         $stmt = $con->prepare($query);
+    //         $stmt->bindValue(':$parentEnity_id',$$parentEnity_id);
+    //         $stmt->execute();
+    //         $stmt->setFetchMode(PDO::FETCH_CLASS, self::class);
+    //         $user = $stmt->fetch();
+    //     }
+    //     catch(Exception $e)
+    //     {
+    //         echo 'laden von '.$entity_name.' fehlgeschlagen'.$e;
+    //     }
+    // }
