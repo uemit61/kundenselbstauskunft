@@ -26,17 +26,34 @@ class LoadModel
         $foreignKeyName= implode("_", $parts).'_id';
 
         var_dump($primaeryKeyName.' '.$foreignKeyName);
-        var_dump($this->getCustomer());
+        // var_dump($this->getCustomer());
 
         
         $filename ='C:/xampp/htdocs/Kundenselbstauskunft/model/customer/kundenselbstauskunftsformular/'.$formName.'/'.$formName.'.php';
         require_once $filename;
         
-        $subEntity =pathinfo($filename, PATHINFO_FILENAME);
-        $class = ucfirst($subEntity);
+        $class = ucfirst($formName);
         $entity = new $class($this->pdo,$this->customer,$primaeryKeyName,$foreignKeyName);
         
-        $loadedForm = $entity->loadFormData();
+        // Clients müsssen mehrere Objkete erzeugen
+        // Daher basisInfo hier aufrufen oder im Controller
+        // Schleife erstellen.
+        if($formName == 'customer_client')
+        {
+            $numberClient =$entity->basic_info($this->pdo,$this->customer)['numberClient'];
+            $loadedForm=[];
+
+            for ($i; $i < $numberClient ; $i++) 
+            { 
+                $loadedForm = array_merge($loadedForm,$entity->loadFormData($i+1));
+            }
+            
+        }
+        else
+        {
+            $loadedForm = $entity->loadFormData();
+        }
+            
         
         ob_clean();
         header('Content-Type: application/json');

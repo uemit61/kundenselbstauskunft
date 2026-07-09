@@ -2,11 +2,11 @@
 require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
 class Client_legal_information
 {
-    private $client_legal_information_id,	
-            $client_legal_information_ust_idnr,	
-            $client_legal_information_hr_number,
-            $client_legal_information_juristication,	
-            $client_id;
+    // private $client_legal_information_id,	
+    //         $client_legal_information_ust_idnr,	
+    //         $client_legal_information_hr_number,
+    //         $client_legal_information_juristication,	
+    //         $client_id;
 
     
 
@@ -120,9 +120,9 @@ class Client_legal_information
         createRecordToDB($pdo,$data, $entity_name);
     }
 
-     public static function loadFromDB($pdo,$entity_name,$parentEnity_id)
+    public static function loadFromDB($pdo,$entity_name,$foreignKeyName,$foreigenKeyId)
     {
-        loadFromDB($pdo,$entity_name,$parentEnity_id);
+        return loadFromDB($pdo,$entity_name,$foreignKeyName,$foreigenKeyId);     
     }
 
 

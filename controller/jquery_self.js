@@ -93,62 +93,6 @@ $(document).ready
                                 }   
 
                                 insertDataToForm(data[formId],formId);
-                               
-                                // Object.keys(data[formId]).forEach
-                                // (
-                                //     function(inputId)
-                                //     {
-                                //         console.log(inputId);
-                                //         const numberClient = parseInt(inputId[inputId.length-1]) ?? '0' ;
-                                //         console.log(numberClient+' '+inputId.includes('customer_client'));
-        
-                                        
-                                //         if(numberClient >1 && inputId.includes('customer_client'))
-                                //         {
-                                //             console.log('Füge Mandant hinzu.');
-                                //             let $icon = $('#form_customer_client').find('.client_total');
-                                //             console.log($icon);
-                                //             addClient($icon);
-                    
-                                //         }
-
-                                //         //Fieldset
-                                //         const $input = $(`${formId} #${inputId}`); // Das $-Zeichen ist nur Konvention, kein Muss. Es wird oft verwendet, um zu zeigen, dass eine Variable ein jQuery-Objekt enthält
-                                //         const value = data[formId][inputId];
-
-                                //         console.log('input',$input) 
-                                //         console.log('Input gefunden:', $input.length > 0);
-                                //         console.log('Wert aus data:', value);
-
-                                //         Object.keys(value).forEach
-                                //         (
-                                //             function(input_form)
-                                //             {
-                                //                 console.log(input_form);
-                                                
-                                //                 const $inputForm = $(`${formId} #${inputId} [name='${input_form}']`);
-
-                                //                 console.log('Input-form gefunden:',$inputForm.length>0);
-                                //                 console.log($inputForm);
-                                                
-                                //                 if ($inputForm.is('input[type="checkbox"]'))
-                                //                 {
-                                                    
-                                //                     $inputForm.prop('checked', isChecked(value[input_form]));
-                                //                 }
-
-                                //                 else if($input.prop('tagName') ==='SELECT')
-                                //                 {
-                                //                     $inputForm.val(value[input_form]).change();
-                                //                 }
-                                //                 else
-                                //                 {
-                                //                     $inputForm.val(value[input_form]);
-                                //                 }
-                                //             }
-                                //         )
-                                //     }
-                                // )
                             }
                         );
 
@@ -171,7 +115,7 @@ $(document).ready
         );
     }
    
-    function load_data_from_db()
+    function load_data_from_db(load=null)
     {
         let formId = $('#ltn').data('formId');
         
@@ -186,10 +130,22 @@ $(document).ready
                 success: function (data)
                 {
                     console.log(data);
+                    const j = $('#form_customer_client').find('.client_total').data('total');
                     insertDataToForm(data,formId);
                     $(formId).find('.loadData').addClass('d-none');
                     $('.buttons').find('#ltn').addClass('d-none');
                     console.log('Die gespeicherten Daten wurden geladen.');
+
+            
+                    
+                    const k = j-1 + j;
+
+                    for (let i = k; i >j ; i--) 
+                    {
+                        deleteClient($(`#form_customer_client #client_body${i} #delteBtn${i}`));
+                    }
+                
+                   
                 },
                 error: function (error)
                 {
@@ -248,7 +204,10 @@ $(document).ready
             function(inputId)
             {
                 console.log(inputId);
-                const numberClient = parseInt(inputId[inputId.length-1]) ?? '0' ;
+               
+                const match = inputId.match(/\d+$/);
+                const numberClient = match ? parseInt(match[0]) : 1;
+
                 console.log(numberClient+' '+inputId.includes('customer_client'));
 
                 if(numberClient >1 && inputId.includes('customer_client'))

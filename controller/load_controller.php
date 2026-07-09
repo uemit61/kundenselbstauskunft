@@ -11,8 +11,4 @@ class LoadController
     {
         $this->model->loadForm($load['load']);
     }
-
-    
-   
-
 }

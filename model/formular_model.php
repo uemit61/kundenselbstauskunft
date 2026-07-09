@@ -89,12 +89,6 @@ class CIModel
         }
         else
         {
-            if($entity == 'client_main_addres')
-            {
-                var_dump($info['main_id']);
-            exit();
-            }
-            
             $this->main_id = $info['main_id'] ?? '';
             $this->saved_data = $info['saved_data'] ?? '0';
         }

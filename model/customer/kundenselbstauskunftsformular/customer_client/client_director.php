@@ -2,11 +2,11 @@
 require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
 class Client_director
 {
-    private $client_director_id,
-            $client_director_gender,	
-            $client_director_name,	
-            $client_director_surname,	
-            $client_id;	
+    // private $client_director_id,
+    //         $client_director_gender,	
+    //         $client_director_name,	
+    //         $client_director_surname,	
+    //         $client_id;	
 
     /**
      * Get the value of client_director_id
@@ -117,9 +117,9 @@ class Client_director
         createRecordToDB($pdo,$data, $entity_name);
     }
 
-     public static function loadFromDB($pdo,$entity_name,$parentEnity_id)
+     public static function loadFromDB($pdo,$entity_name,$foreignKeyName,$foreigenKeyId)
     {
-        loadFromDB($pdo,$entity_name,$parentEnity_id);
+        return loadFromDB($pdo,$entity_name,$foreignKeyName,$foreigenKeyId);     
     }
 
         

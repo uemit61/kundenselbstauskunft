@@ -70,7 +70,7 @@ class Form_Page
                                         </div>
 
                                         <div class="client_delete d-flex p-2 d-none" >
-                                            <h5 class="text-danger">Löschen <i class="bi bi-x-lg" onclick="deleteClient(this)"></i> </h5>
+                                            <h5 class="text-danger">Löschen <i class="bi bi-x-lg" id="delteBtn" onclick="deleteClient(this)"></i> </h5>
                                         </div>
                                     </div>
 

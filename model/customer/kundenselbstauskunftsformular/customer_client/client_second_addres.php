@@ -3,12 +3,12 @@ require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstau
 class Client_second_addres
 {
     
-    private $client_second_addres_id;
-    private $client_second_addres_street;
-    private $client_second_addres_house_Number;
-    private $client_second_addres_postcode;
-    private $client_second_addres_city;
-    private $client_id;
+    // private $client_second_addres_id;
+    // private $client_second_addres_street;
+    // private $client_second_addres_house_Number;
+    // private $client_second_addres_postcode;
+    // private $client_second_addres_city;
+    // private $client_id;
 
     
       public function getclient_second_addres_id()
@@ -102,8 +102,8 @@ class Client_second_addres
         createRecordToDB($pdo,$data, $entity_name);
     }
 
-    public static function loadFromDB($pdo,$entity_name,$parentEnity_id)
+    public static function loadFromDB($pdo,$entity_name,$foreignKeyName,$foreigenKeyId)
     {
-        loadFromDB($pdo,$entity_name,$parentEnity_id);
+        return loadFromDB($pdo,$entity_name,$foreignKeyName,$foreigenKeyId);     
     }
 }

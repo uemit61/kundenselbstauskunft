@@ -4,68 +4,72 @@ require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstau
 class Customer_client
 {
 
-    private $client_id,
-            $client_name,
-            $client_company_name,
-            $client_phone_number,
-            $cient_email,
-            $client_saved_data,
-            $client_main_addres,
-            $customer_id;
+    // private $client_id,
+    //         $client_name,
+    //         $client_company_name,
+    //         $client_phone_number,
+    //         $client_email,
+    //         $client_saved_data,
+    //         $client_main_addres,
+    //         $customer_id;
 
     private $client_second_addres,
             $client_director,
             $client_bank_details,
             $client_legal_information;
 
-    
-        function __construct($load =false)
-        {
-            if($load)
-            {
-                $folder = strtolower(get_class($this));
-                foreach
-                (glob('C:/xampp/htdocs/Kundenselbstauskunft/model/customer/kundenselbstauskunftsformular/'.$folder.'/*.php') as $filename)
-                {
-                    require_once $filename;
-                    $subEntity = pathinfo($filename, PATHINFO_FILENAME);
+    public  $pdo,$customer, $customerId,$foreignKeyId,$primaeryKeyName, $foreignKeyName ='client_id', $entityName = 'customer_client', $entityList;
 
-                    if($subEntity !== 'customer_client')
-                    {
-                        $class_name = ucfirst($subEntity);
-                        if($class_name !='Db_transactions')
-                        {
-                            $this->$subEntity = new $class_name();
-                        }
-                    }
-                }
-            }
-        }
+    public $formData;
 
-        public function loadFormData()
+        public function __construct($pdo=null,$customer=null, $primaeryKeyName = null)
     {
-        $this->foreignKeyId = $this->basic_info($this->pdo, $this->customer)['main_id'];
-        $this->formData[$this->entityName] = $this->loadFromDB();
+        $this->pdo = $pdo;
+        $this->customer = $customer;
+ 
+        $this->primaeryKeyName = $primaeryKeyName;
 
-        foreach($this->entityList as $entity)
+        foreach(glob('C:/xampp/htdocs/Kundenselbstauskunft/model/customer/kundenselbstauskunftsformular/customer_client/*.php') as $path)
         {
-            if($entity !== 'customer_client')
-            {   
-                
-                $this->formData[$entity] = $this->$entity->loadFromDB($this->pdo,$entity,$this->foreignKeyName,$this->foreignKeyId);
-            }
-        }
-        return $this->formData;
+            require_once $path;
+            $filename = pathinfo($path, PATHINFO_FILENAME);
+            $this->entityList[] =$filename;
+        }       
     }
 
-    public function basic_info($pdo)
+         public function loadFormData($clientId)
+        {
+            
+            $this->foreignKeyId = $clientId;
+            $clientId = ($clientId == 1) ? '' : $clientId;
+            $cnameModi = $this->entityName.$clientId;
+            $this->formData[$cnameModi] = $this->loadFromDB();
+
+            foreach($this->entityList as $entity)
+            {
+                if($entity !== 'customer_client')
+                {   
+                    $class = ucfirst($entity);
+                    $this->$entity =  new $class();
+                    
+                    $this->formData[$entity.$clientId] = $this->$entity->loadFromDB($this->pdo,$entity,$this->foreignKeyName,$this->foreignKeyId);
+                }
+            }
+            var_dump($this->formData);
+            
+            return $this->formData;
+        }
+
+    public function basic_info($pdo,$customer)
     {
         try
         {
             $con = $pdo->connectToDb();
-            $query='SELECT count(*) AS "numberClient"
-                    FROM    `customer_client`';
+            $query='SELECT  count(*) AS "numberClient"
+                    FROM    `customer_client`
+                    WHERE  `customer_id` = :customer_id';
             $stmt = $con->prepare($query);
+            $stmt->bindValue(':customer_id', $customer->getCustomer_id());
             $stmt->execute();
             $pdo->closeConnection();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -163,9 +167,8 @@ class Customer_client
      */ 
     public function setClient_company_name($client_company_name)
     {
-                $this->client_company_name = $client_company_name;
-
-                return $this;
+        $this->client_company_name = $client_company_name;
+        return $this;
     }
 
     /**
@@ -228,9 +231,9 @@ class Customer_client
                 return $this;
     }
 
-    public static function loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id)
+    public function loadFromDB()
     {
-        return loadFromDB($pdo,$entity_name,$foreignKeyName,$parentEnity_id);     
+        return loadFromDB($this->pdo, $this->entityName,$this->foreignKeyName,$this->foreignKeyId);
     }
 }
     
