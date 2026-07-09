@@ -1,5 +1,7 @@
 <?php
 
+require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
+
 class Customer_contact_information
 {
     private $contact_information_id;
@@ -142,67 +144,14 @@ class Customer_contact_information
         return $retVal;
     }
 
-    public static function createRecord($pdo,$customer_contact_information)
+    public static function saveEntity($pdo,$data,$entity_name)
     {
-        // var_dump($customer_contact_information);
-        // exit();
-        try
-        {
-            // var_dump($customer_contact_information);
-            // exit();
-
-            $con = $pdo->connectToDb();
-            $query='INSERT INTO `customer_contact_information` 
-                                (`contact_information_id`, 
-                                `contact_information_company_name`, 
-                                `contact_information_phone`, 
-                                `contact_information_email`, 
-                                `contact_information_saved_data`, 
-                                `customer_id`) 
-                        VALUES  (:contact_information_id, 
-                                :contact_information_company_name, 
-                                :contact_information_phone, 
-                                :contact_information_email, 
-                                :contact_information_saved_data, 
-                                :customer_id)';
-            $stmt = $con->prepare($query);
-            $stmt->execute($customer_contact_information);
-
-            echo 'Kontaktinformationen wurden gespeichert';
-        }
-        catch(Exception $e)
-        {
-            echo 'Kontaktinformationen wurden nicht gespeichert'.$e;
-        }
-        $pdo->closeConnection();
-
-       
+        saveEntityToDB($pdo, $data, 'customer_contact_information');
     }
 
-    public static function saveEntity($pdo,$customer_contact_information)
+    public static function createRecord($pdo,$data,$entity_name)
     {
-        try
-        {
-            $con = $pdo->connectToDb();
-            $query ="UPDATE `customer_contact_information` 
-                    SET `contact_information_company_name` = :contact_information_company_name, 
-                        `contact_information_phone` = :contact_information_phone, 
-                        `contact_information_email` = :contact_information_email, 
-                        `contact_information_saved_data` = :contact_information_saved_data 
-                    WHERE `contact_information_id` = :contact_information_id
-                    AND `customer_id` = :customer_id;";
-            $stmt= $con->prepare($query);
-            $stmt->execute($customer_contact_information);
-
-            echo 'Kontaktinformationen wurden aktualisiert.';
-           
-        }
-        catch(Exception $e)
-        {
-            echo 'Kontaktinformationen konnten nicht aktualisiert werden.'.$e;
-        }
-         $pdo->closeConnection();
+        var_dump('what?');
+        createRecordToDB($pdo,$data, 'customer_contact_information');
     }
-
-
 }
