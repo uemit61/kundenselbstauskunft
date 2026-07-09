@@ -2,11 +2,11 @@
 require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
 class Erp_configuration_order_conformation
 {
-    private $erp_configuration_order_conformation_id,
-            $erp_configuration_order_conformation_month,	
-            $erp_configuration_order_conformation_year,	
-            $erp_configuration_order_conformation_first,	
-            $erp_configuration_id;
+    // private $erp_configuration_order_conformation_id,
+    //         $erp_configuration_order_conformation_month,	
+    //         $erp_configuration_order_conformation_year,	
+    //         $erp_configuration_order_conformation_first,	
+    //         $erp_configuration_id;
 
     public function setErpConfigurationOrderConformationId($erp_configuration_order_conformation_id)
     {

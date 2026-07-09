@@ -17,14 +17,14 @@
     public $formData, $entityList;
 
         
-    public function __construct($pdo=null,$customer=null, $primaeryKeyName = null,$foreignKeyName=null,$parentEnityId=null)
+    public function __construct($pdo=null,$customer=null, $primaeryKeyName = null,$foreignKeyName=null)
     {
  
         $this->pdo = $pdo;
         $this->customer = $customer;
         $this->foreignKeyName = $foreignKeyName;
         $this->primaeryKeyName = $primaeryKeyName;
-        $this->parentEnityId = $parentEnityId;
+        
         
         foreach(glob('C:/xampp/htdocs/Kundenselbstauskunft/model/customer/kundenselbstauskunftsformular/customer_host_configuration/*.php') as $path)
         {

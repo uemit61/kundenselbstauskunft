@@ -2,12 +2,12 @@
 require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
 class erp_configuration_item_types
 {
-    private $erp_configuration_item_types_id,
-            $erp_configuration_item_types_item,	
-            $erp_configuration_item_types_bom,	
-            $erp_configuration_item_types_services,
-            $erp_configuration_item_types_variant_item,
-            $erp_configuration_id;
+    // private $erp_configuration_item_types_id,
+    //         $erp_configuration_item_types_item,	
+    //         $erp_configuration_item_types_bom,	
+    //         $erp_configuration_item_types_services,
+    //         $erp_configuration_item_types_variant_item,
+    //         $erp_configuration_id;
 
     public function setErpConfigurationItemTypesId($erp_configuration_item_types_id)
     {

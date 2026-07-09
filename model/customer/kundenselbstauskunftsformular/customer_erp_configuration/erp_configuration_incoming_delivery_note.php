@@ -2,11 +2,11 @@
 require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
 class erp_configuration_incoming_delivery_note
 {
-    private $erp_configuration_incoming_delivery_note_id,
-            $erp_configuration_incoming_delivery_note_month,	
-            $erp_configuration_incoming_delivery_note_year,	
-            $erp_configuration_incoming_delivery_note_first,	
-            $erp_configuration_id;
+    // private $erp_configuration_incoming_delivery_note_id,
+    //         $erp_configuration_incoming_delivery_note_month,	
+    //         $erp_configuration_incoming_delivery_note_year,	
+    //         $erp_configuration_incoming_delivery_note_first,	
+    //         $erp_configuration_id;
 
     public function setErpConfigurationIncomingDeliveryId($erp_configuration_incoming_delivery_note_id)
     {

@@ -2,11 +2,11 @@
 require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
 class Erp_configuration_offer
 {
-    private $erp_configuration_offer_id,
-            $erp_configuration_offer_month,	
-            $erp_configuration_offer_year,	
-            $erp_configuration_offer_first,	
-            $erp_configuration_id;
+    // private $erp_configuration_offer_id,
+    //         $erp_configuration_offer_month,	
+    //         $erp_configuration_offer_year,	
+    //         $erp_configuration_offer_first,	
+    //         $erp_configuration_id;
 
     public function setErpConfigurationOfferId($erp_configuration_offer_id)
     {

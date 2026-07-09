@@ -2,11 +2,11 @@
 require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
 class Erp_configuration_invoice
 {
-    private $erp_configuration_invoice_id,
-            $erp_configuration_invoice_month,	
-            $erp_configuration_invoice_year,	
-            $erp_configuration_invoice_first,	
-            $erp_configuration_id;
+    // private $erp_configuration_invoice_id,
+    //         $erp_configuration_invoice_month,	
+    //         $erp_configuration_invoice_year,	
+    //         $erp_configuration_invoice_first,	
+    //         $erp_configuration_id;
 
     public function setErpConfigurationInvoiceId($erp_configuration_invoice_id)
     {

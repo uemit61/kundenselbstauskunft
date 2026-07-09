@@ -68,7 +68,7 @@ class Host_configuration_ip_addres_connect_external_device
 
     public function sethost_configuration_ip_addres_connect_external_device_ip($backup_ip)
     {
-        $this->backup_ip = $backup_ip;
+        $this->host_configuration_ip_addres_connect_external_device_backup_ip = $backup_ip;
         return $this;
     }
 
