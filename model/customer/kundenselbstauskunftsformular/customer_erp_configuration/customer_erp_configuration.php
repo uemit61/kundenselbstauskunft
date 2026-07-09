@@ -1,5 +1,5 @@
 <?php
-
+require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
 class Customer_erp_configuration
 {
     private $erp_configuration_id,
@@ -68,56 +68,14 @@ class Customer_erp_configuration
         return $retVal;
     }
 
-    public static function createRecord($pdo,$customer_erp_configuration)
+       public static function saveEntity($pdo,$data,$entity_name)
     {
-        try
-        {
-            $con = $pdo->connectToDb();
-            $query='INSERT INTO `customer_erp_configuration` 
-                                (`erp_configuration_id`, 
-                                `erp_configuration_number_of_user`, 
-                                `erp_configuration_saved_data`, 
-                                `customer_id`) 
-                    VALUES 
-                                (:erp_configuration_id,
-                                 :erp_configuration_number_of_user,
-                                 :erp_configuration_saved_data,
-                                 :customer_id)';
-            $stmt = $con->prepare($query);
-            $stmt->execute($customer_erp_configuration);
-        }
-        catch(Exception $e)
-        {
-            echo 'ERPUser wurde nicht gespeichert wurden nicht gespeichert'.$e;
-        }
-        $pdo->closeConnection();
+        saveEntityToDB($pdo, $data, $entity_name);
     }
 
-    public static function saveEntity($pdo,$customer_erp_configuration)
+    public static function createRecord($pdo,$data,$entity_name)
     {
-        try
-        {
-            // var_dump($ustomer_erp_configuration);
-            // exit();
-            $con = $pdo->connectToDb();
-
-            $query ='UPDATE `customer_erp_configuration` 
-                        SET `erp_configuration_number_of_user` =  :erp_configuration_number_of_user, 
-                            `erp_configuration_saved_data` = :erp_configuration_saved_data
-                    WHERE   `erp_configuration_id` = :erp_configuration_id 
-                    AND     `customer_id` = :customer_id';
-
-            $stmt = $con->prepare($query);
-            $stmt->execute($customer_erp_configuration);
-
-            echo 'ERPUser  wurden aktualisiert.';
-            
-        }
-        catch(Exception $e)
-        {
-            echo 'ERPUser konnten nicht aktualisiert werden.'.$e;
-        }
-            $pdo->closeConnection();
+        createRecordToDB($pdo,$data, $entity_name);
     }
 
     

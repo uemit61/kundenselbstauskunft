@@ -1,5 +1,5 @@
 <?php
-
+require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
 class Erp_configuration_order_conformation
 {
     private $erp_configuration_order_conformation_id,
@@ -58,60 +58,14 @@ class Erp_configuration_order_conformation
         return $this->erp_configuration_id;
     }
 
-    public static function saveEntity($pdo,$erp_configuration_order_conformation)
+    public static function saveEntity($pdo,$data,$entity_name)
     {
-        try
-        {
-            $con = $pdo->connectToDb();
-
-            $query = "UPDATE `erp_configuration_order_conformation` 
-                         SET `erp_configuration_order_conformation_month` = :erp_configuration_order_conformation_month, 
-                             `erp_configuration_order_conformation_year`  = :erp_configuration_order_conformation_year, 
-                             `erp_configuration_order_conformation_first` = :erp_configuration_order_conformation_first 
-                       WHERE `erp_configuration_order_conformation`.`erp_configuration_id` = :erp_configuration_id";
-
-            $stmt = $con->prepare($query);
-            $stmt->execute($erp_configuration_order_conformation);
-
-            echo 'Aufrtragsbestätigung aktualisiert';
-        }
-        catch(Exception $e)
-        {
-            echo 'Aufrtragsbestätigung nicht aktualisiert'.$e;
-        }
-        
-        $pdo->closeConnection();
-
+        saveEntityToDB($pdo, $data, $entity_name);
     }
 
-    public static function createRecord($pdo,$erp_configuration_order_conformation)
+    public static function createRecord($pdo,$data,$entity_name)
     {
-        try
-        {
-            $con = $pdo->connectToDb();
-            $query = "INSERT INTO `erp_configuration_order_conformation` 
-                             (`erp_configuration_order_conformation_id`, 
-                              `erp_configuration_order_conformation_month`, 
-                              `erp_configuration_order_conformation_year`, 
-                              `erp_configuration_order_conformation_first`, 
-                              `erp_configuration_id`) 
-                      VALUES  (:erp_configuration_order_conformation_id,
-                               :erp_configuration_order_conformation_month,
-                               :erp_configuration_order_conformation_year,
-                               :erp_configuration_order_conformation_first,
-                               :erp_configuration_id)";
-
-            $stmt = $con->prepare($query);
-            $stmt->execute($erp_configuration_order_conformation);
-
-            
-           echo 'Aufrtragsbestätigung eingefügt';
-        }
-        catch(Exception $e)
-        {
-            echo 'Aufrtragsbestätigung nicht eingefügt'.$e;
-        }
-        $pdo->closeConnection();
+        createRecordToDB($pdo,$data, $entity_name);
     }
     
 

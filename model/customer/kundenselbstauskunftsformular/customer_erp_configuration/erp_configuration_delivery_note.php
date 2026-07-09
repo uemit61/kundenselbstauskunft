@@ -1,5 +1,5 @@
 <?php
-
+require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
 class Erp_configuration_delivery_note
 {
     private $erp_configuration_delivery_note_id,
@@ -58,60 +58,14 @@ class Erp_configuration_delivery_note
         return $this->erp_configuration_id;
     }
 
-    public static function saveEntity($pdo,$erp_configuration_delivery_note)
+      public static function saveEntity($pdo,$data,$entity_name)
     {
-        try
-        {
-            $con = $pdo->connectToDb();
-
-            $query = "UPDATE `erp_configuration_delivery_note` 
-                         SET `erp_configuration_delivery_note_month` = :erp_configuration_delivery_note_month, 
-                             `erp_configuration_delivery_note_year`  = :erp_configuration_delivery_note_year, 
-                             `erp_configuration_delivery_note_first` = :erp_configuration_delivery_note_first 
-                       WHERE `erp_configuration_delivery_note`.`erp_configuration_id` = :erp_configuration_id";
-
-            $stmt = $con->prepare($query);
-            $stmt->execute($erp_configuration_delivery_note);
-
-            echo 'Lieferschein aktualisiert';
-        }
-        catch(Exception $e)
-        {
-            echo 'Lieferschein nicht aktualisiert'.$e;
-        }
-        
-        $pdo->closeConnection();
-
+        saveEntityToDB($pdo, $data, $entity_name);
     }
 
-    public static function createRecord($pdo,$erp_configuration_delivery_note)
+    public static function createRecord($pdo,$data,$entity_name)
     {
-        try
-        {
-            $con = $pdo->connectToDb();
-            $query = "INSERT INTO `erp_configuration_delivery_note` 
-                             (`erp_configuration_delivery_note_id`, 
-                              `erp_configuration_delivery_note_month`, 
-                              `erp_configuration_delivery_note_year`, 
-                              `erp_configuration_delivery_note_first`, 
-                              `erp_configuration_id`) 
-                      VALUES  (:erp_configuration_delivery_note_id,
-                               :erp_configuration_delivery_note_month,
-                               :erp_configuration_delivery_note_year,
-                               :erp_configuration_delivery_note_first,
-                               :erp_configuration_id)";
-
-            $stmt = $con->prepare($query);
-            $stmt->execute($erp_configuration_delivery_note);
-
-            
-           echo 'Lieferschein eingefügt';
-        }
-        catch(Exception $e)
-        {
-            echo 'Lieferschein nicht eingefügt'.$e;
-        }
-        $pdo->closeConnection();
+        createRecordToDB($pdo,$data, $entity_name);
     }
     
 

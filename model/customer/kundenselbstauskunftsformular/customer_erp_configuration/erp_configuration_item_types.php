@@ -1,5 +1,5 @@
 <?php
-
+require_once('C:\xampp\htdocs\kundenselbstauskunft\model\customer\kundenselbstauskunftsformular\db_transactions.php');
 class erp_configuration_item_types
 {
     private $erp_configuration_item_types_id,
@@ -59,63 +59,14 @@ class erp_configuration_item_types
         return $this->erp_configuration_id;
     }
 
-    public static function saveEntity($pdo,$erp_configuration_item_types)
+       public static function saveEntity($pdo,$data,$entity_name)
     {
-        try
-        {
-            $con = $pdo->connectToDb();
-
-            $query = "UPDATE `erp_configuration_item_types` 
-                         SET `erp_configuration_item_types_item` = :erp_configuration_item_types_item, 
-                             `erp_configuration_item_types_bom`  = :erp_configuration_item_types_bom, 
-                             `erp_configuration_item_types_services` = :erp_configuration_item_types_services,
-                             `erp_configuration_item_types_variant_item` = :erp_configuration_item_types_variant_item
-                       WHERE `erp_configuration_id` = :erp_configuration_id";
-
-            $stmt = $con->prepare($query);
-            $stmt->execute($erp_configuration_item_types);
-
-            echo 'ItemTypen aktualisiert';
-        }
-        catch(Exception $e)
-        {
-            echo 'ItemTypen nicht aktualisiert'.$e;
-        }
-        
-        $pdo->closeConnection();
-
+        saveEntityToDB($pdo, $data, $entity_name);
     }
 
-    public static function createRecord($pdo,$erp_configuration_item_types)
+    public static function createRecord($pdo,$data,$entity_name)
     {
-        try
-        {
-            $con = $pdo->connectToDb();
-            $query = "INSERT INTO `erp_configuration_item_types` 
-                             (`erp_configuration_item_types_id`, 
-                              `erp_configuration_item_types_item`, 
-                              `erp_configuration_item_types_bom`, 
-                              `erp_configuration_item_types_services`,
-                              `erp_configuration_item_types_variant_item`,
-                              `erp_configuration_id`) 
-                      VALUES  (:erp_configuration_item_types_id,
-                               :erp_configuration_item_types_item,
-                               :erp_configuration_item_types_bom,
-                               :erp_configuration_item_types_services,
-                               :erp_configuration_item_types_variant_item,
-                               :erp_configuration_id)";
-
-            $stmt = $con->prepare($query);
-            $stmt->execute($erp_configuration_item_types);
-
-            
-           echo 'ItemTypen eingefügt';
-        }
-        catch(Exception $e)
-        {
-            echo 'ItemTypen nicht eingefügt'.$e;
-        }
-        $pdo->closeConnection();
+        createRecordToDB($pdo,$data, $entity_name);
     }
     
 
