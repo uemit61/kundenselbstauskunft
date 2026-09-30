@@ -1,7 +1,7 @@
 
 
 /**
-* @author      Ümit Yildirim <hopes61@icloud.com>
+* @author      Ümit Yildirim <uemit611@outlook.de>
 * @copyright   Copyright (c) 2026 Ümit Yildirim. Alle Rechte vorbehalten.
 * @license     Diese Datei darf nicht ohne Zustimmung des Autors weitergegeben oder verändert werden.
 */
@@ -14,7 +14,7 @@ $(document).ready(function ()
         /**
         * The function `password_input_validation` checks the validity of a password input field based
         * on length, character requirements, and matching confirmation password.
-        * @author      Ümit Yildirim <hopes61@icloud.com>
+        * @author      Ümit Yildirim <uemit611@outlook.de>
         * @copyright   Copyright (c) 2026 Ümit Yildirim. Alle Rechte vorbehalten.
         * @license     Diese Datei darf nicht ohne Zustimmung des Autors weitergegeben oder verändert werden.
         */
