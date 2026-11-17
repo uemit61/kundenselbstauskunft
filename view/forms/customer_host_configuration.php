@@ -20,7 +20,7 @@
 
         $host_configuration_ip_addres_erp=
         [
-            'field_name' => 'Legacy-ERP',
+            'field_name' => 'ERP-Server',
             'dBName' => 'host_configuration_ip_addres_erp',
             ['host_configuration_ip_addres_erp_ip' => ['form-floating flex-fill',['text'],'IP-Addrese']],	
             ['host_configuration_ip_addres_erp_subnetmask'	=>['form-floating flex-fill',['text'],'Subnetzmaske']],
