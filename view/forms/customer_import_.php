@@ -25,7 +25,7 @@
             ['import_customer_data_city' => ['form-check flex-fill',['checkbox'],'Stadt']],
             ['import_customer_data_country' => ['form-check flex-fill',['checkbox'],'Land']],
             ['import_customer_data_company_name' => ['form-check flex-fill',['checkbox'],'Firmenname']],
-            ['import_customer_data_additional_addres_information' 	 => ['form-check flex-fill',['checkbox'],'Zusätzliche Adresinformationen']],
+            ['import_customer_data_additional_addres_information' 	 => ['form-check flex-fill',['checkbox'],'Zusätzliche Adressinformationen']],
             ['import_customer_data_email' => ['form-check flex-fill',['checkbox'],'E-Mail']],
             ['import_customer_data_different_erp_configuration_invoice_email'  => ['form-check flex-fill',['checkbox'],'Abweichende Rechnungs-E-Mail']],	
             ['import_customer_data_phone' => ['form-check flex-fill',['checkbox'],'Telefon']],

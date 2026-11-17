@@ -43,10 +43,10 @@
                     <!-- DOMPurify enthält Funktionen die vor CSS schützen-->
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.0/purify.min.js"></script>
                 <!-- Eigene JavaScript  -->
-                <!-- <script src="/kundenselbstauskunft/controller/javascript_password_form1.js"></script> -->
+             
                 <!-- Bootstrap JS -->
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" ></script>
-                <script type="module" src='/kundenselbstauskunft/controller/jquery_self.js'></script>
+                <script type="module" src='/kundenselbstauskunft/view/js/jquery_self.js'></script>
             </body>
             </html>
 <?php     
