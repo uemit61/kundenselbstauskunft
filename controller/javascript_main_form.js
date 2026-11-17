@@ -9,7 +9,6 @@
 
 $(document).ready(function()
 {
-    console.log('Login erfolgreich.');
     $('#form_customer_contact_information').removeClass('d-none');
 
     let currentStepIndex = 0;
@@ -51,9 +50,7 @@ $(document).ready(function()
             )
             formData[fieldsetId] = fieldsetData;
         })
-        
-        console.log(formData);
-       
+
         return formData;
 
     };
@@ -136,26 +133,10 @@ $(document).ready(function()
             {
                 $(formId).find('.loadData').addClass('d-none');
                 $('.buttons').find('#ltn').addClass('d-none');
-                console.log
-                (
-                    response,
-                    // "Daten erfolgreich gesendet:"+
-                    // response.split('\n')[11]+ "\n"+
-                    // response.split('\n')[12]+"\n"+
-                    // response.split('\n')[13]+"\n"+
-                    // response.split('\n')[14]+"\n"+
-                    // response.split('\n')[15]+"\n"+
-                    // response.split('\n')[16]+"\n"+
-                    // response.split('\n')[17]+"\n",
-                );
             },
-            error: function (error) 
+            error: function (error)
             {
                 console.error('Fehler bei der Anfrage:');
-            },
-            complete: function () 
-            {
-                console.log('Daten wurden erfolgreich in die Datenbank geschrieben.');
             }
         });
         
@@ -202,30 +183,12 @@ $(document).ready(function()
                     method: 'POST',
                     contentType: 'application/json',
                     data:  JSON.stringify({json_form_data: JSON.stringify(form_data), 'page':'save_json_cache'} ),
-                    success: function (response) 
-                    {
-                        var line = response.split('\n');
-                        console.log
-                        (
-                           response
-                        );
-                    },
-                    error: function (xhr, status, error) 
+                    error: function (xhr, status, error)
                     {
                         console.error
                         (
-                            'Fehler bei der Anfrage:', 
+                            'Fehler bei der Anfrage:',
                             error
-                        );
-                    },
-                    complete: function ()
-                    {
-                        console.log
-                        (
-                            "Die Daten wurden nur in ein  Cache gespeichert,\n"
-                            +"  um in die Datenbank zu speichern,\n"
-                            +"drücken Sie auf die Speicherbuttons.\n"
-                            +"Nächste Speicherung in 3 sekunden"
                         );
                     }
                 }

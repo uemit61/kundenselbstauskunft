@@ -7,7 +7,6 @@
 */
 $(document).ready(function () 
 {
-    console.log('loading');
     // Prüfung der Passwort Erstellung (mit jeder Buchtabeneingabe keyup)
 
 

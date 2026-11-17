@@ -23,7 +23,7 @@ $(document).ready
 
         if (login_failed == '1')
         {
-            $('#passwordFeedback').text('Falche Pazword').show();
+            $('#passwordFeedback').text('Falsches Passwort').show();
         };
 
         var inputId;
@@ -32,10 +32,6 @@ $(document).ready
         var openQueue =false;
         var  client_main;
         const regex2 = /^.{1}$/;
-        console.log('JavaScript is loaded successfully');
-
-        const arr = $('.needs-validation'); // was-valid look doc 
-        console.log(arr);
 
         $('[data-bs-toggle="tooltip"]').tooltip(); // Tooltips
 
@@ -50,7 +46,6 @@ $(document).ready
 
         function openClose(e) 
         {
-            console.log(e);
             $(e).toggleClass('bi-chevron-down bi-chevron-right');
             client_main = '.client_main'+$(e).data('no');
             $('#form_customer_client').find(client_main).toggleClass('d-none');
@@ -84,10 +79,8 @@ $(document).ready
                         (
                             function(formId)   
                             {
-                                console.log(data[formId]['loadInfo']);
                                 if(data[formId]['loadInfo'] === 'yes')
                                 {
-                                    console.log('drine Man');
                                     $(formId).find('.loadData').removeClass('d-none');
                                 }   
 
@@ -103,13 +96,8 @@ $(document).ready
                 },
                 error: function(xhr,status,error)
                 {
-                    console.log(error+status);
-                    console.log("Antwort vom Server:", xhr.responseText); 
-                } ,
-                complete: function()
-                {
-                    console.log('Nicht gespeicherte Einträge wurden geladen.');
-                }      
+                    console.error('Fehler beim Laden des Zwischenspeichers:', status, error);
+                }
             }
         );
     }
@@ -128,22 +116,17 @@ $(document).ready
 
                 success: function (data)
                 {
-                    console.log(data);
                     const j = $('#form_customer_client').find('.client_total').data('total');
-                     console.log(j);
-                    
-                    for (let i= j; i >1 ; i--) 
+
+                    for (let i= j; i >1 ; i--)
                     {
-                        console.log(j);
                         deleteClient($(`#form_customer_client #client_body${i} #delteBtn${i}`));
-                        console.log('gelöscht'+i);
                     }
 
                     insertDataToForm(data,formId);
 
                     $(formId).find('.loadData').addClass('d-none');
                     $('.buttons').find('#ltn').addClass('d-none');
-                    console.log('Die gespeicherten Daten wurden geladen.');
 
             
                     
@@ -167,12 +150,9 @@ $(document).ready
 
     function addClient(element) 
     {
-        console.log('hinzufügen wird ausgeführt');
-        console.log(element);
         var total = $(element).data('total')+1;
         $('#form_customer_client').find('.client_total_text').text('Anzahl der Mandanten: '+total);
         var client_body = $($('#client_body1')[0].outerHTML);
-        console.log(client_body);
         $(client_body).attr('id', 'client_body'+total);
         $(client_body).find('.client_main1').removeClass('client_main1').addClass('client_main'+total);
         
@@ -185,9 +165,7 @@ $(document).ready
 
         $('#form_customer_client').append(client_body);
         $(element).data('total', total);
-        console.log(client_body);
 
-        console.log('mandant wurde hinzugefügt');
         if(total>2)
         {
             $('#form_customer_client').find('.clientPlus').eq(1).remove();
@@ -204,34 +182,22 @@ $(document).ready
 
     function insertDataToForm(formData,formId)
     {
-        console.log(formData);
-        console.log(formId);
         Object.keys(formData).forEach
         (
             function(inputId)
             {
-                console.log(inputId);
-               
                 const match = inputId.match(/\d+$/);
                 const numberClient = match ? parseInt(match[0]) : 1;
 
-                console.log(numberClient+' '+inputId.includes('customer_client'));
-
                 if(numberClient >1 && inputId.includes('customer_client'))
                 {
-                    console.log('Füge Mandant hinzu.');
                     let $icon = $('#form_customer_client').find('.client_total');
-                    console.log($icon);
                     addClient($icon);
                 }
 
                 //Fieldset
-                const $input = $(`${formId} #${inputId}`); 
+                const $input = $(`${formId} #${inputId}`);
                 const value = formData[inputId];
-
-                console.log('input',$input) 
-                console.log('Input gefunden:', $input.length > 0);
-                console.log('Wert aus data:', value);
 
                 Object.keys(value).forEach
                 (
@@ -243,13 +209,9 @@ $(document).ready
                         {
                             lastChar = '';
                         }
-                        console.log(input_form);
-                        
+
                         const $inputForm = $(`${formId} #${inputId} #${input_form+lastChar}`);
 
-                        console.log('Input-form gefunden:',$inputForm.length>0);
-                        console.log($inputForm);
-                        
                         if ($inputForm.is('input[type="checkbox"]'))
                         {
                             $inputForm.prop('checked', isChecked(value[input_form]));
@@ -260,7 +222,6 @@ $(document).ready
                         }
                         else
                         {
-                            console.log('geht normal rein')
                             $inputForm.val(value[input_form]);
                         }
                     }
@@ -353,7 +314,6 @@ $(document).ready
             {   
                 inputId = '#'+ event.target.id; // die Id des Eingabefeldes wir ermittelt
 
-                console.log(inputId);
                 inputForm = event.target.form; // die Form des Eingabefeldes wir ermittelt
                 inputEvent = event; // Das Ereignis wird zur Übergabe gespeichert
 
@@ -389,8 +349,6 @@ $(document).ready
                 }
                 else if(event.type == 'change')
                 {
-                    console.log('es tat sich was');
-                    console.log(event.type)
                     openQueue = true;  // Warteschlange wird freigegeben.  
                 }
                 // Es werden zunächst nur Zahlen, Buchstaben, und Sonderzeichen akzeptiert,
@@ -412,7 +370,6 @@ $(document).ready
             inputId = '#'+event.target.id;
             inputForm = event.target.form;
             var feedback = inputId+'Feedback';
-            console.log(regex.test(key));
 
             if(regex.test(key)) // Ungültige Eingabe... // für email eine eigene regexEmail!!!
             {
@@ -451,38 +408,28 @@ $(document).ready
                 // Zusätzliche Überprüfungen des Keys in einer eigenen Funktion erforderlich !!! MACHEN !!!
 
                 let load = true;
-                console.log('Event-Input geöffnet!: '+load); // Verhalten Browser bedingt.
                 // Ereignis wird nicht ausgelöst, wenn die Daten aus der Warteschlange kommen.
-                if (inputForm.length) 
-                {
-                    console.log('existiert');
-                }
-
                  $(document).on
                 (
                     'input change','input', 
                     function()
                     {
-                        console.log('anderer load-zustand: '+load);
                         if($(inputForm).find(inputId).val() !== '' )
                         {
                             if(load)
                             {
-                                console.log('Input geprüft')
-                                openQueue = false;  
+                                openQueue = false;
                                 load = false;
                                 password_input_validation();
                             }
                             else
                             {
-                                console.log('Input wieder geladen   ');
                                 // wenn während des Ereignisses, gespeicherte Formular-
                                 // daten geladen werden wird, der Input-Event-Händler erneut aufgerufen
                                 // damit die Daten in der Warteschlange landen, wird die Schlange
                                 // geöffnet, so dass Event-Change  (s.U) geprüft werden kann.
                                 openQueue = true;
                                 load = true;
-                                // $(inputForm).find(inputId).addClass('is-valid');
                                 password_input_validation();
                             }
                            
@@ -495,20 +442,6 @@ $(document).ready
                         }
                         // Feedback wird nicht mehr angezeigt, da entweder ein gültige Eingabe erfolgt ist
                         // oder das Feld wurde gelöscht
-
-                        if (inputForm.length) 
-                        {
-                            console.log('existiert');
-                        }
-    
-                        // if(inputForm.checkValidity())
-                        // {
-                        //     $(inputForm).find('#save_password').prop('disabled', false); // kann verallgemeinert werden
-                        // }
-                        // else
-                        // {
-                        //     $(inputForm).find('#save_password').prop('disabled', true);
-                        // }
                     }
                 )
             }
@@ -529,9 +462,8 @@ $(document).ready
             {   
                 if(password.length > 0)
                 {
-                    console.log('passwort zu kurz');
                     $('#password').removeClass('is-valid').addClass('is-invalid');
-                    $('#passwordFeedback').text('Das Passwort muss mindesten 8 Zeichen lang sein.').show();
+                    $('#passwordFeedback').text('Das Passwort muss mindestens 8 Zeichen lang sein.').show();
                     $('#passwordFeedback').removeClass('d-none valid-feedback').addClass('invalid-feedback');
                     $('#save_password').prop('disabled', true);
                     
@@ -556,7 +488,7 @@ $(document).ready
             {
                 $('#password').removeClass('is-valid').addClass('is-invalid');
        
-                $('#passwordFeedback').text('Das Passwort muss mindestens ein Großbuchtaben und ein Sonderzeichen enthalten').show();
+                $('#passwordFeedback').text('Das Passwort muss mindestens einen Großbuchstaben und ein Sonderzeichen enthalten').show();
                 $('#passwordFeedback').removeClass('d-none');
                 $('#save_password').prop('disabled', true);
             }
