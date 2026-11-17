@@ -16,7 +16,7 @@
         private $pdo = null;
         private $customer = null;
 
-        function __construct($token,$view,$pdo=null)
+        function __construct($view,$token = null,$pdo=null)
         {
             $this->token = $token;
             $this->pdo = $pdo;
@@ -31,7 +31,6 @@
             {
                 $this->update_view(true);
             }
-
         }
 
         // function load_cache_data()

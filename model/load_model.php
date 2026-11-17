@@ -5,16 +5,18 @@
  * @license     Diese Datei darf nicht ohne Zustimmung des Autors weitergegeben oder verändert werden.
  */
 
+require_once 'C:/xampp/htdocs/Kundenselbstauskunft/model/customer/customer.php';
+
 class LoadModel
 {
 
     private $pdo;
     private $customer;
     
-    public function __construct(Connection $pdo,$customer) 
+    public function __construct(Connection $pdo,$login_customer_id) 
     {
         $this->pdo = $pdo;
-        $this->customer = $customer;
+        $this->customer = Customer::loadEntityById($pdo,$login_customer_id);
     }
 
     public function loadForm($load)

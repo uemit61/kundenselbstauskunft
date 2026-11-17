@@ -14,17 +14,18 @@
         private $model;
         private $customer;
       
-        public function __construct($model)
+        public function __construct($model,$pdo,$login_customer_id)
         {
             $this->model = $model;
+            $this->customer = Customer::loadEntityById($pdo,$login_customer_id);
         }
 
-        public function handleRequest($data,$customer)
+        public function handleRequest($data)
         {
             $data['page'] = str_replace('form_','',$data['page']);
 
             // Das Customer-Objekt wird übergeben.s
-            $this->model->setCustomer($customer);
+            $this->model->setCustomer($this->customer);
 
             // Die Informationen, PrimaryKey und SekundaryKey werden in die Model geladen
             $this->model->basic_info($data['page']);

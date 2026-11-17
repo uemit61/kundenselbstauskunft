@@ -47,10 +47,10 @@ function getPage($data)
     return $page;
 }
 
-function getCustomer()
+function getLoginCustomerId()
 {
     session_start();
-        $user = $_SESSION['customer'] ?? '';
+        $login_customer_id = $_SESSION['login_customer_id'] ?? '';
     session_write_close();
-    return $user;
+    return $login_customer_id;
 }

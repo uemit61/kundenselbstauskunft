@@ -80,8 +80,10 @@ class Customer
             if($user && $user->checkPassword($password,$user->getCustomer_password()))
             {
                 session_start();
+                    session_regenerate_id(true);
                     $_SESSION['page']= 'form_page';
-                    $_SESSION['customer']= $user;
+                    $_SESSION['login_customer_id']= $user->getCustomer_id();
+                    
                 session_write_close();
 
                 $pdo->closeConnection();
@@ -97,6 +99,30 @@ class Customer
             error_log($e);
             return false;
         }
+    }
+
+    public static function loadEntityById($pdo,$id)
+    {
+        $retVal = false;
+        try
+        {
+            $con = $pdo->connectToDb();
+            $query="SELECT  *
+                    FROM    `customer`
+                    WHERE   `customer_id` = :customer_id";
+
+            $stmt = $con->prepare($query);
+            $stmt->bindValue(':customer_id',$id);
+            $stmt->execute();
+            $stmt->setFetchMode(PDO::FETCH_CLASS, self::class);
+            $retVal= $stmt->fetch();   
+        }
+        catch(PDOException $e)
+        {
+            error_log($e);
+        }
+
+        return $retVal;
     }
 
     /*

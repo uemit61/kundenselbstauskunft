@@ -10,10 +10,10 @@
     private $pdo = null;
     private $customer, $customer_id,$json_data,$json_cache_id, $data;
     
-    function __construct($pdo,$customer,$data)
+    function __construct($pdo,$login_customer_id,$data)
     {
         $this->pdo = $pdo;
-        $this->customer =$customer;
+        $this->customer =Customer::loadEntityById($pdo,$login_customer_id);
         $this->data = $data;
     }
 

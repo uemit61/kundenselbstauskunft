@@ -33,7 +33,7 @@ ob_clean();
 
     $page = getPage($data);
 
-    $customer = getCustomer();
+    $login_customer_id = getLoginCustomerId();
     
    
 
@@ -43,7 +43,7 @@ ob_clean();
             require 'C:/xampp/htdocs/Kundenselbstauskunft/model/start_model.php';
             require 'C:/xampp/htdocs/Kundenselbstauskunft/controller/start_controller.php';
             require 'C:/xampp/htdocs/Kundenselbstauskunft/view/pages/start_page.php';
-            $controller = new Start_Controller(new Start_Model($token,new Login_Page(), new Connection()));
+            $controller = new Start_Controller(new Start_Model(new Login_Page(),$token, new Connection()));
             $controller->handleRequest();
         break;
 
@@ -60,13 +60,13 @@ ob_clean();
             break;
         case 'save_json_cache':
             require_once 'C:/xampp/htdocs/Kundenselbstauskunft/model/customer/customer_json_cache.php';
-            $model = new Customer_json_cache(new Connection(true), $customer,$data['json_form_data']);
+            $model = new Customer_json_cache(new Connection(true), $login_customer_id,$data['json_form_data']);
             $model->save_json_to_db();
             die();
         break;
         case 'load_json_cache':
             require_once 'C:/xampp/htdocs/Kundenselbstauskunft/model/customer/customer_json_cache.php';
-            $model = new Customer_json_cache(new Connection(true), $customer,$data['json_form_data']);
+            $model = new Customer_json_cache(new Connection(true), $login_customer_id,$data['json_form_data']);
             $model->load_json_to_db();
             die();
 
@@ -76,7 +76,7 @@ ob_clean();
             ob_clean();
             require_once 'C:\xampp\htdocs\kundenselbstauskunft\controller\load_controller.php';
             require_once 'C:\xampp\htdocs\kundenselbstauskunft\model\load_model.php';
-            $controller = new LoadController(new LoadModel(new Connection(true),$customer));
+            $controller = new LoadController(new LoadModel(new Connection(true),$login_customer_id));
             $controller->handleRequest($data);
         break;
 
@@ -85,8 +85,8 @@ ob_clean();
             require_once 'C:/xampp/htdocs/Kundenselbstauskunft/model/formular_model.php';
             require_once 'C:/xampp/htdocs/Kundenselbstauskunft/view/pages/form_page.php';
             require_once 'C:/xampp/htdocs/Kundenselbstauskunft/controller/form_page_controller.php';           
-            $controller = new CIController(new CIModel(new Form_Page(),new Connection(true),$data));
-            $controller->handleRequest($data,$customer);
+            $controller = new CIController(new CIModel(new Form_Page(),new Connection(true),$data),new Connection(),$login_customer_id);
+            $controller->handleRequest($data);
             die();
         break;
 
