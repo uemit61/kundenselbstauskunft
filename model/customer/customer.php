@@ -84,8 +84,6 @@ class Customer
                     $_SESSION['customer']= $user;
                 session_write_close();
 
-                // Sichtbar mit F12 Entwickler-Modus
-                echo ' Kunde '.$user->customer_login_name.' wurde erfolgreich geladen';  
                 $pdo->closeConnection();
             }
             else
@@ -96,7 +94,7 @@ class Customer
         }
         catch(PDOException $e)
         {
-            echo 'Fehler beim laden vom Kunden'.$e;
+            error_log($e);
             return false;
         }
     }
@@ -187,14 +185,11 @@ class Customer
             $stmt->bindValue(':password', $customer_password, PDO::PARAM_STR);
             $stmt->bindValue(':customer_id', $this->customer_id, PDO::PARAM_STR);
             $stmt->execute();
-
-            echo "<script>console.log('".$hashedPassword."');</script>";
-            
-            echo "<script>console.log('Passwort gespeichert');</script>";
+        
         }
         catch (PDOException $e)
         {
-            echo "Error: ".$e->getMessage();
+           error_log($e);
         }
     }
 

@@ -43,35 +43,24 @@
                     $stmt->setFetchMode(PDO::FETCH_CLASS, self::class);
                     $customer_token = $stmt->fetch();
 
-                    
-
-                    echo '<script>console.log("Daten erfolgreich übermittelt.")</script>';
+                
                     $pdo->closeConnection();
                 }
                 catch(PDOException $e)
                 {
-                    echo "Fehler token: " . $e->getMessage();
+                    error_log($e);
                     exit();
                 }
 
-                if(!$customer_token)
+                if($customer_token && $customer_token->getCustomer_token_used()==false)
                 {
-                    echo "<script> console.log('Das Token ist nicht gültig. Umleitung zum Login_Formurla.');</script>";
-                }
-                else if($customer_token->getCustomer_token_used()==false)
-                {
-                    echo "<script> console.log('Das Token ist gültig. Passwortseite wird geöffnet.');</script>";
-
                     
                     session_start();
                         $_SESSION['customer_id'] = $customer_token->getCustomer_id();
                     session_write_close();
                     
                 }
-                else if ($customer_token->getCustomer_token_used()==1)
-                {
-                    echo "<script> console.log('Das Token wurde schon gebraucht. Weiter zum Login');</script>";
-                }
+                
 
                 return $customer_token;
             }
@@ -96,9 +85,8 @@
                 }
                 catch(PDOException $e)
                 {
-                    echo "Error Token: ".$e->getMessage();
+                    error_log($e);
                     die();
                 }
-                echo "connection closed";
             }
         }

@@ -14,7 +14,7 @@ ob_start();
       private $pdo, $dsn; // erst in connectToDb() gesetzt
       private $options = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_EMULATE_PREPARES => false]; // fester Default
       
-      function __construct($ajax_procedure=false)
+      public function __construct($ajax_procedure=false)
       {
          $env=parse_ini_file(__DIR__ . '/.env');
          $this->servername = $env['DB_HOST'];
@@ -24,7 +24,7 @@ ob_start();
          $this->ajax_procedure = $ajax_procedure;
       }
 
-      function connectToDb() 
+      public function connectToDb() 
       {
          $this->dsn = "mysql:host=$this->servername;dbname=$this->db;charset=utf8";
          
@@ -32,41 +32,19 @@ ob_start();
          {
             $this->pdo = new PDO($this->dsn, $this->username, $this->pw,$this->options);
 
-            if($this->ajax_procedure)
-            {
-               echo ("Verbindung zur Datenbank erfolglreich hergestellt.\n");  // Wird in die console.log vom ajax arg[0][success] eingefügt. 
-            }
-            else
-            {
-?>
-               <script>console.log("Verbindung zur Datenbank erfolglreich hergestellt.\n");</script>
-<?php
-            }
-         } 
+         }
          catch (PDOException $e) 
          {
-            echo "Verbindung zur Datenbank fehlgeschlagen: ". $e->getMessage();
-
+            error_log($e);
             die();
          }
 
             return $this->pdo;
       }
 
-      function closeConnection()
+      public function closeConnection()
       {
-         if($this->ajax_procedure)
-         {
-            echo "Verbindung zur Datenbank erfolgreich kloset:).\n";
-            return null;
-         }
-         else
-         {
-?>
-            <script>console.log("Verbindung zur Datenbank erfolglreich kloset:).");</script>
-<?php
-            return null;
-         }
+         return null;
       }
 
    }
