@@ -142,6 +142,6 @@ class Customer_contact_information extends DbModel
     public function loadOwn()     // oder load() — Hauptsache anders als die statische
     {
         return  static::loadFromDB($this->pdo, $this->entityName, $this->foreignKeyName,
-                $this->customer->getCustomer_id());
+                $this->foreignKeyId);
     }
 }
