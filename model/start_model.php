@@ -61,24 +61,32 @@
         //     $con=$this->pdo->close_connection();
         // }
 
-        function setTokenStatus()
+        public function setTokenStatus()
         {
             
         }
 
-        function checkToken()
+        public function checkToken()
         {
             $this->customer_token = Customer_token::getCustomer_token($this->pdo,$this->token);
         }
 
 
-        function savePassword($password)
+        public function savePassword($password)
         {
-            $this->customer = new Customer();
-            $this->customer->setCustomer_password($password,$this->pdo);
-
-             $this->customer_token = Customer_token::getCustomer_token($this->pdo,$this->token);
-             $this->customer_token->setCustomer_token_used($this->pdo,'1');
+            
+            $this->checkToken();
+            if(empty($this->customer_token) || $this->customer_token->getCustomer_token_used())
+            {
+                return;
+            }
+            else
+            {
+                $this->customer = new Customer();
+                $this->customer->setCustomer_password($password,$this->pdo);
+                $this->customer_token->setCustomer_token_used($this->pdo,'1');
+            }
+            
            
         }
 

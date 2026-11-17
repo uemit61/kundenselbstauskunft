@@ -22,6 +22,9 @@
                 if($action  === "Speichern")
                 {
                     $this->model->savePassword($_POST['password']);
+                    session_start();
+                    unset($_SESSION['customer_id']);
+                    session_write_close();
                 }
                 else if($action === "Anmelden")
                 {   
