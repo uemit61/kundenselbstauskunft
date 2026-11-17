@@ -150,31 +150,48 @@ class Customer
         }
     }
 
-    private function checkPassword($password,$loadedPassword)
+    private function addPepper($password)
     {
-        echo "Checking password";
-        $retVal = false;
-        define('DECODE', 'maypass61'); // verstecken in env und random!! unsicher!
-        $pepperPass = $password. DECODE;
-        if(password_verify($pepperPass,'$argon2id$v=19$m=65536,t=4,p=1$'.$loadedPassword))
+        $env=parse_ini_file(__DIR__ . '/../../.env');
+        $retVal ='';
+        
+        if(!empty($env['PASSWORD_PEPPER']))
         {
-            $retVal =true;
+            $retVal = $password.$env['PASSWORD_PEPPER'];
+        }
+        else
+        {
+            
+            error_log('PASSWORD_PEPPER fehlt in der .env');
         }
         return $retVal;
     }
+    private function checkPassword($password,$loadedPassword)
+    {
+        $retVal = false;
+        $pepperPass = $this->addPepper($password);
 
-
+        if(password_verify($pepperPass,$loadedPassword))
+        {
+            $retVal =true;
+        }
+        
+        return $retVal;
+    }
   
     public function setCustomer_password($customer_password,$pdo)
     {
-        define('CODE', 'maypass61');
-        $passwordWithPepper = $customer_password . CODE;
-        $hashedPassword = password_hash($passwordWithPepper, PASSWORD_ARGON2ID);
-        $customer_password = explode('p=1$', $hashedPassword)[1];
+        $passwordWithPepper =$this->addPepper( $customer_password);
+
+        if(empty($passwordWithPepper))
+            die();
+
+        $customer_password = password_hash($passwordWithPepper, PASSWORD_ARGON2ID);
+        
         session_start();
             $this->customer_id = $_SESSION['customer_id'];
         session_write_close();
-
+            
         try
         {
             $con = $pdo->connectToDb();
