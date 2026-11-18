@@ -35,8 +35,6 @@
             {
                 $main_id= $this->model->getMain_id(); 
                 $is_saved = $this->model->getSaved_data();
-
-                var_dump($main_id);
                 
                 //AttributsNamen werden angepasst
                 $this->saveToDb($data, $main_id, $is_saved);
