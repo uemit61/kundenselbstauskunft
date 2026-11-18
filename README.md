@@ -106,13 +106,23 @@ Für einen weiteren Durchlauf des Einladungswegs in der Tabelle `customer_token`
   ausgegeben
 
 Mehrere dieser Punkte sind Ergebnis eines Sicherheits-Reviews im November 2026, behoben in
-`65079ba`, `0c4e3a8`, `ad2cb7e` und `c89065d`.
+`b4fbed1`, `3338326`, `fd83353` und `076b50c`.
 
-**Noch offen**
+**Nächste Schritte, in dieser Reihenfolge**
 
-- Spalten- und Tabellennamen im generischen CRUD stammen aus den Feldnamen der Formulardaten
-  und werden noch nicht gegen die erlaubten Namen geprüft
-- CSRF-Schutz für die Formulare
+1. **Bezeichner im generischen CRUD prüfen.** Spalten- und Tabellennamen stammen aus den
+   Feldnamen der Formulardaten und werden bisher ungeprüft in den SQL-Text eingesetzt.
+   Werte lassen sich binden, Namen nicht; ein manipulierter Feldname kann deshalb SQL
+   einschleusen (betrifft nur angemeldete Kunden). Erster Schritt: nur Buchstaben, Ziffern und
+   Unterstrich zulassen. Dazu Debug-Ausgaben (`var_dump`) aus den Models entfernen.
+2. **Nur erlaubte Felder annehmen (Mass Assignment).** Gespeichert werden soll nur, was in der
+   Formular-Konfiguration definiert ist. IDs und die Kunden-ID setzt ausschließlich der Server;
+   bisher könnte ein mitgeschicktes Feld `customer_id` den Wert des Servers überschreiben.
+   Der Seitenname wird auf die bekannten Formulare begrenzt.
+3. **CSRF-Schutz** für die Formulare.
+
+**Außerdem offen**
+
 - Begrenzung fehlgeschlagener Anmeldeversuche
 - Ablaufdatum und strengere Formatprüfung für Einladungstokens
 - Passwortregeln zusätzlich auf dem Server prüfen (bisher nur im Browser)
