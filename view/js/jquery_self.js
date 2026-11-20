@@ -458,7 +458,7 @@ $(document).ready
             let regex2 = /[@#'<>"=]/;  // Nur Zeichen, die nicht @#'<>= enthalten
 
             
-            if(password.length <8)
+            if(password && password.length <8)
             {   
                 if(password.length > 0)
                 {
@@ -502,7 +502,7 @@ $(document).ready
 
                 if(password !== confirmPassword)
                 {
-                    if(confirmPassword.length>0)
+                    if(confirmPassword && confirmPassword.length>0)
                     {
                         $('#confirm_password').removeClass('is-valid').addClass('is-invalid');
                         $('#confirm_passwordFeedback').removeClass('valid-feedback').addClass('invalid-feedback');
