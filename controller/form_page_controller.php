@@ -14,10 +14,10 @@
         private $model;
         private $customer;
       
-        public function __construct($model,$pdo,$login_customer_id)
+        public function __construct($model,$pdo,$customer)
         {
             $this->model = $model;
-            $this->customer = Customer::loadEntityById($pdo,$login_customer_id);
+            $this->customer = $customer;
         }
 
         public function handleRequest($data)

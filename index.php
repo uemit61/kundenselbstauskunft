@@ -33,7 +33,7 @@ ob_clean();
 
     $page = getPage($data);
 
-    $login_customer_id = getLoginCustomerId();
+    $customer = getCustomer(new Connection(true));
     
    
 
@@ -60,13 +60,13 @@ ob_clean();
             break;
         case 'save_json_cache':
             require_once 'C:/xampp/htdocs/Kundenselbstauskunft/model/customer/customer_json_cache.php';
-            $model = new Customer_json_cache(new Connection(true), $login_customer_id,$data['json_form_data']);
+            $model = new Customer_json_cache(new Connection(true), $customer,$data['json_form_data']);
             $model->save_json_to_db();
             die();
         break;
         case 'load_json_cache':
             require_once 'C:/xampp/htdocs/Kundenselbstauskunft/model/customer/customer_json_cache.php';
-            $model = new Customer_json_cache(new Connection(true), $login_customer_id,$data['json_form_data']);
+            $model = new Customer_json_cache(new Connection(true), $customer,$data['json_form_data']);
             $model->load_json_to_db();
             die();
 
@@ -76,7 +76,7 @@ ob_clean();
             ob_clean();
             require_once 'C:\xampp\htdocs\kundenselbstauskunft\controller\load_controller.php';
             require_once 'C:\xampp\htdocs\kundenselbstauskunft\model\load_model.php';
-            $controller = new LoadController(new LoadModel(new Connection(true),$login_customer_id));
+            $controller = new LoadController(new LoadModel(new Connection(true),$customer));
             $controller->handleRequest($data);
         break;
 
@@ -85,7 +85,7 @@ ob_clean();
             require_once 'C:/xampp/htdocs/Kundenselbstauskunft/model/formular_model.php';
             require_once 'C:/xampp/htdocs/Kundenselbstauskunft/view/pages/form_page.php';
             require_once 'C:/xampp/htdocs/Kundenselbstauskunft/controller/form_page_controller.php';           
-            $controller = new CIController(new CIModel(new Form_Page(),new Connection(true),$data),new Connection(),$login_customer_id);
+            $controller = new CIController(new CIModel(new Form_Page(),new Connection(true),$data),new Connection(),$customer);
             $controller->handleRequest($data);
             die();
         break;

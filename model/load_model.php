@@ -13,10 +13,10 @@ class LoadModel
     private $pdo;
     private $customer;
     
-    public function __construct(Connection $pdo,$login_customer_id) 
+    public function __construct(Connection $pdo,$customer) 
     {
         $this->pdo = $pdo;
-        $this->customer = Customer::loadEntityById($pdo,$login_customer_id);
+        $this->customer = $customer;
     }
 
     public function loadForm($load)

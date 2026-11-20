@@ -47,10 +47,11 @@ function getPage($data)
     return $page;
 }
 
-function getLoginCustomerId()
+function getCustomer($pdo)
 {
     session_start();
         $login_customer_id = $_SESSION['login_customer_id'] ?? '';
+        $customer = Customer::loadEntityById($pdo,$login_customer_id);
     session_write_close();
-    return $login_customer_id;
+    return $customer;
 }
