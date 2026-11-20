@@ -67,9 +67,13 @@ Config_Self_Disclosure_Testdaten.sql   Testkunde, Einladungstoken, Platzhalter-L
 
 ## Entwurf aus der Planungsphase
 
-Vor der Umsetzung wurde die Anwendung in UML modelliert. Die Diagramme zeigen den damals
-geplanten Stand, nicht den heutigen Code: Einige Klassen heißen inzwischen anders, und
-Dashboard, Mailer und PDF-Zusammenfassung sind bisher nicht umgesetzt.
+Vor der Umsetzung wurde die Anwendung in UML modelliert. Die Diagramme sind nicht per
+Drag-and-drop gezeichnet, sondern als Quelltext in [PlantUML](https://plantuml.com/)
+geschrieben (Editor: [PlantText](https://www.planttext.com/)) und daraus erzeugt.
+
+> **Hinweis:** Die Diagramme sind veraltet und werden überarbeitet. Sie zeigen den damals
+> geplanten Stand, nicht den heutigen Code: Einige Klassen heißen inzwischen anders, und
+> Dashboard, Mailer und PDF-Zusammenfassung sind bisher nicht umgesetzt.
 
 ![Klassendiagramm (Entwurf)](docs/entwurf-klassendiagramm.png)
 
