@@ -65,6 +65,27 @@ Config_Self_Disclosure.sql   Datenbankschema
 Config_Self_Disclosure_Testdaten.sql   Testkunde, Einladungstoken, Platzhalter-Logo
 ```
 
+## Entwurf aus der Planungsphase
+
+Vor der Umsetzung wurde die Anwendung in UML modelliert. Die Diagramme zeigen den damals
+geplanten Stand, nicht den heutigen Code: Einige Klassen heißen inzwischen anders, und
+Dashboard, Mailer und PDF-Zusammenfassung sind bisher nicht umgesetzt.
+
+![Klassendiagramm (Entwurf)](docs/entwurf-klassendiagramm.png)
+
+![Anwendungsfälle (Entwurf)](docs/entwurf-anwendungsfaelle.png)
+
+Weitere Diagramme in [`docs/`](docs):
+
+- Sequenzdiagramm „Formular speichern“:
+  [ausführlich](docs/entwurf-sequenz-formular-speichern.png),
+  [kurz](docs/entwurf-sequenz-formular-speichern-kurz.png)
+- Aktivitätsdiagramme:
+  [Start und Login](docs/entwurf-aktivitaet-start-und-login.png),
+  [Formular speichern](docs/entwurf-aktivitaet-formular-speichern.png)
+- Datenmodell: [Übersicht](docs/entwurf-datenmodell.png), [Detail (PDF)](docs/entwurf-datenmodell.pdf)
+- Dashboard: [Desktop](docs/entwurf-dashboard.png), [Mobil](docs/entwurf-dashboard-mobil.png)
+
 ## Lokal starten
 
 Voraussetzung: [XAMPP](https://www.apachefriends.org/) mit PHP 8.4 und MariaDB unter Windows.
