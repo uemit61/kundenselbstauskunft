@@ -33,33 +33,6 @@
             }
         }
 
-        // function load_cache_data()
-        // {
-        //     try
-        //     {
-        //         $con = $this->pdo->connectToDb();
-        //         $query ="SELECT json_data
-        //                 FROM `customer_json_cache` 
-        //                 WHERE customer_id = :customer_id";
-
-        //         $stmt = $con->prepare($query);
-        //         $stmt->bindValue(':customer_id',$this->customer->getId);
-        //         $stmt->execute();
-
-        //         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        //         $file = fopen("C:\\xampp\\htdocs\\kundenselbstauskunft\\temp\\session\\mySession","w+");
-
-        //         fwrite($file, $result['json_data']);
-        //         fclose($file);
-        //     }
-        //     catch (PDOException $e)
-        //     {
-        //         echo "Fehler json_data, logo: " . $e->getMessage();
-        //         exit();
-        //     }
-        //     $con=$this->pdo->close_connection();
-        // }
 
         public function setTokenStatus()
         {
