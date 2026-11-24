@@ -277,7 +277,7 @@ DROP TABLE IF EXISTS `config_self_disclosure`.`customer_json_cache` ;
 CREATE TABLE IF NOT EXISTS `config_self_disclosure`.`customer_json_cache` (
   `json_cache_id` INT NOT NULL AUTO_INCREMENT,
   `json_data` LONGTEXT NULL DEFAULT NULL,
-  `customer_id` INT NOT NULL,
+  `customer_id` INT NOT NULL UNIQUE,
   PRIMARY KEY (`json_cache_id`, `customer_id`),
   CONSTRAINT `fk_customer_json_cache_customer1`
     FOREIGN KEY (`customer_id`)
