@@ -87,10 +87,20 @@ INSERT INTO `customer`
 VALUES
   ('test@example.com', NULL, '0', '0');
 
+-- ID des Testkunden merken: LAST_INSERT_ID() liefert nach jedem weiteren
+-- INSERT die ID der zuletzt angelegten Zeile, nicht mehr die des Kunden.
+SET @test_customer_id = LAST_INSERT_ID();
+
 -- Einmal-Token für die Einladung des Testkunden.
 -- Nach dem Setzen des Passworts ist es verbraucht. Für einen neuen
 -- Durchlauf: customer_token_used wieder auf '0' setzen.
 INSERT INTO `customer_token`
   (`customer_token_key`, `customer_token_used`, `customer_id`)
 VALUES
-  ('demo-einladung', '0', LAST_INSERT_ID());
+  ('demo-einladung', '0', @test_customer_id);
+
+-- Zwischenspeicher für die Formulardaten des Testkunden, Startwert leer.
+INSERT INTO `customer_json_cache`
+  (`json_data`, `customer_id`)
+VALUES
+  ('{}', @test_customer_id);
